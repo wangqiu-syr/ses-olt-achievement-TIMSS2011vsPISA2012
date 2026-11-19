@@ -7,7 +7,7 @@ Replication and extension code, in R.
 - **Phase B:** choose and run the multilevel model (after a gate review).
 
 See `from_code/plan.md` for the plan and `from_code/handoff.md` for current status.
-**Status:** scaffold only; no analysis yet.
+**Status:** scaffold, plus the A2 PISA 2012 data audit (`from_code/a2_00_pisa2012_data_audit.md`). No models yet.
 
 ## Layout
 
