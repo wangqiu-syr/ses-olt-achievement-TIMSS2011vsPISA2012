@@ -1,0 +1,5 @@
+"run","n_schools","M1_min_loading","M1_pass","M2_min_alpha_rhoc","M2_min_ave","M2_pass","M3_max_htmt","M3_fornell_larcker","M3_pass","M4_max_inner_vif","M4_pass"
+"M1_primary",146,0.652,TRUE,0.726,0.618,TRUE,0.758,TRUE,TRUE,1.594,TRUE
+"M1_escs",146,0.652,TRUE,0.726,0.618,TRUE,0.716,TRUE,TRUE,1.519,TRUE
+"M2_primary",139,0.847,TRUE,0.859,0.779,TRUE,0.774,TRUE,TRUE,1.75,TRUE
+"M2_escs",139,0.847,TRUE,0.859,0.779,TRUE,0.73,TRUE,TRUE,1.592,TRUE

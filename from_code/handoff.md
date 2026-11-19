@@ -1,5 +1,36 @@
 # Handoff
 
+## Session 3, part 2 (2026-11-19): SmartPLS results read (A2 step 2)
+
+### Done
+- Received 8 SmartPLS exports, stored in `data/raw/smartpls_exports/` (gitignored). SHA-256 in `from_code/a2_02_exports_manifest.csv`.
+  - Model 1 and Model 2, each as primary and ESCS runs, each with algorithm and 5,000-sample bootstrap exports.
+  - Model 2 drops `ICTRES_RATIO`.
+- `scripts/a2_02_read_smartpls.R` extracts the estimates. Outputs:
+  - `from_code/a2_pisa2012_estimates_user_sav.csv` (primary runs, spec M5)
+  - `from_code/a2_pisa2012_estimates_sensitivity.csv` (ESCS runs)
+  - `from_code/a2_02_criteria.csv`
+  - **`from_code/a2_02_smartpls_results.md`**, the report with side-by-side TIMSS vs. PISA tables
+- **All four runs pass M1–M4.** `ICTUSE_LESSON` loads .65 and is kept under the M1 rule. The `ICTRES_RATIO` drop is supported: it correlates .12 with the 3-item ICT resources score.
+- Main results:
+  - SES → Math .53–.55 and OTL → Math .37–.38 (TIMSS: .64–.65 and .20–.21).
+  - SES → OTL .52–.61 (TIMSS .12–.13).
+  - No significant ICT path and no SES × ICT moderation.
+  - R² Math .67–.69.
+- The criteria test now checks `a2_02_criteria.csv`. Tests: 13 pass, 0 fail, 2 skip (A1 results; parity).
+
+### Open
+1. Optional: the Model 2 run with `ICTRES_RATIO` (to record its exact loading), and the PLSc runs (spec 5.2a). Neither was exported.
+2. TIMSS 2011 USA files: waiting on the coauthor (list in `plan.md`).
+3. A1 tolerances: the paper used WarpPLS's factor-based, likely nonlinear, algorithm. Set them in the spec before A1.
+4. Hosts still blocked:
+   - CRAN, for the `seminr` cross-check, per-PV pooling and the weighted run;
+   - OECD, for the parity check.
+5. The gate: the user reviews `a2_02_smartpls_results.md` (and A1, once done) before Phase B.
+
+### Next step
+The user reads `from_code/a2_02_smartpls_results.md`. Then either start A1 when the TIMSS files arrive, or review the gate for Phase B. Use a new chat.
+
 ## Session 3 (2026-11-19): A2 spec and school-level data (A2 runs before A1)
 
 ### Done
@@ -21,8 +52,8 @@
   - Tests: 6 pass, 0 fail, 3 skip.
 - The user confirmed the spec section 6 acceptance criteria.
 
-### Open
-1. The user runs SmartPLS per `a2_smartpls_steps.md` (not run yet) and attaches the Excel exports.
+### Open (superseded by part 2 above)
+1. ~~The user runs SmartPLS~~ (done in part 2).
 2. TIMSS 2011 USA files: the coauthor is sending them (list in `plan.md`).
 3. A1 tolerances. The paper used WarpPLS factor-based PLS, and some paths don't follow from its correlations (e.g. math SES–OTL r = .02, but the path is .12). An exact match is unlikely, so tolerances go in the spec.
 4. Hosts are still blocked:

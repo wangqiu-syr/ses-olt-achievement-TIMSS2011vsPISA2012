@@ -14,6 +14,7 @@ data/
       user_sav/           the user's own PISA 2012 .sav file(s)
       oecd/               PISA 2012 files downloaded by Code from OECD
     docs/                 the paper PDF and the user's PISA plan (.docx)
+    smartpls_exports/     the user's SmartPLS 4 Excel exports (A2)
   derived/                analysis files written by scripts/ (rebuildable)
 ```
 
