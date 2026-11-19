@@ -1,0 +1,22 @@
+# PLACEHOLDER: fill in authors, title, version and DOI before release.
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+type: software
+title: "SES, opportunity to learn, and math/science achievement: TIMSS 2011 vs PISA 2012 (replication code)"
+authors:
+  - family-names: "TODO"
+    given-names: "TODO"
+version: "0.0.0"
+date-released: "2026-11-19"
+license: MIT
+repository-code: "https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012"
+references:
+  - type: article
+    authors:
+      - family-names: "Zhang"
+        given-names: "TODO"
+      - family-names: "Wang"
+        given-names: "TODO"
+    title: "TODO: title of Zhang & Wang (2020)"
+    journal: "TODO"
+    year: 2020

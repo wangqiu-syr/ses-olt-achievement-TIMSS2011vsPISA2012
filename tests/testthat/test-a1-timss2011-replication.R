@@ -1,0 +1,22 @@
+# Phase A1: replicated TIMSS 2011 estimates must match Zhang & Wang (2020).
+# Skips until (1) reported values are entered in the reference CSV and
+# (2) scripts/ has written the A1 results file.
+
+ref_file <- root_path("tests", "reference", "zhang_wang_2020_reported.csv")
+res_file <- root_path("from_code", "a1_timss2011_estimates.csv")
+
+test_that("A1 estimates reproduce Zhang & Wang (2020) reported values", {
+  ref <- read_reference(ref_file)
+  skip_if(nrow(ref) == 0, "No reported values entered yet in tests/reference/zhang_wang_2020_reported.csv")
+  skip_if_not(file.exists(res_file), "A1 results not produced yet (from_code/a1_timss2011_estimates.csv)")
+
+  res <- utils::read.csv(res_file, stringsAsFactors = FALSE)
+  out <- compare_to_reported(res, ref)
+
+  expect(all(out$found),
+         paste("Missing from results:", toString(out$estimate_id[!out$found])))
+  failed <- out[out$found & !out$pass, ]
+  expect(nrow(failed) == 0,
+         paste0("Outside tolerance:\n",
+                paste(utils::capture.output(print(failed, row.names = FALSE)), collapse = "\n")))
+})
