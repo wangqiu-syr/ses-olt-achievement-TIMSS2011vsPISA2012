@@ -1,0 +1,75 @@
+N students = 4978, N schools = 162
+Students per school: median 33, min 1, max 40
+
+## Missingness (non-missing N)
+ST73Q01: 3211
+ST74Q01: 3209
+ST75Q01: 3206
+ST76Q01: 3201
+ST73Q02: 3199
+ST74Q02: 3208
+ST75Q02: 3203
+ST76Q02: 3197
+ST28Q01: 4889
+HISCED: 4869
+HISEI: 4708
+HOMEPOS: 4938
+ESCS: 4915
+SC11Q02: 4650
+SC11Q03: 4424
+SC13Q01: 4780
+SC13Q02: 4780
+SC13Q03: 4780
+SC14Q07: 4821
+SC14Q08: 4821
+SC14Q09: 4821
+cSC40Q01: 4790
+SC11Q01: 4698
+RATCMP15: 4564
+COMPWEB: 4424
+FAMCON: 3233
+FAMCONC: 3207
+EXAPPLM: 3237
+EXPUREM: 3223
+All 8 OTL items present: 3154
+OTL (8) + 4 SES parts present: 2985
+
+## Reliability (unweighted Cronbach alpha, listwise)
+OTL lesson (4): alpha=0.57 (n=3167)
+OTL tests (4): alpha=0.58 (n=3158)
+OTL all (8): alpha=0.76 (n=3154)
+School vars constant within school: True
+ICT 9 items as planned (school level, z-scored): alpha=0.61 (n schools=141)
+SC13 internet use (3): alpha=0.71 (n schools=155)
+SC14 shortage (3): alpha=0.84 (n schools=157)
+School-level corr SC11Q02 (raw # computers) with SC11Q01 (# 10th graders): 0.38
+School-level corr SC11Q02 with SC11Q03: 0.91
+
+## SES: planned composite vs PISA ESCS
+corr(SES_plan, ESCS) = 0.96 (n=4623)
+corr(books ST28Q01, HOMEPOS) = 0.59  [HOMEPOS already includes books]
+
+## Weighted corr with math achievement (mean over 5 PVs)
+SES_plan: r=0.42 (n=4623)
+ESCS: r=0.38 (n=4915)
+OTL_lesson: r=0.15 (n=3167)
+OTL_test: r=0.14 (n=3158)
+OTL_8: r=0.15 (n=3154)
+FAMCON: r=0.49 (n=3233)
+FAMCONC: r=0.49 (n=3207)
+EXAPPLM: r=0.15 (n=3237)
+EXPUREM: r=0.32 (n=3223)
+ST73Q01 (reversed): r=0.12
+ST74Q01 (reversed): r=0.20
+ST75Q01 (reversed): r=0.05
+ST76Q01 (reversed): r=0.03
+ST73Q02 (reversed): r=0.10
+ST74Q02 (reversed): r=0.23
+ST75Q02 (reversed): r=0.03
+ST76Q02 (reversed): r=0.04
+corr(OTL_8, ESCS) = 0.13
+corr(FAMCONC, ESCS) = 0.22
+corr(OTL_8, FAMCONC) = 0.06
+
+## ICC of math achievement (PV1, unweighted one-way ANOVA estimate)
+ICC = 0.24

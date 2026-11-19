@@ -1,0 +1,4 @@
+# Raw data and copyrighted papers stay out of the repo
+*.sav
+*.pdf
+data/
