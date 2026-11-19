@@ -29,10 +29,12 @@ Copy each model and change one thing at a time, running steps 5–7 each time:
 - **(a)** Algorithm: consistent PLS (PLSc), with consistent bootstrapping. If SmartPLS won't combine PLSc with the interaction term, note it and skip.
 - **(b)** SES indicator replaced by `ESCS`.
 
-## Exploratory: reading or science (not in the spec yet)
-The files also hold `READ1`–`READ5` and `SCIE1`–`SCIE5`, school means of the reading and science PVs.
-- For a reading or science run, copy a model and swap the **MATH** indicators for `READ1`–`READ5` (or `SCIE1`–`SCIE5`).
-- PISA 2012 has OTL items for **math only**, so first decide how OTL is handled (spec section 1, decision 1).
+## Exploratory: reading, science, digital reading (not in the spec yet)
+The files also hold `READ1`–`READ5`, `SCIE1`–`SCIE5` and `CREA1`–`CREA5`: school means of the print reading, science and digital reading PVs.
+- For a run, copy a model and swap the **MATH** indicators for `READ1`–`READ5`, `SCIE1`–`SCIE5` or `CREA1`–`CREA5`. Name the outcome construct `READ`, `SCIE` or `CREA`.
+- PISA 2012 has OTL items for **math only**. The reading and science runs (2026-11-19) kept OTL = FAMCONC as a stated proxy; do the same for digital reading so the runs compare.
+- The same 8 exports per subject as math: Model 1 and Model 2, primary and ESCS, each with algorithm and 5,000-sample bootstrap.
+- File names don't matter. `R/a2_02` identifies each export by its content.
 
 ## Send back
 Attach the Excel exports here: 2 primary runs plus up to 4 sensitivity runs. Name each file `M1_primary`, `M2_PLSc`, and so on. Include the bootstrap seed.

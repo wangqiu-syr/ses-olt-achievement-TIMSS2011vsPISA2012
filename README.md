@@ -9,6 +9,7 @@ Zhang and Wang (2020) modelled US Grade 8 mathematics and science achievement in
 - **SES dominates in both studies.** In PISA 2012 (US, 139–146 schools), SES → math is .53–.55, against .64–.65 in the paper's TIMSS results.
 - **OTL matters more in PISA, and depends more on SES.** OTL → math is .37–.38, against .20–.21 in TIMSS. SES → OTL is .52–.61, against .12–.13. Part of SES's association with math runs through OTL (indirect effect .19 in Model 1).
 - **No computer-use effect in PISA.** No ICT path is significant, and ICT does not moderate SES → math. In TIMSS, computer use was linked to math OTL. The PISA ICT measures are principal reports on internet use and resources, not classroom computer use, so the two results are not like for like.
+- **Reading and science look like math (exploratory).** The same model with PISA reading or science as the outcome gives SES → achievement .46–.59 and OTL → achievement .33–.42, within .07 of math on every path. Here OTL is math concept familiarity, a proxy (PISA 2012 has no reading or science OTL). The one new signal is a total ICT-use effect on reading of .14 (p = .016), which is a lead to check in digital reading, not a finding.
 - **The measures pass.** All four SmartPLS runs (two models, each also with ESCS instead of the SES composite) meet the pre-set reliability, validity and collinearity criteria. Swapping ESCS for the SES composite changes no conclusion.
 
 These comparisons are descriptive. The two studies differ in unit (schools vs. teachers), population (15-year-olds vs. Grade 8) and measures; see [What differed](#what-differed).
@@ -34,6 +35,7 @@ The model is fitted with factor-based PLS-SEM in WarpPLS 5.0. Model 1 uses the c
   - Achievement: 5 plausible values.
   - ICT: use (Model 1) or resources (Model 2).
   - Estimation: PLS-SEM in SmartPLS 4 with 5,000 bootstrap samples, run by the author. Code builds the data and reads the results.
+- **A2 reading and science (exploratory, branch `claude/pisa-reading`).** The math model with the outcome swapped for reading or science (5 PVs each), same schools, same criteria. OTL stays FAMCONC as a stated proxy. Digital reading (`CREA1`–`5`) is in the school files for the next run.
 
 ## What differed
 
@@ -43,7 +45,7 @@ The model is fitted with factor-based PLS-SEM in WarpPLS 5.0. Model 1 uses the c
 | Population | Grade 8 | 15-year-olds, mostly Grade 10 |
 | OTL | Teacher-reported topic coverage this year | Student-reported familiarity with 13 concepts (cumulative) |
 | Computer use | Teacher-reported classroom use | Principal-reported internet use for schoolwork (M1) or ICT resources (M2) |
-| Subjects | Math and science | Math only (PISA 2012 has no science OTL, and the US skipped the ICT questionnaire) |
+| Subjects | Math and science | Math (spec). Reading and science are exploratory, with math OTL as a proxy: PISA 2012 has no reading or science OTL, and the US skipped the ICT questionnaire |
 | Software | WarpPLS 5.0, factor-based PLS | SmartPLS 4, PLS-SEM |
 
 One more caution: some paper paths don't follow from its own correlations (e.g. math SES–OTL r = .02, but the path is .12). This suggests WarpPLS's nonlinear algorithm, so an exact A1 match is unlikely.
@@ -64,6 +66,8 @@ A2, math, primary runs (TIMSS values from the paper's Figure 2):
 
 \* p < .05, \*\* p < .01, \*\*\* p < .001. [results/a2/summary.md](results/a2/summary.md) has the full tables: confidence intervals, fit, correlations, the ESCS runs and the criteria.
 
+Reading and science (exploratory) set each subject beside PISA math, with indirect and total effects: [results/a2_reading/summary.md](results/a2_reading/summary.md) and [results/a2_science/summary.md](results/a2_science/summary.md). The science report also has the paper's TIMSS science column.
+
 ## Reproduce
 
 From the repository root (R 4.3; packages haven, readxl and testthat, pinned in `renv.lock`). Raw data are not in the repo; [data/README.md](data/README.md) says where each file goes.
@@ -73,8 +77,8 @@ From the repository root (R 4.3; packages haven, readxl and testthat, pinned in 
 | 0. Packages | `renv::restore()` | Where CRAN is blocked (Claude Code sandbox): `apt-get install r-base-core r-cran-renv r-cran-haven r-cran-readxl r-cran-testthat`, then `renv::hydrate()` |
 | 1. A2 school-level data | `Rscript R/a2_01_prepare_pisa2012.R` | Needs `data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav`; seconds |
 | 2. A2 models | SmartPLS 4, by hand | Steps in [docs/a2_smartpls_steps.md](docs/a2_smartpls_steps.md); exports go in `data/raw/smartpls_exports/` |
-| 3. A2 results and criteria | `Rscript R/a2_02_read_smartpls.R` | seconds |
-| 4. Tests | `Rscript tests/testthat.R` | 13 pass; 2 skip until A1 and the PISA parity check exist |
+| 3. A2 results and criteria | `Rscript R/a2_02_read_smartpls.R` (math), then `... reading` and `... science` | seconds each; exports are matched to runs by content, so file names don't matter |
+| 4. Tests | `Rscript tests/testthat.R` | 27 pass; 2 skip until A1 and the PISA parity check exist |
 
 ## Files
 
@@ -92,13 +96,13 @@ This README gives the overview. [results/a2/summary.md](results/a2/summary.md) s
 
 Scripts are in `R/` and run from the repository root; [R/README.md](R/README.md) lists them by role.
 - [R/a2_01_prepare_pisa2012.R](R/a2_01_prepare_pisa2012.R) builds the school files and data checks.
-- [R/a2_02_read_smartpls.R](R/a2_02_read_smartpls.R) reads the SmartPLS exports, checks the criteria and writes the report.
+- [R/a2_02_read_smartpls.R](R/a2_02_read_smartpls.R) reads the SmartPLS exports for one outcome (math, reading or science), checks the criteria and writes the report.
 - [R/a2_00_audit_pisa2012.py](R/a2_00_audit_pisa2012.py) is the exploratory audit, in Python.
 - Tests are in `tests/testthat/`.
 
 ### Results
 
-[results/a2/summary.md](results/a2/summary.md) is the A2 report.
+[results/a2/summary.md](results/a2/summary.md) is the A2 report. [results/a2_reading/](results/a2_reading/summary.md) and [results/a2_science/](results/a2_science/summary.md) hold the exploratory reading and science runs, with the same file set (estimates, criteria, exports manifest, summary).
 
 <details>
 <summary>A2 CSVs and records (9 files)</summary>
@@ -134,6 +138,7 @@ Scripts are in `R/` and run from the repository root; [R/README.md](R/README.md)
   - the PISA parity check (needs the OECD download);
   - a scripted R cross-check (needs CRAN);
   - optional PLSc runs.
+- **Reading and science (exploratory):** done for print reading and science. Digital reading is next: the school files carry `CREA1`–`5`; the user runs SmartPLS.
 - **Phase B (multilevel model):** after the gate review of A1 and A2.
 
 ## AI assistance

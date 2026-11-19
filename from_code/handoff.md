@@ -2,12 +2,43 @@
 
 ## Start here (every new session)
 Each cloud session starts as a fresh container with no data and no R. Do this first:
-1. **Data:** the user attaches `US_PISA_2012_STSCH.sav` in the chat. Copy it to `data/raw/pisa2012/user_sav/`, which is gitignored.
-2. **R:** `apt-get install -y r-base-core r-cran-renv r-cran-testthat r-cran-haven r-cran-readxl`, then `Rscript -e 'renv::hydrate()'`. CRAN is blocked, so packages come from apt.
-3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (13 pass, 2 skip).
-4. **Current task:** the first "Next task" section below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
+1. **Data:** the user attaches `US_PISA_2012_STSCH.sav` in the chat. Copy it to `data/raw/pisa2012/user_sav/`, which is gitignored. SmartPLS exports go in `data/raw/smartpls_exports/<subject>/` (any names).
+2. **R** (CRAN is blocked, so packages come from apt, and renv can't download itself):
+   - `apt-get update && apt-get install -y r-base-core r-cran-renv r-cran-testthat r-cran-haven r-cran-readxl` (without `update`, apt can't find haven or readxl);
+   - seed renv into the project library: `lib=$(R_PROFILE_USER=/dev/null Rscript -e 'cat(renv::paths$library())'); mkdir -p "$lib"; cp -r /usr/lib/R/site-library/renv "$lib/"`;
+   - then `Rscript -e 'renv::hydrate()'`.
+3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (27 pass, 2 skip).
+4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
-## Next task: PISA reading and digital reading, as a branch here (planned 2026-11-19, not started)
+## Next task: digital reading (branch `claude/pisa-reading`)
+1. The user attaches the `.sav`. Run `R/a2_01_prepare_pisa2012.R`: check that `D2_weighted_crea_mean` is about 511 and the samples are still 146/139, then send the user `data/derived/a2_smartpls_model{1,2}.csv`, which now carry `CREA1`–`5`.
+2. The user runs the 8 SmartPLS exports with outcome construct `CREA` (`docs/a2_smartpls_steps.md`, exploratory section).
+3. `Rscript R/a2_02_read_smartpls.R digital` writes `results/a2_digital/`. The report anchors on math. Add a print-reading column: the research question is digital vs. print reading, and the Model 1 ICT-use total effect on print reading (.14, p = .016) is the lead to check.
+
+## Session 5 (2026-11-19): PISA reading and science read (branch `claude/pisa-reading`, off `main`)
+
+### Done
+- The `.sav` was **not** attached, so `a2_01` could not run on real data. R was installed (step 2 above, which needed two fixes).
+- 16 SmartPLS exports received: reading and science, 8 each (M1/M2 × primary/ESCS × algorithm/bootstrap). Stored in `data/raw/smartpls_exports/{reading,science}/` (gitignored); SHA-256 in each `results/a2_<subject>/a2_02_exports_manifest.csv`.
+- `R/a2_02_read_smartpls.R` now takes an outcome: `math` (default), `reading`, `science` or `digital`.
+  - Exports are matched by content, not name (the uploads had names like `RADING_`, `sCIENCE_`).
+  - New rows from the bootstrap: indirect (`ind_SES_OTL_ACH`, `ind_ICT_OTL_ACH`) and total (`tot_SES_ACH`, `tot_ICT_ACH`) effects.
+  - The math report text is unchanged. Not rerun on real math exports (they're not in this container). A smoke test, reading exports relabelled as math, gave the same IDs, columns, run order and report text. On the next real math rerun, expect 8 extra estimate rows and 3 extra manifest columns (`model`, `run`, `kind`).
+- **Reports:** `results/a2_reading/summary.md` and `results/a2_science/summary.md`. All 8 runs pass M1–M4 (`ICTUSE_LESSON` loads .64–.67, kept, as in math).
+  - Reading: SES → Read .46–.53 (math .53–.55), OTL → Read .41–.42 (math .37–.38). The Model 1 ICT-use **total** effect is .14 (p = .016), though neither its direct nor its indirect part is significant. Framed as a lead.
+  - Science: within .05 of math on every path. Against TIMSS science, it repeats the math contrast. TIMSS's M1 SES × ICT (.09*) and M2 ICT → OTL (−.09*) don't appear in PISA.
+  - ESCS changes no significance in either subject.
+- `R/a2_01` now adds `CREA1`–`5` (digital reading school means), plus a report check row (published 511). Checked only on a synthetic `.sav`; not run on real data.
+- The test now checks the criteria for math, reading and science: 27 pass, 0 fail, 2 skip.
+- README, `R/README.md`, `data/README.md` and `docs/a2_smartpls_steps.md` updated.
+
+### Open
+1. **OTL in reading and science.** The user's runs keep OTL = FAMCONC (math) as a proxy. The reports say so. Confirm this, or ask for no-OTL runs, and record it as a spec addendum (`docs/spec_reading.md`, planned in session 4).
+2. Subject differences are descriptive. A formal test would need both outcomes in one model with a shared bootstrap.
+3. Rerun math (`Rscript R/a2_02_read_smartpls.R`) once its exports are back in a container, to add the math indirect and total effects with p values. The reading and science reports currently derive them from the math paths.
+4. Merge `claude/pisa-reading` into `main` (PR), when the user asks.
+
+## Plan: PISA reading and digital reading (session 4, part 2; print reading and science done in session 5)
 
 **User's plan for new repos:**
 1. Multilevel runs (WeMix and R-called Mplus), done on the user's laptop later.
