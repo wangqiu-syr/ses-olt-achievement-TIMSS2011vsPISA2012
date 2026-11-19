@@ -7,7 +7,7 @@ Input files (Code sends them to you; they are not in git):
 The files have no missing values. Menu names may differ slightly between SmartPLS versions.
 
 ## Model 1: ICT use
-1. New project → import `a2_smartpls_model1.csv`. Check that it reads 146 rows and that `SCHOOLID` is treated as an ID or ignored.
+1. New project → import `a2_smartpls_model1.csv` with **Delimiter: Comma**, Escape: Double quotes, Locale: US. Check that it reads 146 rows and that `SCHOOLID` is treated as an ID or ignored.
 2. New PLS-SEM model. Draw four constructs and assign indicators (all reflective):
    - **SES** ← `SES`
    - **OTL** ← `OTL`

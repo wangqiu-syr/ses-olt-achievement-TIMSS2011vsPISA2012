@@ -95,8 +95,15 @@ sch$in_m2 <- sch$enough_otl & stats::complete.cases(sch[, c(core, m2_items)])
 
 utils::write.csv(sch, "data/derived/a2_pisa2012_school.csv", row.names = FALSE)
 keep <- c("SCHOOLID", "SES", "OTL", paste0("MATH", 1:5), "ESCS", "sum_stu_wt")
-utils::write.csv(sch[sch$in_m1, c(keep, m1_items)], "data/derived/a2_smartpls_model1.csv", row.names = FALSE)
-utils::write.csv(sch[sch$in_m2, c(keep, m2_items)], "data/derived/a2_smartpls_model2.csv", row.names = FALSE)
+# SmartPLS wants plain numeric CSV: comma-delimited, no quotes, numeric ID.
+write_spls <- function(df, path) {
+  df$SCHOOLID <- as.integer(df$SCHOOLID)
+  num_cols <- vapply(df, is.double, logical(1))
+  df[num_cols] <- lapply(df[num_cols], round, 6)
+  utils::write.csv(df, path, row.names = FALSE, quote = FALSE)
+}
+write_spls(sch[sch$in_m1, c(keep, m1_items)], "data/derived/a2_smartpls_model1.csv")
+write_spls(sch[sch$in_m2, c(keep, m2_items)], "data/derived/a2_smartpls_model2.csv")
 
 # ---- checks (spec 6, D1-D5) ------------------------------------------------
 math_mean <- mean(sapply(pv, function(v) wmean(num(d[[v]]), w)))
