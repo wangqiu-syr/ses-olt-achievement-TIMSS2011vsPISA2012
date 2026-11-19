@@ -15,21 +15,21 @@ data/
       oecd/               PISA 2012 files downloaded by Code from OECD
     docs/                 the paper PDF and the user's PISA plan (.docx)
     smartpls_exports/     the user's SmartPLS 4 Excel exports (A2)
-  derived/                analysis files written by scripts/ (rebuildable)
+  derived/                analysis files written by the R/ scripts (rebuildable)
 ```
 
 ## How raw data are supplied
 
 | Source | Supplied by | How |
 |---|---|---|
-| TIMSS 2011 (A1) | Code | `scripts/` downloads from timssandpirls.bc.edu or the IEA Data Repository. If the sandbox blocks those hosts, the user uploads the files listed in `from_code/plan.md`. No user copy exists. |
+| TIMSS 2011 (A1) | Code | An `R/` script downloads from timssandpirls.bc.edu or the IEA Data Repository. If the sandbox blocks those hosts, the user uploads the files listed in `from_code/plan.md`. No user copy exists. |
 | PISA 2012, user copy (A2) | User | Upload the raw `.sav` into `data/raw/pisa2012/user_sav/`. |
-| PISA 2012, independent copy (A2) | Code | `scripts/` downloads from oecd.org into `data/raw/pisa2012/oecd/`. If blocked, the user uploads the OECD originals (see plan.md). |
+| PISA 2012, independent copy (A2) | Code | An `R/` script downloads from oecd.org into `data/raw/pisa2012/oecd/`. If blocked, the user uploads the OECD originals (see plan.md). |
 
 ## Provenance
 
 For every raw file it reads, Code records the file name, size, SHA-256 and
-source URL (or "user upload") in `from_code/data_manifest.csv`. That file is
+source URL (or "user upload") in `results/a2/data_manifest.csv`. That file is
 committed, so later runs can show they used identical inputs.
 
 Sandbox sessions are ephemeral, so files placed here are lost when the

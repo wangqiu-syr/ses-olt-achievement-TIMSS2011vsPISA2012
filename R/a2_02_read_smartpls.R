@@ -1,17 +1,18 @@
 # A2 step 2: read the user's SmartPLS 4 exports, check criteria M1-M5 (docs/spec.md
 # section 6), and compare with Zhang & Wang (2020). Run from the project root:
-#   Rscript scripts/a2_02_read_smartpls.R
+#   Rscript R/a2_02_read_smartpls.R
 #
 # Inputs  data/raw/smartpls_exports/*.xlsx              (user uploads, gitignored)
 #         data/derived/a2_smartpls_model{1,2}.csv         (from a2_01, for the RATCMP15 check)
-#         tests/reference/zhang_wang_2020_reported.csv
-# Outputs from_code/a2_pisa2012_estimates_user_sav.csv    primary runs (spec M5)
-#         from_code/a2_pisa2012_estimates_sensitivity.csv ESCS runs
-#         from_code/a2_02_criteria.csv                    M1-M4 per run
-#         from_code/a2_02_smartpls_results.md             report
+#         results/paper_zhang_wang_2020.csv
+# Outputs results/a2/a2_pisa2012_estimates_user_sav.csv    primary runs (spec M5)
+#         results/a2/a2_pisa2012_estimates_sensitivity.csv ESCS runs
+#         results/a2/a2_02_criteria.csv                    M1-M4 per run
+#         results/a2/summary.md             report
 
 suppressMessages(library(readxl))
 xdir <- "data/raw/smartpls_exports"
+dir.create("results/a2", showWarnings = FALSE, recursive = TRUE)
 runs <- data.frame(
   run   = c("primary", "escs", "primary", "escs"),
   model = c("M1", "M1", "M2", "M2"),
@@ -153,15 +154,15 @@ crit <- do.call(rbind, lapply(names(res), function(nm) {
     M3_pass = all(get(e, "_htmt_") < .85) && res[[nm]]$fl_ok,
     M4_max_inner_vif = round(max(get(e, "_vif_")), 3), M4_pass = all(get(e, "_vif_") < 3.3))
 }))
-utils::write.csv(crit, "from_code/a2_02_criteria.csv", row.names = FALSE)
+utils::write.csv(crit, "results/a2/a2_02_criteria.csv", row.names = FALSE)
 
 # ---- estimate files (spec M5) --------------------------------------------------
 rnd <- function(df) { df[-1] <- lapply(df[-1], function(x) signif(x, 6)); df }
 prim <- do.call(rbind, lapply(res[runs$run == "primary"], `[[`, "est"))
 sens <- do.call(rbind, lapply(names(res)[runs$run == "escs"], function(nm) cbind(run = "escs", res[[nm]]$est)))
-utils::write.csv(rnd(prim), "from_code/a2_pisa2012_estimates_user_sav.csv", row.names = FALSE)
+utils::write.csv(rnd(prim), "results/a2/a2_pisa2012_estimates_user_sav.csv", row.names = FALSE)
 sens[-(1:2)] <- lapply(sens[-(1:2)], function(x) signif(x, 6))
-utils::write.csv(sens, "from_code/a2_pisa2012_estimates_sensitivity.csv", row.names = FALSE)
+utils::write.csv(sens, "results/a2/a2_pisa2012_estimates_sensitivity.csv", row.names = FALSE)
 
 # ---- RATCMP15 check (the with-ratio run was not exported) ----------------------
 m2 <- utils::read.csv("data/derived/a2_smartpls_model2.csv")
@@ -170,7 +171,7 @@ stopifnot(length(ict_score) == nrow(m2))
 r_ratio <- stats::cor(m2$ICTRES_RATIO, ict_score)
 
 # ---- report ------------------------------------------------------------------
-ref <- utils::read.csv("tests/reference/zhang_wang_2020_reported.csv", comment.char = "#", stringsAsFactors = FALSE)
+ref <- utils::read.csv("results/paper_zhang_wang_2020.csv", comment.char = "#", stringsAsFactors = FALSE)
 f2 <- function(x) ifelse(is.na(x), "", formatC(x, format = "f", digits = 2))
 pstar <- function(p) ifelse(is.na(p), "", ifelse(p < .001, "***", ifelse(p < .01, "**", ifelse(p < .05, "*", ""))))
 ref_note <- function(id) { n <- ref$notes[match(id, ref$estimate_id)]
@@ -203,7 +204,7 @@ slope <- function(model) {
 rep <- c(
   "# A2 step 2: SmartPLS results, PISA 2012 (US), school level",
   "",
-  "Built by `scripts/a2_02_read_smartpls.R` from the user's SmartPLS 4 exports. Spec: `docs/spec.md`.",
+  "Built by `R/a2_02_read_smartpls.R` from the user's SmartPLS 4 exports. Spec: `docs/spec.md`.",
   "",
   "## Runs received",
   "",
@@ -249,11 +250,11 @@ rep <- c(
   "- The paper's Table 2 VIFs are WarpPLS full-collinearity VIFs per construct. SmartPLS reports inner VIFs per path, so AVIF here is the mean inner VIF.",
   "- The paper's paths don't follow from its own correlations (e.g. math SES–OTL r = .02 but path .12). This suggests WarpPLS's nonlinear algorithm. PISA results here are linear PLS-SEM."
 )
-writeLines(rep, "from_code/a2_02_smartpls_results.md")
+writeLines(rep, "results/a2/summary.md")
 xl <- list.files(xdir, full.names = TRUE)
 utils::write.csv(data.frame(file = xl, bytes = file.size(xl),
   sha256 = vapply(xl, function(f) strsplit(system2("sha256sum", shQuote(f), stdout = TRUE), " ")[[1]][1], ""),
   source = "user upload (SmartPLS 4 export)", received = "2026-11-19"),
-  "from_code/a2_02_exports_manifest.csv", row.names = FALSE)
+  "results/a2/a2_02_exports_manifest.csv", row.names = FALSE)
 print(crit, row.names = FALSE)
 cat(sprintf("RATCMP15 vs ICT resources score: r = %.3f\n", r_ratio))

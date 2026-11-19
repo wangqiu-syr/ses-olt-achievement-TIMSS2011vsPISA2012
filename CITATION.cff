@@ -14,9 +14,10 @@ references:
   - type: article
     authors:
       - family-names: "Zhang"
-        given-names: "TODO"
+        given-names: "Yue"
       - family-names: "Wang"
-        given-names: "TODO"
-    title: "TODO: title of Zhang & Wang (2020)"
-    journal: "TODO"
+        given-names: "Qiu"
+    title: "Content learning opportunities, computer-based instruction, and students' mathematics and science achievement"
+    journal: "International Journal of Mathematical Education in Science and Technology"
     year: 2020
+    doi: "10.1080/0020739X.2020.1717659"

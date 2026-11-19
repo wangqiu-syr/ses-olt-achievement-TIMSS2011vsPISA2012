@@ -1,6 +1,9 @@
 # docs/
 
-Project documentation. Planned:
+Write-ups and decisions.
 
-- `spec.md`: variable mappings and the A2 acceptance criteria (to be written; A2 waits on it)
-- notes on the TIMSS 2011 and PISA 2012 design (weights, plausible values, replicate weights)
+- `spec.md`: A2 decisions, measures, model, estimation, acceptance criteria (confirmed) and known differences.
+- `a2_data_audit.md`: audit of the PISA 2012 file against the paper and the user's variable plan.
+- `a2_smartpls_steps.md`: the SmartPLS 4 runs for A2.
+
+Still to come: the A1 tolerances (in `spec.md`) and a replication verdict once A1 is done.

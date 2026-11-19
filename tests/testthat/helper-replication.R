@@ -1,6 +1,6 @@
 # Helpers for checking replication estimates against numbers reported in a paper.
 #
-# Reference CSV (tests/reference/*.csv), one row per reported number:
+# Reference CSV (results/paper_*.csv), one row per reported number:
 #   estimate_id  unique key, e.g. "T3_M1_math_SES" (table_model_outcome_term)
 #   source       location in the paper, e.g. "Table 3, Model 1"
 #   reported     the value as printed
@@ -9,7 +9,7 @@
 #                printed digit, i.e. 0.5 * 10^-decimals
 #   notes        free text
 #
-# Results CSV (written by scripts/ to from_code/), one row per estimate:
+# Results CSV (written by the R/ scripts to results/), one row per estimate:
 #   estimate_id, estimate[, se]
 
 # Locate the project root whether tests run from the root or from tests/testthat.

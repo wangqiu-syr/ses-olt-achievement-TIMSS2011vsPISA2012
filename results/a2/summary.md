@@ -1,6 +1,6 @@
 # A2 step 2: SmartPLS results, PISA 2012 (US), school level
 
-Built by `scripts/a2_02_read_smartpls.R` from the user's SmartPLS 4 exports. Spec: `docs/spec.md`.
+Built by `R/a2_02_read_smartpls.R` from the user's SmartPLS 4 exports. Spec: `docs/spec.md`.
 
 ## Runs received
 

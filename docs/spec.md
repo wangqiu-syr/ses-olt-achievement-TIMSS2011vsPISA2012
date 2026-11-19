@@ -8,11 +8,11 @@ Status: approved, 2026-11-19. Sections 1–5 record the user's decisions. The us
 | 1 | Subject | **Math only.** PISA 2012 has no science OTL and no US classroom computer-use data (audit items C, F). Science is reported as a limitation. |
 | 2 | Unit of analysis | **School** (PISA has no teacher link). Students are aggregated to schools, as the paper aggregated to teachers. |
 | 3 | Measures | OTL = FAMCONC. SES = TIMSS-style composite, with ESCS as a sensitivity check. ICT: Model 1 = use, Model 2 = resources (section 3). |
-| 4 | Estimation | PLS-SEM. The user runs it in SmartPLS 4 (`from_code/a2_smartpls_steps.md`); Code prepares data and checks results. A scripted R `seminr` cross-check follows when CRAN is reachable. |
+| 4 | Estimation | PLS-SEM. The user runs it in SmartPLS 4 (`docs/a2_smartpls_steps.md`); Code prepares data and checks results. A scripted R `seminr` cross-check follows when CRAN is reachable. |
 | 5 | Order | A2 runs before A1, while the TIMSS files are pending. The parity check (user `.sav` vs. OECD download) is deferred until OECD is reachable. |
 
 ## 2. Data
-1. Source: `data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav` (4,978 students, 162 schools; SHA-256 in `from_code/data_manifest.csv`).
+1. Source: `data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav` (4,978 students, 162 schools; SHA-256 in `results/a2/data_manifest.csv`).
 2. Aggregation: within-school means weighted by `W_FSTUWT`, using the students with data on each variable.
 3. Inclusion: schools with **≥ 10 students with FAMCONC** (the questionnaire was rotated, so about 2/3 of students have it), and complete data on every indicator in the model. No imputation at school level.
 4. The paper kept only classes whose teachers use computers. No analogue is applied, because every US school with data reports computers (RATCMP15 > 0).
@@ -46,7 +46,7 @@ The interaction uses SmartPLS's two-stage approach with standardized product ter
 4. Fit summaries in the paper's terms: APC = mean |path|, ARS = mean R² (OTL, MATH), AVIF = mean inner VIF.
 
 ## 6. Acceptance criteria (confirmed by the user, 2026-11-19)
-**Data**: `from_code/a2_01_checks.csv`, enforced by `tests/testthat/test-a2-pisa2012-data.R`.
+**Data**: `results/a2/a2_01_checks.csv`, enforced by `tests/testthat/test-a2-pisa2012-data.R`.
 - **D1:** 4,978 students and 162 schools.
 - **D2:** weighted math mean is 481 ± 1 (the OECD-published US value).
 - **D3:** school variables are constant within each school.
@@ -58,7 +58,7 @@ The interaction uses SmartPLS's two-stage approach with standardized product ter
 - **M2:** Cronbach's α and composite reliability (ρ_A or ρ_C) ≥ .70; AVE ≥ .50.
 - **M3:** discriminant validity: HTMT < .85, and Fornell–Larcker (the paper's criterion).
 - **M4:** collinearity: inner VIF < 3.3 (the paper's AVIF threshold).
-- **M5:** complete results are delivered in `from_code/a2_pisa2012_estimates_user_sav.csv`, using the reference CSV's `estimate_id` scheme with `math` as the subject, plus `p_value` and CI columns.
+- **M5:** complete results are delivered in `results/a2/a2_pisa2012_estimates_user_sav.csv`, using the reference CSV's `estimate_id` scheme with `math` as the subject, plus `p_value` and CI columns.
 
 A run that fails M1–M4 is reported as is, with the failure named. Constructs are not quietly respecified. Matching the paper's TIMSS values is **not** an A2 criterion: A2 is an analogue with a different design. The TIMSS-vs-PISA comparison is descriptive.
 
