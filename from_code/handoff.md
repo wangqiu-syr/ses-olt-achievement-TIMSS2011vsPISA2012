@@ -1,5 +1,37 @@
 # Handoff
 
+## Next task: reorganize the repo on the user's template (planned 2026-11-19, not started)
+
+**Template:** `wangqiu-syr/glw2022-matching-replication` (public; clone read-only with `git clone --depth 1`). It was chosen over `sr08-replication` because it is fuller and also keeps `docs/spec.md`. Its layout:
+- `R/` holds all code;
+- `docs/` holds spec, verdict and sensitivity write-ups;
+- `results/` holds outputs, `*_vs_paper.csv`, `paper_table*.csv` and `summary.md`;
+- the README is written like a paper: Key findings, Why this replication, Background, Design, What differed, Results, Reproduce, Files (Start here / Design and decisions / Code / Results / Published values / Project files), Lessons, Conclusions, Acknowledgment, AI assistance, Related repositories, References, How to cite, License.
+
+**Keep (the user's conventions):**
+- `from_code/` for `plan.md` and `handoff.md` only;
+- `tests/` (testthat) and renv;
+- `data/`, gitignored.
+
+**Move (use `git mv`, then update every path in code, tests and docs):**
+
+| Now | New |
+|---|---|
+| `scripts/a2_01_prepare_pisa2012.R`, `scripts/a2_02_read_smartpls.R` | `R/` |
+| `scripts/a2_00_audit_pisa2012.py` | `R/` (the only non-R file; note it in `R/README.md`) |
+| `from_code/a2_00_pisa2012_data_audit.md` | `docs/a2_data_audit.md` |
+| `from_code/a2_smartpls_steps.md` | `docs/a2_smartpls_steps.md` |
+| `from_code/a2_02_smartpls_results.md` | `results/a2/summary.md` |
+| other `from_code/a2_*` csv/txt, `from_code/data_manifest.csv` | `results/a2/` |
+| `tests/reference/zhang_wang_2020_reported.csv` | `results/paper_zhang_wang_2020.csv` ("Published values") |
+| `scripts/README.md` | merge into `R/README.md`, then delete `scripts/` |
+
+**Also:**
+- Rewrite `README.md` on the template's headings, with A2 findings so far and A1 marked pending.
+- Add `*.pdf`, `*.docx` to `.gitignore`.
+- Rerun both R scripts to confirm the outputs land in the new paths.
+- Run the tests (expect 13 pass, 2 skip).
+
 ## Session 3, part 2 (2026-11-19): SmartPLS results read (A2 step 2)
 
 ### Done
