@@ -20,6 +20,9 @@ Hard checks must pass; report rows inform interpretation (spec section 6).
 | D5_r_SES_ESCS_student | report | 0.867 |  |  |
 | D2_weighted_read_mean | report | 497.58 | 498 (published) |  |
 | D2_weighted_scie_mean | report | 497.41 | 497 (published) |  |
+| D2_weighted_crea_mean | report | 511.21 | 511 (published) |  |
+| D2_weighted_cmat_mean | report | 498.03 | 498 (published) |  |
+| D2_weighted_cpro_mean | report | 507.93 | 508 (published) |  |
 
 D4: with these sample sizes, school-level paths smaller than about |0.21| are unlikely to reach p < .05
 (80% power, inverse square root rule). The paper's significant TIMSS paths ranged from 0.09 to 0.69.

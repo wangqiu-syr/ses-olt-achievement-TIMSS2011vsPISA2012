@@ -138,7 +138,7 @@ Scripts are in `R/` and run from the repository root; [R/README.md](R/README.md)
   - the PISA parity check (needs the OECD download);
   - a scripted R cross-check (needs CRAN);
   - optional PLSc runs.
-- **Reading and science (exploratory):** done for print reading and science. Digital reading is next: the school files carry `CREA1`–`5`; the user runs SmartPLS.
+- **Reading and science (exploratory):** done for print reading and science. Next are digital reading (`CREA`), computer-based math (`CMAT`), problem solving (`CPRO`) and OTL-free runs. The school files carry all of these; the user runs SmartPLS.
 - **Phase B (multilevel model):** after the gate review of A1 and A2.
 
 ## AI assistance

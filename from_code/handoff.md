@@ -18,8 +18,12 @@ The `reading` results are **print reading** (`PV1READ`–`PV5READ`). Digital rea
 2. Digital reading (`CREA`).
 3. Computer-based math (`CMAT`) and problem solving (`CPRO`), with FAMCONC as OTL.
 
-**Blockers to clear first:**
-- The user's SmartPLS CSVs have `MATH`, `READ` and `SCIE` only. `CREA` is in `R/a2_01` but not built yet, because the `.sav` was not attached. `CMAT`/`CPRO` (`PV1CMAT`–`PV5CMAT`, `PV1CPRO`–`PV5CPRO`) are not in `R/a2_01` yet. With the `.sav`, add them, build, check the means (498, 508), and send the two CSVs.
+**Done (session 5, end):** the user attached the `.sav` (same SHA-256 as the manifest). `R/a2_01` now builds `CREA`, `CMAT` and `CPRO` too. The samples are still 146/139, and the 5 hard checks pass.
+- Weighted means vs. published: CREA 511.21 (511), CMAT 498.03 (498), CPRO 507.93 (508).
+- The two CSVs went to the user, with 0 missing cells.
+- **To check:** school-level r(READ1, CREA1) is .82–.83, and r(MATH1, CMAT1) .81–.82, r(MATH1, CPRO1) .78–.79. These are *lower* than the student-level r = .86, though school means usually correlate more strongly than students. That fits only a subsample sitting the computer-based test, with model-imputed PVs for the rest. Check the PISA 2012 technical report before interpreting CBA paths.
+
+**Still to do before reading tonight's exports:**
 - `R/a2_02` can't yet tell an OTL-free run from a with-OTL run of the same subject: both classify as the same run and the script stops. Add an `otl` field to the classifier (OTL construct present or not), a run label such as `primary_nootl`, and the no-OTL rows to the reports. Add `CMAT`/`CPRO` to the outcome list.
 - **Repo:** the user said "leave the power to another repo now". Read it as: CMAT/CPRO (or that strand) goes to its own repo later, and no PR now. Confirm with the user. Code can't create repos; the user creates them empty on GitHub.
 

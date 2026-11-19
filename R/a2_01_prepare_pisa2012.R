@@ -36,7 +36,10 @@ pv <- paste0("PV", 1:5, "MATH")
 pv_read <- paste0("PV", 1:5, "READ")   # exploratory: reading and science have no OTL items in PISA 2012
 pv_scie <- paste0("PV", 1:5, "SCIE")
 pv_crea <- paste0("PV", 1:5, "CREA")   # digital (computer-based) reading; exploratory, as READ/SCIE
-stopifnot(all(c(pv, pv_read, pv_scie, pv_crea) %in% names(d)))
+pv_cmat <- paste0("PV", 1:5, "CMAT")   # computer-based math; exploratory
+pv_cpro <- paste0("PV", 1:5, "CPRO")   # problem solving (computer-based); exploratory
+pv_extra <- list(READ = pv_read, SCIE = pv_scie, CREA = pv_crea, CMAT = pv_cmat, CPRO = pv_cpro)
+stopifnot(all(c(pv, unlist(pv_extra)) %in% names(d)))
 
 # ---- student level ---------------------------------------------------------
 # SES: mirrors the TIMSS composite (books, parent education, home possessions).
@@ -52,7 +55,7 @@ st <- data.frame(
   SES      = wz(ses_raw, w),
   ESCS     = num(d$ESCS),
   OTL      = num(d$FAMCONC),
-  sapply(c(pv, pv_read, pv_scie, pv_crea), function(v) num(d[[v]]))
+  sapply(c(pv, unname(unlist(pv_extra))), function(v) num(d[[v]]))
 )
 
 # ---- school level ----------------------------------------------------------
@@ -75,9 +78,7 @@ sch <- do.call(rbind, lapply(names(by_sch), function(id) {
     sum_stu_wt = sum(s$w)
   )
   for (k in 1:5) out[[paste0("MATH", k)]] <- wmean(s[[pv[k]]], s$w)
-  for (k in 1:5) out[[paste0("READ", k)]] <- wmean(s[[pv_read[k]]], s$w)
-  for (k in 1:5) out[[paste0("SCIE", k)]] <- wmean(s[[pv_scie[k]]], s$w)
-  for (k in 1:5) out[[paste0("CREA", k)]] <- wmean(s[[pv_crea[k]]], s$w)
+  for (dom in names(pv_extra)) for (k in 1:5) out[[paste0(dom, k)]] <- wmean(s[[pv_extra[[dom]][k]]], s$w)
   for (v in sch_vars) out[[v]] <- num(d[[v]][i[1]])
   out
 }))
@@ -103,8 +104,7 @@ sch$in_m2 <- sch$enough_otl & stats::complete.cases(sch[, c(core, m2_items)])
 
 utils::write.csv(sch, "data/derived/a2_pisa2012_school.csv", row.names = FALSE)
 keep <- c("SCHOOLID", "SES", "OTL", paste0("MATH", 1:5), "ESCS", "sum_stu_wt",
-          paste0("READ", 1:5), paste0("SCIE", 1:5),  # READ/SCIE/CREA: exploratory runs only
-          paste0("CREA", 1:5))
+          paste0(rep(names(pv_extra), each = 5), 1:5))  # READ/SCIE/CREA/CMAT/CPRO: exploratory runs only
 # SmartPLS wants plain numeric CSV: comma-delimited, no quotes, numeric ID.
 write_spls <- function(df, path) {
   df$SCHOOLID <- as.integer(df$SCHOOLID)
@@ -120,6 +120,8 @@ math_mean <- mean(sapply(pv, function(v) wmean(num(d[[v]]), w)))
 read_mean <- mean(sapply(pv_read, function(v) wmean(num(d[[v]]), w)))
 scie_mean <- mean(sapply(pv_scie, function(v) wmean(num(d[[v]]), w)))
 crea_mean <- mean(sapply(pv_crea, function(v) wmean(num(d[[v]]), w)))
+cmat_mean <- mean(sapply(pv_cmat, function(v) wmean(num(d[[v]]), w)))
+cpro_mean <- mean(sapply(pv_cpro, function(v) wmean(num(d[[v]]), w)))
 r_ses_escs_sch <- stats::cor(sch$SES, sch$ESCS, use = "complete.obs")
 r_ses_escs_stu <- stats::cor(st$SES, st$ESCS, use = "complete.obs")
 min_beta <- function(n) round(2.486 / sqrt(n), 3)  # inverse square root rule (Kock & Hadaya, 2018)
@@ -129,19 +131,22 @@ checks <- data.frame(
                "D3_school_vars_constant", "D4_n_schools_model1", "D4_n_schools_model2",
                "D4_min_detectable_beta_model1", "D4_min_detectable_beta_model2",
                "D5_r_SES_ESCS_school", "D5_r_SES_ESCS_student",
-               "D2_weighted_read_mean", "D2_weighted_scie_mean", "D2_weighted_crea_mean"),
+               "D2_weighted_read_mean", "D2_weighted_scie_mean", "D2_weighted_crea_mean",
+               "D2_weighted_cmat_mean", "D2_weighted_cpro_mean"),
   type     = c("hard", "hard", "hard", "hard", "report", "report", "report", "report", "hard", "report",
-               "report", "report", "report"),
+               "report", "report", "report", "report", "report"),
   value    = c(nrow(d), length(by_sch), round(math_mean, 2), const_ok,
                sum(sch$in_m1), sum(sch$in_m2), min_beta(sum(sch$in_m1)), min_beta(sum(sch$in_m2)),
                round(r_ses_escs_sch, 3), round(r_ses_escs_stu, 3),
-               round(read_mean, 2), round(scie_mean, 2), round(crea_mean, 2)),
+               round(read_mean, 2), round(scie_mean, 2), round(crea_mean, 2),
+               round(cmat_mean, 2), round(cpro_mean, 2)),
   expected = c("4978", "162", sprintf("%d +/- 1", us_math_published), "TRUE",
                "", "", "", "", ">= 0.90", "",
-               "498 (published)", "497 (published)", "511 (published)"),
+               "498 (published)", "497 (published)", "511 (published)",
+               "498 (published)", "508 (published)"),
   pass     = c(nrow(d) == 4978, length(by_sch) == 162,
                abs(math_mean - us_math_published) <= 1, const_ok,
-               NA, NA, NA, NA, r_ses_escs_sch >= 0.90, NA, NA, NA, NA)
+               NA, NA, NA, NA, r_ses_escs_sch >= 0.90, NA, NA, NA, NA, NA, NA)
 )
 utils::write.csv(checks, "results/a2/a2_01_checks.csv", row.names = FALSE)
 
