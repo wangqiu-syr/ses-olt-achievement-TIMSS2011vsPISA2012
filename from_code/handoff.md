@@ -1,5 +1,41 @@
 # Handoff
 
+## Next task: PISA reading and digital reading, as a branch here (planned 2026-11-19, not started)
+
+**User's plan for new repos:**
+1. Multilevel runs (WeMix and R-called Mplus), done on the user's laptop later.
+2. PISA reading and digital reading: **first as a branch here**, then its own repo.
+3. Computer-based math (`PVxCMAT`) and problem solving (`PVxCPRO`).
+4. The math subscales: content `MACC/MACQ/MACS/MACU` and process `MAPE/MAPF/MAPI`.
+
+Code can't create repos; the user creates them empty on GitHub. Suggestion to put to the user: items 2 and 3 are both paper-vs-computer contrasts and might share one repo.
+
+**Data check (2026-11-19).** All these PVs exist for all 4,978 students in 162 schools. Weighted PV1 means, with OECD's published US figures:
+
+| Domain | PV1 mean | Published |
+|---|---|---|
+| Print reading | 497.0 | 498 |
+| Digital reading | 510.8 | 511 |
+| Computer-based math | 497.8 | 498 |
+| Problem solving | 507.2 | 508 |
+
+- r(PV1READ, PV1CREA) = .86; r(PV1MATH, PV1CMAT) = .85.
+- **To verify** in the PISA 2012 technical report: whether only a subsample sat the computer-based test. If so, the other students' computer-based PVs come from the conditioning model.
+- `ICTRES` (student home ICT resources) has n = 4,927. It's part of HOMEPOS, so it overlaps with SES.
+
+**Proposed design for item 2 (defaults, pending the user's OK):**
+- Branch `claude/pisa-reading`, off this branch. Same school samples (146/139), same ICT models (M1 use, M2 resources), same criteria (spec section 6).
+- Outcomes: print reading (`READ1`–`5`) and digital reading (`CREA1`–`5`), with math as the anchor.
+- Model: SES → reading, ICT → reading, SES × ICT → reading. There's no OTL path, because PISA 2012 OTL is math only. Sensitivity: math OTL (FAMCONC) as a stated proxy.
+- Question: do SES and ICT relate differently to digital than to print reading?
+- Steps:
+  - add `CREA1`–`5` to the school files (`R/a2_01`);
+  - write a spec addendum (`docs/spec_reading.md`);
+  - add SmartPLS steps;
+  - the user runs SmartPLS;
+  - read the results with `R/a2_02`, generalized to the outcome.
+- Data checks: report rows comparing reading (498) and digital reading (511) with the published means.
+
 ## Session 4, part 2 (2026-11-19): notes and reading/science data
 
 ### Done
