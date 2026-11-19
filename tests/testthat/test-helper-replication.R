@@ -17,6 +17,6 @@ test_that("compare_to_reported applies printed-precision tolerance", {
 })
 
 test_that("reference file template has the required columns", {
-  ref <- read_reference(root_path("tests", "reference", "zhang_wang_2020_reported.csv"))
+  ref <- read_reference(root_path("results", "paper_zhang_wang_2020.csv"))
   expect_true(all(c("estimate_id", "reported", "decimals", "tolerance") %in% names(ref)))
 })

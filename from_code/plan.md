@@ -1,9 +1,9 @@
 # Plan: SES/OTL and math/science achievement, TIMSS 2011 vs PISA 2012
-Each phase ends with a report in `from_code/` and green tests (`Rscript tests/testthat.R`).
+Each phase ends with a report in `results/` and green tests (`Rscript tests/testthat.R`).
 
 **A1: Replicate Zhang & Wang (2020) on TIMSS 2011.** Code downloads the data (no user copy exists).
-Enter the paper's numbers in `tests/reference/zhang_wang_2020_reported.csv`, then fit the model.
-Done when `from_code/a1_timss2011_estimates.csv` passes the A1 test.
+Enter the paper's numbers in `results/paper_zhang_wang_2020.csv`, then fit the model.
+Done when `results/a1/a1_timss2011_estimates.csv` passes the A1 test.
 
 **A2: Analogous model on PISA 2012.**
 1. Parity: fit the same model on the user's raw `.sav` and on Code's own OECD download. Estimates must match (A2 parity test).

@@ -1,14 +1,14 @@
 # A2 step 1: build school-level PISA 2012 (US) files that mimic Zhang & Wang (2020).
 # Spec: docs/spec.md. Run from the project root:
-#   Rscript scripts/a2_01_prepare_pisa2012.R
+#   Rscript R/a2_01_prepare_pisa2012.R
 #
 # Inputs  data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav   (user upload, gitignored)
 # Outputs data/derived/a2_pisa2012_school.csv           all 162 schools + inclusion flags
 #         data/derived/a2_smartpls_model1.csv           Model 1 (ICT use), complete cases
 #         data/derived/a2_smartpls_model2.csv           Model 2 (ICT resources), complete cases
-#         from_code/a2_01_checks.csv                    data acceptance checks (spec D1-D5)
-#         from_code/a2_01_pisa2012_school_data.md       short data report
-#         from_code/data_manifest.csv                   raw-file provenance
+#         results/a2/a2_01_checks.csv                    data acceptance checks (spec D1-D5)
+#         results/a2/a2_01_pisa2012_school_data.md       short data report
+#         results/a2/data_manifest.csv                   raw-file provenance
 
 suppressMessages(library(haven))
 
@@ -18,6 +18,7 @@ us_math_published <- 481  # OECD (2013), PISA 2012 Results Vol. I: US mathematic
 
 stopifnot(file.exists(sav_path))
 dir.create("data/derived", showWarnings = FALSE, recursive = TRUE)
+dir.create("results/a2", showWarnings = FALSE, recursive = TRUE)
 
 # ---- helpers ---------------------------------------------------------------
 num   <- function(x) as.numeric(zap_labels(x))
@@ -126,7 +127,7 @@ checks <- data.frame(
                abs(math_mean - us_math_published) <= 1, const_ok,
                NA, NA, NA, NA, r_ses_escs_sch >= 0.90, NA)
 )
-utils::write.csv(checks, "from_code/a2_01_checks.csv", row.names = FALSE)
+utils::write.csv(checks, "results/a2/a2_01_checks.csv", row.names = FALSE)
 
 # ---- provenance ------------------------------------------------------------
 raw <- c(sav_path, "data/raw/docs/Zhang_Wang_2020.pdf", "data/raw/docs/Data_to_pull_out_from_PISA_2012.docx")
@@ -134,7 +135,7 @@ raw <- raw[file.exists(raw)]
 sha <- vapply(raw, function(f) strsplit(system2("sha256sum", shQuote(f), stdout = TRUE), " ")[[1]][1], "")
 utils::write.csv(data.frame(file = raw, bytes = file.size(raw), sha256 = unname(sha),
                             source = "user upload", received = "2026-11-19"),
-                 "from_code/data_manifest.csv", row.names = FALSE)
+                 "results/a2/data_manifest.csv", row.names = FALSE)
 
 # ---- report ----------------------------------------------------------------
 desc_vars <- c("SES", "ESCS", "OTL", "MATH1", m1_items, m2_items)
@@ -151,7 +152,7 @@ cor_tab <- function(df, items, label) {
 }
 rep <- c(
   "# A2 step 1: PISA 2012 (US) school-level data",
-  "", sprintf("Built by `scripts/a2_01_prepare_pisa2012.R` from `%s`. Spec: `docs/spec.md`.", basename(sav_path)), "",
+  "", sprintf("Built by `R/a2_01_prepare_pisa2012.R` from `%s`. Spec: `docs/spec.md`.", basename(sav_path)), "",
   "## Checks", "", "Hard checks must pass; report rows inform interpretation (spec section 6).", "",
   "| Check | Type | Value | Expected | Pass |", "|---|---|---|---|---|",
   paste0("| ", checks$check, " | ", checks$type, " | ", checks$value, " | ", checks$expected, " | ",
@@ -176,7 +177,7 @@ rep <- c(
   sprintf("- Correlation of RATCMP15 with the shortage composite: %s", fmt(stats::cor(m2$ICTRES_RATIO, comp(m2, m2_items[1:3])))),
   sprintf("- RATCMP15 range %s to %s (skewed; watch its loading).", fmt(min(m2$ICTRES_RATIO)), fmt(max(m2$ICTRES_RATIO)))
 )
-writeLines(rep, "from_code/a2_01_pisa2012_school_data.md")
+writeLines(rep, "results/a2/a2_01_pisa2012_school_data.md")
 
 hard <- checks$type == "hard"
 cat(sprintf("Hard checks passed: %d of %d\n", sum(checks$pass[hard]), sum(hard)))

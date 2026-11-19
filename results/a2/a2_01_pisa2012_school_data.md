@@ -1,6 +1,6 @@
 # A2 step 1: PISA 2012 (US) school-level data
 
-Built by `scripts/a2_01_prepare_pisa2012.R` from `US_PISA_2012_STSCH.sav`. Spec: `docs/spec.md`.
+Built by `R/a2_01_prepare_pisa2012.R` from `US_PISA_2012_STSCH.sav`. Spec: `docs/spec.md`.
 
 ## Checks
 

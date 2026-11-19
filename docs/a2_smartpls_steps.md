@@ -33,6 +33,6 @@ Copy each model and change one thing at a time, running steps 5–7 each time:
 Attach the Excel exports here: 2 primary runs plus up to 4 sensitivity runs. Name each file `M1_primary`, `M2_PLSc`, and so on. Include the bootstrap seed.
 
 Code then:
-- fills `from_code/a2_pisa2012_estimates_user_sav.csv`;
+- fills `results/a2/a2_pisa2012_estimates_user_sav.csv`;
 - checks criteria M1–M5;
 - writes the A2 report with a side-by-side table against the paper's TIMSS values.

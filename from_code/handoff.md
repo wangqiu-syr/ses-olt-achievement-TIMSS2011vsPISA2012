@@ -1,36 +1,26 @@
 # Handoff
 
-## Next task: reorganize the repo on the user's template (planned 2026-11-19, not started)
+## Session 4 (2026-11-19): repo reorganized on the user's template
 
-**Template:** `wangqiu-syr/glw2022-matching-replication` (public; clone read-only with `git clone --depth 1`). It was chosen over `sr08-replication` because it is fuller and also keeps `docs/spec.md`. Its layout:
-- `R/` holds all code;
-- `docs/` holds spec, verdict and sensitivity write-ups;
-- `results/` holds outputs, `*_vs_paper.csv`, `paper_table*.csv` and `summary.md`;
-- the README is written like a paper: Key findings, Why this replication, Background, Design, What differed, Results, Reproduce, Files (Start here / Design and decisions / Code / Results / Published values / Project files), Lessons, Conclusions, Acknowledgment, AI assistance, Related repositories, References, How to cite, License.
+### Done
+- Followed the layout of `wangqiu-syr/glw2022-matching-replication`:
+  - all code is in `R/` (`scripts/` is gone);
+  - write-ups are in `docs/`;
+  - outputs are in `results/a2/`, with the A2 report at `results/a2/summary.md`;
+  - the paper's values are at `results/paper_zhang_wang_2020.csv`.
+- `from_code/` now holds only `plan.md` and `handoff.md`.
+- Every path in code, tests and docs is updated.
+- Both R scripts rerun from `R/` and reproduce their outputs; only the "Built by" path lines changed. Tests: 13 pass, 0 fail, 2 skip.
+- Rewrote `README.md` on the template's headings: Key findings, Design, What differed, Results, Reproduce, Files, Status, References.
+- Added `R/README.md` (scripts by role) and an updated `docs/README.md`.
+- Filled in the paper's reference in `CITATION.cff`; the software authors are still a placeholder.
+- Added `*.pdf` and `*.docx` to `.gitignore`.
+- **Paths in the older session notes below predate this move.** Use the new layout:
+  - outputs go to `results/<phase>/`;
+  - scripts go in `R/`.
 
-**Keep (the user's conventions):**
-- `from_code/` for `plan.md` and `handoff.md` only;
-- `tests/` (testthat) and renv;
-- `data/`, gitignored.
-
-**Move (use `git mv`, then update every path in code, tests and docs):**
-
-| Now | New |
-|---|---|
-| `scripts/a2_01_prepare_pisa2012.R`, `scripts/a2_02_read_smartpls.R` | `R/` |
-| `scripts/a2_00_audit_pisa2012.py` | `R/` (the only non-R file; note it in `R/README.md`) |
-| `from_code/a2_00_pisa2012_data_audit.md` | `docs/a2_data_audit.md` |
-| `from_code/a2_smartpls_steps.md` | `docs/a2_smartpls_steps.md` |
-| `from_code/a2_02_smartpls_results.md` | `results/a2/summary.md` |
-| other `from_code/a2_*` csv/txt, `from_code/data_manifest.csv` | `results/a2/` |
-| `tests/reference/zhang_wang_2020_reported.csv` | `results/paper_zhang_wang_2020.csv` ("Published values") |
-| `scripts/README.md` | merge into `R/README.md`, then delete `scripts/` |
-
-**Also:**
-- Rewrite `README.md` on the template's headings, with A2 findings so far and A1 marked pending.
-- Add `*.pdf`, `*.docx` to `.gitignore`.
-- Rerun both R scripts to confirm the outputs land in the new paths.
-- Run the tests (expect 13 pass, 2 skip).
+### Next step
+Unchanged from session 3, part 2 below. Start A1 when the TIMSS files arrive (writes to `results/a1/`), or hold the gate review.
 
 ## Session 3, part 2 (2026-11-19): SmartPLS results read (A2 step 2)
 
