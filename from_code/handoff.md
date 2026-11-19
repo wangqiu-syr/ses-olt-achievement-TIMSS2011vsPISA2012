@@ -10,10 +10,18 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (27 pass, 2 skip).
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
-## Next task: digital reading (branch `claude/pisa-reading`)
-1. The user attaches the `.sav`. Run `R/a2_01_prepare_pisa2012.R`: check that `D2_weighted_crea_mean` is about 511 and the samples are still 146/139, then send the user `data/derived/a2_smartpls_model{1,2}.csv`, which now carry `CREA1`–`5`.
-2. The user runs the 8 SmartPLS exports with outcome construct `CREA` (`docs/a2_smartpls_steps.md`, exploratory section).
-3. `Rscript R/a2_02_read_smartpls.R digital` writes `results/a2_digital/`. The report anchors on math. Add a print-reading column: the research question is digital vs. print reading, and the Model 1 ICT-use total effect on print reading (.14, p = .016) is the lead to check.
+## Next task: read the user's evening runs (planned 2026-11-19)
+The `reading` results are **print reading** (`PV1READ`–`PV5READ`). Digital reading is `CREA`. Relabel the reading report "print reading" once digital is in.
+
+**Runs the user plans for tonight:**
+1. OTL-free runs: the same models without FAMCONC (answers session 5 open item 1).
+2. Digital reading (`CREA`).
+3. Computer-based math (`CMAT`) and problem solving (`CPRO`), with FAMCONC as OTL.
+
+**Blockers to clear first:**
+- The user's SmartPLS CSVs have `MATH`, `READ` and `SCIE` only. `CREA` is in `R/a2_01` but not built yet, because the `.sav` was not attached. `CMAT`/`CPRO` (`PV1CMAT`–`PV5CMAT`, `PV1CPRO`–`PV5CPRO`) are not in `R/a2_01` yet. With the `.sav`, add them, build, check the means (498, 508), and send the two CSVs.
+- `R/a2_02` can't yet tell an OTL-free run from a with-OTL run of the same subject: both classify as the same run and the script stops. Add an `otl` field to the classifier (OTL construct present or not), a run label such as `primary_nootl`, and the no-OTL rows to the reports. Add `CMAT`/`CPRO` to the outcome list.
+- **Repo:** the user said "leave the power to another repo now". Read it as: CMAT/CPRO (or that strand) goes to its own repo later, and no PR now. Confirm with the user. Code can't create repos; the user creates them empty on GitHub.
 
 ## Session 5 (2026-11-19): PISA reading and science read (branch `claude/pisa-reading`, off `main`)
 
