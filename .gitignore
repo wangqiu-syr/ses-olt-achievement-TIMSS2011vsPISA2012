@@ -1,4 +1,30 @@
-# Raw data and copyrighted papers stay out of the repo
+# --- Data: never commit raw or derived data --------------------------------
+# Everything under data/ is ignored except its README.
+data/*
+!data/README.md
+# Belt and braces: survey data formats anywhere in the repo
 *.sav
+*.sas7bdat
+*.dta
+*.zip
+*.rds
+*.RData
+
+# --- R / RStudio -----------------------------------------------------------
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj
+
+# renv: renv/.gitignore handles library/, staging/, etc.
+
+# --- OS / editor -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# --- Copyrighted papers ----------------------------------------------------
 *.pdf
-data/

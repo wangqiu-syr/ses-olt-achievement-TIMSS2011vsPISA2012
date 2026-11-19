@@ -1,5 +1,6 @@
 """Audit the US PISA 2012 student+school file against the OTL/SES/ICT plan.
-Usage: python code/00_data_audit.py <path/to/US_PISA_2012_STSCH.sav>
+Usage: python3 scripts/a2_00_audit_pisa2012.py data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav
+Python (not R): a one-off exploratory audit, run before the R environment was set up.
 Exploratory only: weighted with W_FSTUWT, PV-averaged correlations, no BRR SEs.
 """
 import sys

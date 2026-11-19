@@ -1,7 +1,7 @@
 # PISA 2012 (US) data audit vs. TIMSS 2011 paper and OTL plan
 
 Date: 2026-11-19. Sources: Zhang & Wang (2020) pp. 5–10 (data, measures, analysis); `Data to pull out from PISA 2012.docx`; `US_PISA_2012_STSCH.sav`.
-Script: `code/00_data_audit.py` (raw output in `from_code/00_data_audit_output.txt`).
+Script: `scripts/a2_00_audit_pisa2012.py` (raw output in `from_code/a2_00_pisa2012_data_audit_output.txt`).
 
 ## 1. The TIMSS 2011 paper's design
 - US grade 8. Students whose teachers use computers in class: math 3,398 students / 183 teachers; science 3,989 / 363.
