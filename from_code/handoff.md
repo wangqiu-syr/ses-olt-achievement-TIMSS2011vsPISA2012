@@ -1,5 +1,12 @@
 # Handoff
 
+## Start here (every new session)
+Each cloud session starts as a fresh container with no data and no R. Do this first:
+1. **Data:** the user attaches `US_PISA_2012_STSCH.sav` in the chat. Copy it to `data/raw/pisa2012/user_sav/`, which is gitignored.
+2. **R:** `apt-get install -y r-base-core r-cran-renv r-cran-testthat r-cran-haven r-cran-readxl`, then `Rscript -e 'renv::hydrate()'`. CRAN is blocked, so packages come from apt.
+3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (13 pass, 2 skip).
+4. **Current task:** the first "Next task" section below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
+
 ## Next task: PISA reading and digital reading, as a branch here (planned 2026-11-19, not started)
 
 **User's plan for new repos:**
