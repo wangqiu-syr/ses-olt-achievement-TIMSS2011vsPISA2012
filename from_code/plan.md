@@ -7,8 +7,9 @@ Done when `from_code/a1_timss2011_estimates.csv` passes the A1 test.
 
 **A2: Analogous model on PISA 2012.**
 1. Parity: fit the same model on the user's raw `.sav` and on Code's own OECD download. Estimates must match (A2 parity test).
-2. Run the model against the acceptance criteria in `docs/spec.md` (to be written; A2 step 2 waits on it).
+2. Run the model against the acceptance criteria in `docs/spec.md` (section 6).
 
+Order changed 2026-11-19: A2 runs first while the TIMSS files are pending; the parity check waits for OECD access (`docs/spec.md`, section 1).
 **Gate.** The user reviews the A1 and A2 reports and approves before Phase B starts.
 
 **Phase B: Multilevel model.** Choose the specification (levels, weights, plausible values), record the choice in `docs/spec.md`, run it, report.
