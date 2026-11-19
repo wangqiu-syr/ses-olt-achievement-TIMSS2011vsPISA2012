@@ -1,5 +1,26 @@
 # Handoff
 
+## Session 4, part 2 (2026-11-19): notes and reading/science data
+
+### Done
+- The user chose to **keep the current layout**. rrtools' `analysis/paper/` (`paper.qmd`, `references.bib`, `.csl`) is to be added when drafting starts.
+- Merged PRs #2 and #3.
+- The user invited Yue Zhang (the paper's first author) as a repo collaborator. The data stays gitignored, so collaborators get it separately.
+- `R/a2_01_prepare_pisa2012.R` now also writes school means of `READ1`–`5` and `SCIE1`–`5` to the SmartPLS files, for exploratory runs.
+  - Weighted US means: 497.6 (reading) and 497.4 (science), against the published 498 and 497. These are report rows in `a2_01_checks.csv`.
+
+### Open decisions
+1. **Second domain.** PISA 2012 *does* have reading and science scores. What it lacks is OTL for those domains (its OTL items are math only). Options:
+   - science, which matches the paper's two subjects;
+   - reading, which TIMSS has no counterpart for;
+   - or both.
+
+   And for OTL: no OTL, or math OTL as a stated proxy. This changes spec decision 1.
+2. **Phase B.** A two-level model (students in schools; ICT at school level; a cross-level ICT × SES slope) on PISA, and on TIMSS (students in classes), once the TIMSS files arrive.
+   - Software: Mplus or `WeMix` on the user's laptop. Neither runs here: CRAN is blocked and Mplus is local.
+   - Python has no validated weighted multilevel estimator for this design.
+3. **Running on the laptop.** No laptop folder is shared with this cloud session (`list_computer_folders` is empty). Either run Claude Code locally on the laptop in a clone of this repo, or Code writes the Mplus and R inputs and the user runs them.
+
 ## Session 4 (2026-11-19): repo reorganized on the user's template
 
 ### Done
