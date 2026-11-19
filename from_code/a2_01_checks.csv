@@ -1,0 +1,11 @@
+"check","type","value","expected","pass"
+"D1_n_students","hard",4978,"4978",TRUE
+"D1_n_schools","hard",162,"162",TRUE
+"D2_weighted_math_mean","hard",481.37,"481 +/- 1",TRUE
+"D3_school_vars_constant","hard",1,"TRUE",TRUE
+"D4_n_schools_model1","report",146,"",NA
+"D4_n_schools_model2","report",139,"",NA
+"D4_min_detectable_beta_model1","report",0.206,"",NA
+"D4_min_detectable_beta_model2","report",0.211,"",NA
+"D5_r_SES_ESCS_school","hard",0.972,">= 0.90",TRUE
+"D5_r_SES_ESCS_student","report",0.867,"",NA

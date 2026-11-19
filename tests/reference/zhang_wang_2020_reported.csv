@@ -1,1 +1,124 @@
+# Zhang & Wang (2020), TIMSS 2011 US Grade 8, teacher-level PLS-SEM (WarpPLS 5.0, factor-based PLS).
+# Model 1 = computer as information tool; Model 2 = computer as learning tool. ACH = achievement (5 PVs).
+# Transcribed 2026-11-19 from the article PDF. Tolerance blank = 0.5 * 10^-decimals; A1 tolerances to be set in docs/spec.md.
 estimate_id,source,reported,decimals,tolerance,notes
+M1_math_path_SES_OTL,Figure 2 (top),0.12,2,,p<.05
+M1_math_path_SES_ACH,Figure 2 (top),0.65,2,,p<.01
+M1_math_path_OTL_ACH,Figure 2 (top),0.20,2,,p<.01
+M1_math_path_ICT_OTL,Figure 2 (top),0.29,2,,p<.01
+M1_math_path_ICT_ACH,Figure 2 (top),0.08,2,,ns
+M1_math_path_SESxICT_ACH,Figure 2 (top),0.04,2,,ns
+M1_math_r2_ACH,Figure 2 (top),0.50,2,,
+M1_sci_path_SES_OTL,Figure 2 (top),0.12,2,,p<.05
+M1_sci_path_SES_ACH,Figure 2 (top),0.68,2,,p<.001 (***)
+M1_sci_path_OTL_ACH,Figure 2 (top),0.09,2,,p<.05
+M1_sci_path_ICT_OTL,Figure 2 (top),-0.05,2,,ns
+M1_sci_path_ICT_ACH,Figure 2 (top),0.02,2,,ns
+M1_sci_path_SESxICT_ACH,Figure 2 (top),0.09,2,,p<.05
+M1_sci_r2_ACH,Figure 2 (top),0.48,2,,text p.12 says 48.3%
+M2_math_path_SES_OTL,Figure 2 (bottom),0.13,2,,p<.05
+M2_math_path_SES_ACH,Figure 2 (bottom),0.64,2,,p<.01
+M2_math_path_OTL_ACH,Figure 2 (bottom),0.21,2,,p<.01
+M2_math_path_ICT_OTL,Figure 2 (bottom),0.17,2,,p<.01
+M2_math_path_ICT_ACH,Figure 2 (bottom),0.08,2,,ns
+M2_math_path_SESxICT_ACH,Figure 2 (bottom),0.03,2,,ns; text p.12 says 0.02
+M2_math_r2_ACH,Figure 2 (bottom),0.50,2,,
+M2_sci_path_SES_OTL,Figure 2 (bottom),0.11,2,,p<.05
+M2_sci_path_SES_ACH,Figure 2 (bottom),0.69,2,,p<.001 (***)
+M2_sci_path_OTL_ACH,Figure 2 (bottom),0.10,2,,p<.05
+M2_sci_path_ICT_OTL,Figure 2 (bottom),-0.09,2,,p<.05
+M2_sci_path_ICT_ACH,Figure 2 (bottom),0.05,2,,ns
+M2_sci_path_SESxICT_ACH,Figure 2 (bottom),-0.02,2,,ns
+M2_sci_r2_ACH,Figure 2 (bottom),0.48,2,,
+M1_math_fit_APC,Table 3,0.23,2,,p<.001
+M1_math_fit_ARS,Table 3,0.30,2,,p<.001
+M1_math_fit_AVIF,Table 3,1.05,2,,
+M1_sci_fit_APC,Table 3,0.17,2,,p<.001
+M1_sci_fit_ARS,Table 3,0.25,2,,p<.001
+M1_sci_fit_AVIF,Table 3,1.01,2,,
+M2_math_fit_APC,Table 3,0.21,2,,p<.001
+M2_math_fit_ARS,Table 3,0.27,2,,p<.001
+M2_math_fit_AVIF,Table 3,1.04,2,,
+M2_sci_fit_APC,Table 3,0.18,2,,p<.001
+M2_sci_fit_ARS,Table 3,0.25,2,,p<.001
+M2_sci_fit_AVIF,Table 3,1.10,2,,
+M1_math_alpha_ICT,Table 2,0.88,2,,
+M1_math_alpha_ACH,Table 2,0.99,2,,
+M1_sci_alpha_ICT,Table 2,0.70,2,,
+M1_sci_alpha_ACH,Table 2,0.99,2,,
+M2_math_alpha_ICT,Table 2,0.89,2,,
+M2_math_alpha_ACH,Table 2,0.99,2,,
+M2_sci_alpha_ICT,Table 2,0.79,2,,
+M2_sci_alpha_ACH,Table 2,0.99,2,,
+M1_math_vif_SES,Table 2,1.74,2,,full-collinearity VIF (WarpPLS)
+M1_math_vif_OTL,Table 2,1.09,2,,
+M1_math_vif_ICT,Table 2,1.04,2,,
+M1_math_vif_ACH,Table 2,1.85,2,,
+M1_sci_vif_SES,Table 2,1.71,2,,
+M1_sci_vif_OTL,Table 2,1.01,2,,
+M1_sci_vif_ICT,Table 2,1.02,2,,
+M1_sci_vif_ACH,Table 2,1.72,2,,
+M2_math_vif_SES,Table 2,1.75,2,,
+M2_math_vif_OTL,Table 2,1.09,2,,
+M2_math_vif_ICT,Table 2,1.05,2,,
+M2_math_vif_ACH,Table 2,1.82,2,,
+M2_sci_vif_SES,Table 2,1.72,2,,
+M2_sci_vif_OTL,Table 2,1.01,2,,
+M2_sci_vif_ICT,Table 2,1.04,2,,
+M2_sci_vif_ACH,Table 2,1.72,2,,
+M1_math_ave_ICT,Table 2,0.89,2,,
+M1_math_ave_ACH,Table 2,0.99,2,,
+M1_sci_ave_ICT,Table 2,0.77,2,,
+M1_sci_ave_ACH,Table 2,0.97,2,,
+M2_math_ave_ICT,Table 2,0.90,2,,
+M2_math_ave_ACH,Table 2,0.99,2,,
+M2_sci_ave_ICT,Table 2,0.70,2,,
+M2_sci_ave_ACH,Table 2,0.97,2,,
+M1_math_cor_SES_OTL,Table 2 (below diagonal),0.02,2,,
+M1_math_cor_SES_ICT,Table 2 (below diagonal),0.04,2,,
+M1_math_cor_SES_ACH,Table 2 (below diagonal),0.65,2,,p<.01
+M1_math_cor_OTL_ICT,Table 2 (below diagonal),0.12,2,,
+M1_math_cor_OTL_ACH,Table 2 (below diagonal),0.20,2,,p<.05
+M1_math_cor_ICT_ACH,Table 2 (below diagonal),0.15,2,,p<.05
+M1_sci_cor_SES_OTL,Table 2 (above diagonal),-0.02,2,,
+M1_sci_cor_SES_ICT,Table 2 (above diagonal),0.04,2,,
+M1_sci_cor_SES_ACH,Table 2 (above diagonal),0.67,2,,p<.01
+M1_sci_cor_OTL_ICT,Table 2 (above diagonal),-0.03,2,,
+M1_sci_cor_OTL_ACH,Table 2 (above diagonal),0.03,2,,
+M1_sci_cor_ICT_ACH,Table 2 (above diagonal),0.04,2,,
+M2_math_cor_SES_OTL,Table 2 (below diagonal),0.02,2,,
+M2_math_cor_SES_ICT,Table 2 (below diagonal),0.06,2,,
+M2_math_cor_SES_ACH,Table 2 (below diagonal),0.65,2,,p<.01
+M2_math_cor_OTL_ICT,Table 2 (below diagonal),0.18,2,,p<.05
+M2_math_cor_OTL_ACH,Table 2 (below diagonal),0.20,2,,p<.05
+M2_math_cor_ICT_ACH,Table 2 (below diagonal),0.15,2,,p<.05
+M2_sci_cor_SES_OTL,Table 2 (above diagonal),-0.02,2,,
+M2_sci_cor_SES_ICT,Table 2 (above diagonal),0.08,2,,
+M2_sci_cor_SES_ACH,Table 2 (above diagonal),0.67,2,,p<.01
+M2_sci_cor_OTL_ICT,Table 2 (above diagonal),-0.04,2,,
+M2_sci_cor_OTL_ACH,Table 2 (above diagonal),0.03,2,,
+M2_sci_cor_ICT_ACH,Table 2 (above diagonal),0.05,2,,
+desc_math_OTL_mean,Section 6.2,3.60,2,,range 0-4
+desc_math_OTL_sd,Section 6.2,0.58,2,,
+desc_sci_OTL_mean,Section 6.2,3.38,2,,range 0-4
+desc_sci_OTL_sd,Section 6.2,0.60,2,,
+desc_math_ICTinfo_mean,Section 6.2,3.32,2,,range 1-4
+desc_math_ICTinfo_sd,Section 6.2,0.81,2,,
+desc_sci_ICTinfo_mean,Section 6.2,2.93,2,,range 1-4
+desc_sci_ICTinfo_sd,Section 6.2,0.66,2,,
+desc_math_ICTlearn_mean,Section 6.2,3.05,2,,range 1-4
+desc_math_ICTlearn_sd,Section 6.2,0.90,2,,
+desc_sci_ICTlearn_mean,Section 6.2,3.12,2,,range 1-4
+desc_sci_ICTlearn_sd,Section 6.2,0.63,2,,
+desc_math_ACH_mean,Section 6.2,501.08,2,,
+desc_math_ACH_sd,Section 6.2,58.78,2,,
+desc_sci_ACH_mean,Section 6.2,527.59,2,,
+desc_sci_ACH_sd,Section 6.2,62.29,2,,
+desc_math_SES_mean,Section 6.2,-0.01,2,,
+desc_math_SES_sd,Section 6.2,0.5,1,,printed as 0.5
+desc_sci_SES_mean,Section 6.2,-0.16,2,,
+desc_sci_SES_sd,Section 6.2,1.64,2,,
+n_math_students,Section 4.1,3398,0,,
+n_math_teachers,Section 4.1,183,0,,
+n_sci_students,Section 4.1,3989,0,,
+n_sci_teachers,Section 4.1,363,0,,

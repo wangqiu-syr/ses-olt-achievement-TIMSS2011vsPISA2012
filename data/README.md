@@ -13,6 +13,7 @@ data/
     pisa2012/
       user_sav/           the user's own PISA 2012 .sav file(s)
       oecd/               PISA 2012 files downloaded by Code from OECD
+    docs/                 the paper PDF and the user's PISA plan (.docx)
   derived/                analysis files written by scripts/ (rebuildable)
 ```
 
