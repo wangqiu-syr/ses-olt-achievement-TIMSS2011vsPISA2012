@@ -19,13 +19,13 @@
   - Figure and text disagree on one value: M2 math SES×ICT is 0.03 in the figure and 0.02 on p. 12.
 - Added `from_code/data_manifest.csv` (SHA-256 of the uploads) and `tests/testthat/test-a2-pisa2012-data.R`.
   - Tests: 6 pass, 0 fail, 3 skip.
+- The user confirmed the spec section 6 acceptance criteria.
 
 ### Open
-1. The user confirms or edits the spec section 6 acceptance criteria.
-2. The user runs SmartPLS per `a2_smartpls_steps.md` and attaches the Excel exports.
-3. TIMSS 2011 USA files: the coauthor is sending them (list in `plan.md`).
-4. A1 tolerances. The paper used WarpPLS factor-based PLS, and some paths don't follow from its correlations (e.g. math SES–OTL r = .02, but the path is .12). An exact match is unlikely, so tolerances go in the spec.
-5. Hosts are still blocked:
+1. The user runs SmartPLS per `a2_smartpls_steps.md` (not run yet) and attaches the Excel exports.
+2. TIMSS 2011 USA files: the coauthor is sending them (list in `plan.md`).
+3. A1 tolerances. The paper used WarpPLS factor-based PLS, and some paths don't follow from its correlations (e.g. math SES–OTL r = .02, but the path is .12). An exact match is unlikely, so tolerances go in the spec.
+4. Hosts are still blocked:
    - CRAN, for the `seminr` cross-check;
    - OECD, for the parity check.
 

@@ -1,6 +1,6 @@
 # Spec: A2, PISA 2012 (US) analogue of Zhang & Wang (2020)
 
-Status: draft, 2026-11-19. Sections 1–5 record decisions the user approved. Section 6, the acceptance criteria, is **proposed, awaiting user confirmation**.
+Status: approved, 2026-11-19. Sections 1–5 record the user's decisions. The user confirmed the section 6 acceptance criteria on 2026-11-19.
 
 ## 1. Scope and decisions
 | # | Decision | Adopted |
@@ -45,7 +45,7 @@ The interaction uses SmartPLS's two-stage approach with standardized product ter
    - parity of the user `.sav` vs. the OECD download.
 4. Fit summaries in the paper's terms: APC = mean |path|, ARS = mean R² (OTL, MATH), AVIF = mean inner VIF.
 
-## 6. Acceptance criteria (proposed: user to confirm)
+## 6. Acceptance criteria (confirmed by the user, 2026-11-19)
 **Data**: `from_code/a2_01_checks.csv`, enforced by `tests/testthat/test-a2-pisa2012-data.R`.
 - **D1:** 4,978 students and 162 schools.
 - **D2:** weighted math mean is 481 ± 1 (the OECD-published US value).
