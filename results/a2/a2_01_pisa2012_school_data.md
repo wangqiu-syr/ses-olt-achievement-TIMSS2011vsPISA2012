@@ -18,6 +18,8 @@ Hard checks must pass; report rows inform interpretation (spec section 6).
 | D4_min_detectable_beta_model2 | report | 0.211 |  |  |
 | D5_r_SES_ESCS_school | hard | 0.972 | >= 0.90 | TRUE |
 | D5_r_SES_ESCS_student | report | 0.867 |  |  |
+| D2_weighted_read_mean | report | 497.58 | 498 (published) |  |
+| D2_weighted_scie_mean | report | 497.41 | 497 (published) |  |
 
 D4: with these sample sizes, school-level paths smaller than about |0.21| are unlikely to reach p < .05
 (80% power, inverse square root rule). The paper's significant TIMSS paths ranged from 0.09 to 0.69.

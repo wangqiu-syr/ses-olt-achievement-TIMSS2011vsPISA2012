@@ -9,3 +9,5 @@
 "D4_min_detectable_beta_model2","report",0.211,"",NA
 "D5_r_SES_ESCS_school","hard",0.972,">= 0.90",TRUE
 "D5_r_SES_ESCS_student","report",0.867,"",NA
+"D2_weighted_read_mean","report",497.58,"498 (published)",NA
+"D2_weighted_scie_mean","report",497.41,"497 (published)",NA
