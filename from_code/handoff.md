@@ -61,6 +61,8 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 - Check in the PISA 2012 Technical Report that the computer-based plausible values are imputed for students not sampled.
 - A1 when the TIMSS files arrive; then Phase B (multilevel models with cross-level SES × ICT terms).
 
+**Keywords:** "replication" was replaced by "achievement" in `.zenodo.json` and `CITATION.cff` (after v0.1.0, at the user's request). The v0.1.0 Zenodo record is edited by hand on Zenodo. Add "replication" back when A1 (the TIMSS replication) is released.
+
 **At the next release:** bump `version` and `date-released` in `CITATION.cff`, and the version in the README and report bylines. Zenodo will make a new DOI.
 
 **Next step:** a new chat on the renamed repo, starting with "Start here", then item 1 above, or the first analysis item if the PISA file is attached.
