@@ -2,12 +2,124 @@
 
 ## Start here (every new session)
 Each cloud session starts as a fresh container with no data and no R. Do this first:
-1. **Data:** the user attaches `US_PISA_2012_STSCH.sav` in the chat. Copy it to `data/raw/pisa2012/user_sav/`, which is gitignored.
-2. **R:** `apt-get install -y r-base-core r-cran-renv r-cran-testthat r-cran-haven r-cran-readxl`, then `Rscript -e 'renv::hydrate()'`. CRAN is blocked, so packages come from apt.
-3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (13 pass, 2 skip).
-4. **Current task:** the first "Next task" section below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
+1. **Data:** the user attaches `US_PISA_2012_STSCH.sav` in the chat. Copy it to `data/raw/pisa2012/user_sav/`, which is gitignored. SmartPLS exports go in `data/raw/smartpls_exports/<subject>/` (any names).
+2. **R** (CRAN is blocked, so packages come from apt, and renv can't download itself):
+   - `apt-get update && apt-get install -y r-base-core r-cran-renv r-cran-testthat r-cran-haven r-cran-readxl r-cran-lavaan r-cran-glue r-cran-ggplot2 r-cran-ragg graphviz`;
+   - seed renv into the project library: `lib=$(R_PROFILE_USER=/dev/null Rscript -e 'cat(renv::paths$library())'); mkdir -p "$lib"; cp -r /usr/lib/R/site-library/renv "$lib/"`;
+   - then `Rscript -e 'renv::hydrate()'`;
+   - install seminr from GitHub as in `R/README.md`, last paragraph.
+3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (61 pass, 2 skip). `Rscript R/run_all.R` runs every automated step (about 35 min); `DRY_RUN=1` lists them.
+4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
-## Next task: PISA reading and digital reading, as a branch here (planned 2026-11-19, not started)
+## Next task: the user's review, then make public and tag (restructure merged 2026-11-20, session 6)
+The repo is restructured for release. Code merged it to `main` at the user's request: https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012/pull/5. `main` now has everything; start new work from `main`. The user's decisions (2026-11-20):
+- full-study report;
+- Markdown;
+- MIT for code and CC BY 4.0 for the report and figures;
+- restructure on the branch, then one PR.
+
+**Done:**
+- `report/report.md` is the main body: question, data and measures, confirmatory math vs. TIMSS, exploratory grid, moderation, discussion, limitations, conclusions. It is built from the old `results/a2_seminr/moderation_report.md` (now a stub pointing to the report) and `results/a2/summary.md`.
+- `report/references.bib` holds the report's 49 references. Authors are given with initials, as in the checked list.
+- `report/figures/` holds `fig0_design_flowchart` (moved from `docs/figures/`, label updated, re-rendered) and `fig1`–`fig4` (moved from `results/a2_seminr/figures/`). `R/a2_06` now writes there.
+- `README.md` follows the Social Science Data Editors template, with a map of tables and figures to programs.
+- `R/run_all.R` runs a2_01, a2_04 × 3, a2_05, a2_06 and the tests (`FROM`, `TO`, `DRY_RUN`, `NBOOT`).
+- `LICENSE` now names Qiu Wang (it said "QW"). `LICENSE-report` holds CC BY 4.0, with the full legal text from the SPDX copy. `CITATION.cff` lists both licences.
+- `tests/testthat/test-release-layout.R` checks links, run_all's scripts, the figure paths and the bib count (17 tests).
+
+**Open for the user:**
+1. Review `report/report.md` and `README.md`. Review edits now go to the report, not the stub.
+2. `CITATION.cff`: author order, affiliations and ORCIDs. LICENSE names Qiu Wang only, and LICENSE-report names both authors; confirm both.
+3. README rights statement: confirm the checked box (legitimate access to the PISA data).
+4. Figure order: the figure numbers are baked into the PNG titles, so in the report Figure 4 (§5.1) appears before Figures 1–3 (§6). To fix this, renumber in `R/a2_06` and rerun `FROM=6` (needs the data). Moving §5.1 after §6 would fix it too.
+5. **Release checklist (the user's GitHub actions, after 1–4):**
+   - make the repo public (Settings → General → Danger Zone → Change visibility);
+   - tag `v0.1.0` (Releases → Draft a new release → tag `v0.1.0` on `main`), or ask Code to;
+   - optional: connect Zenodo before tagging, to get a DOI;
+   - optional: delete the merged remote branches.
+
+## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
+1. **The user reviews:**
+   - `report/report.md` (was `results/a2_seminr/moderation_report.md`), with figures in `report/figures/`;
+   - the README;
+   - `CITATION.cff` (author order, affiliations, ORCIDs).
+2. **Release (the user's GitHub actions):**
+   - ask Code for a PR from `claude/pisa-reading` to `main`, then merge;
+   - make the repo public;
+   - optionally delete the merged remote branches `claude/bold-gates-y7az9v`, `claude/charming-tesla-llewy4` and `claude/sweet-davinci-2optvo`;
+   - add Yue Zhang as a collaborator if not done;
+   - tag `v0.1.0`.
+3. **Open analysis items:**
+   - per-PV pooling and a weighted run (`R/a2_07`);
+   - test the digital-vs-print interaction difference directly (a joint model);
+   - confirm in the PISA 2012 Technical Report that digital reading and computer-based math PVs are imputed for students who did not sit the CBA (only inferred so far);
+   - A1 when the TIMSS files arrive;
+   - Phase B multilevel (cross-level SES × ICT), the proper test of the moderation.
+4. The user's SmartPLS evening runs (no-FAMCONC OTL, CREA, CMAT, CPRO) are **superseded** by the seminr grid. If the user still sends exports, `R/a2_02` needs an `otl` field in its classifier and `CMAT`/`CPRO` in its outcome list (see session 5, end).
+
+## Session 5, part 3 (2026-11-20): 96-run grid, moderation report, release prep
+- **Grid:**
+  - `R/a2_05_seminr_runs.R` runs 6 outcomes × 4 OTL measures × 2 ICT models × SES/ESCS = 96 runs, 5,000 bootstraps each, in 25 min. All 96 pass M1–M4.
+  - `R/a2_seminr_helpers.R` holds the shared model code (`a2_build`, `a2_fit_pls`, `a2_estimate`, `a2_criteria`).
+- **Findings:** see `results/a2_seminr/moderation_report.md`.
+  - **Moderation:** digital reading × ICT resources (M2), SES × ICT .11–.13, p < .05 for 3 of 4 OTL measures; with ESCS .08–.10 (n.s.); BH q ≥ .36; f² .03–.04; power about 25%.
+  - **Sign pattern:** the interaction is positive for resources (24/24 cells) and negative for use (24/24).
+  - **Robust ICT result:** ICT use → print reading, total .14–.16.
+  - **OTL:** OTL → achievement .23–.42 with FAMCONC vs .02–.13 with OTL_PT.
+  - **Fit:** R² for the computer-based outcomes is .40–.63, against .66–.70 for paper.
+- **Figures:**
+  - `R/a2_06_moderation_figures.R`: moderation across the grid, simple slopes with bootstrap CIs, robustness, OTL by measure, plus `moderation_stats.csv` (f², BH) and `simple_slopes.csv`.
+  - Needs a UTF-8 locale for the × → labels; the script sets `LC_CTYPE`.
+  - Flow chart: `docs/figures/design_flowchart.{dot,png,svg}` (Graphviz), in the README's Design section.
+- **Literature:** 57 references verified against publisher, DOI or repository listings by a research agent. Its full notes are not in the repo; the report cites the ones used. Not confirmed: the exact Technical Report page on CBA sub-sampling.
+- **Release prep:**
+  - `docs/spec_exploratory.md`, `results/README.md`, and the data provenance and rebuild steps in `data/README.md`;
+  - `CITATION.cff` filled (to confirm);
+  - README rewritten (key findings, results, reproduce, files, status, authors);
+  - `renv.lock` adds ggplot2, ragg and seminr;
+  - no broken relative links;
+  - history scan: no data, PDFs or emails ever committed.
+- **Tests:** 44 pass, 0 fail, 2 skip.
+
+## Session 5, part 2 (2026-11-20): R cross-check of the math SmartPLS runs
+- **Done:** `R/a2_04_seminr_crosscheck.R` re-estimates the 4 math runs in R with `seminr` 2.6.0, with SmartPLS's settings (PLS-SEM mode A, path weighting, two-stage interaction, 5,000-sample bootstrap). It compares every shared estimate.
+  - Every point estimate matches to within .0002. The largest gap is the SES × ICT path; all others are within .00001.
+  - All 24 path significance verdicts agree. Bootstrap SEs differ by at most .001.
+  - Report: `results/a2/a2_04_seminr_crosscheck.md`. New test `test-a2-seminr.R`. Tests: 30 pass, 4 skip.
+- **Gotcha:** `reflective()` in seminr means PLSc. Use `composite(..., weights = mode_A)` to match SmartPLS PLS-SEM.
+- **seminr install (CRAN blocked):** `git clone --depth 1 https://github.com/sem-in-r/seminr` (commit `cfc0b30`). Then move DiagrammeR and DiagrammeRsvg from Imports to Suggests in DESCRIPTION, and `apt-get install r-cran-lavaan r-cran-glue`.
+  - Then `renv::hydrate(packages = c("lavaan", "glue"))` and `R CMD INSTALL -l renv/library/R-4.3/x86_64-pc-linux-gnu <clone>`.
+  - `renv.lock` now records seminr at that GitHub commit, plus 6 dependencies.
+- **Reading and science cross-checked too** (OTL = FAMCONC, as the user ran them). Every estimate is within .0003. All 24 paths and all 16 total and indirect effects per subject get the same verdict. The reading lead (M1 ICT-use total effect .145*) holds in seminr. Tests: 36 pass, 2 skip.
+  - Fixed on the way: seminr's `specific_effect_significance()` returns a 1-row table, so index it `[1, "Original Est."]`.
+- **Next uses:**
+  - then, instead of SmartPLS by hand, scripted runs of every subject × OTL version.
+  - `a2_05`: per-PV pooling and a weighted run.
+
+## Session 5 (2026-11-19): PISA reading and science read (branch `claude/pisa-reading`, off `main`)
+
+### Done
+- The `.sav` was **not** attached, so `a2_01` could not run on real data. R was installed (step 2 above, which needed two fixes).
+- 16 SmartPLS exports received: reading and science, 8 each (M1/M2 × primary/ESCS × algorithm/bootstrap). Stored in `data/raw/smartpls_exports/{reading,science}/` (gitignored); SHA-256 in each `results/a2_<subject>/a2_02_exports_manifest.csv`.
+- `R/a2_02_read_smartpls.R` now takes an outcome: `math` (default), `reading`, `science` or `digital`.
+  - Exports are matched by content, not name (the uploads had names like `RADING_`, `sCIENCE_`).
+  - New rows from the bootstrap: indirect (`ind_SES_OTL_ACH`, `ind_ICT_OTL_ACH`) and total (`tot_SES_ACH`, `tot_ICT_ACH`) effects.
+  - The math report text is unchanged. Not rerun on real math exports (they're not in this container). A smoke test, reading exports relabelled as math, gave the same IDs, columns, run order and report text. On the next real math rerun, expect 8 extra estimate rows and 3 extra manifest columns (`model`, `run`, `kind`).
+- **Reports:** `results/a2_reading/summary.md` and `results/a2_science/summary.md`. All 8 runs pass M1–M4 (`ICTUSE_LESSON` loads .64–.67, kept, as in math).
+  - Reading: SES → Read .46–.53 (math .53–.55), OTL → Read .41–.42 (math .37–.38). The Model 1 ICT-use **total** effect is .14 (p = .016), though neither its direct nor its indirect part is significant. Framed as a lead.
+  - Science: within .05 of math on every path. Against TIMSS science, it repeats the math contrast. TIMSS's M1 SES × ICT (.09*) and M2 ICT → OTL (−.09*) don't appear in PISA.
+  - ESCS changes no significance in either subject.
+- `R/a2_01` now adds `CREA1`–`5` (digital reading school means), plus a report check row (published 511). Checked only on a synthetic `.sav`; not run on real data.
+- The test now checks the criteria for math, reading and science: 27 pass, 0 fail, 2 skip.
+- README, `R/README.md`, `data/README.md` and `docs/a2_smartpls_steps.md` updated.
+
+### Open
+1. **OTL in reading and science.** The user's runs keep OTL = FAMCONC (math) as a proxy. The reports say so. Confirm this, or ask for no-OTL runs, and record it as a spec addendum (`docs/spec_reading.md`, planned in session 4).
+2. Subject differences are descriptive. A formal test would need both outcomes in one model with a shared bootstrap.
+3. Rerun math (`Rscript R/a2_02_read_smartpls.R`) once its exports are back in a container, to add the math indirect and total effects with p values. The reading and science reports currently derive them from the math paths.
+4. Merge `claude/pisa-reading` into `main` (PR), when the user asks.
+
+## Plan: PISA reading and digital reading (session 4, part 2; print reading and science done in session 5)
 
 **User's plan for new repos:**
 1. Multilevel runs (WeMix and R-called Mplus), done on the user's laptop later.

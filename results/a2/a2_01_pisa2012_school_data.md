@@ -20,6 +20,9 @@ Hard checks must pass; report rows inform interpretation (spec section 6).
 | D5_r_SES_ESCS_student | report | 0.867 |  |  |
 | D2_weighted_read_mean | report | 497.58 | 498 (published) |  |
 | D2_weighted_scie_mean | report | 497.41 | 497 (published) |  |
+| D2_weighted_crea_mean | report | 511.21 | 511 (published) |  |
+| D2_weighted_cmat_mean | report | 498.03 | 498 (published) |  |
+| D2_weighted_cpro_mean | report | 507.93 | 508 (published) |  |
 
 D4: with these sample sizes, school-level paths smaller than about |0.21| are unlikely to reach p < .05
 (80% power, inverse square root rule). The paper's significant TIMSS paths ranged from 0.09 to 0.69.
@@ -77,3 +80,17 @@ per student than the audit's 4-part composite (r = .95); at school level, the un
 - Math, 5 PV school means: 0.998
 - Correlation of RATCMP15 with the shortage composite: 0.11
 - RATCMP15 range 0.06 to 5.03 (skewed; watch its loading).
+
+## OTL without FAMCONC (exploratory)
+
+The spec's OTL is FAMCONC (column `OTL`). The files also carry three measures that don't use it, all school means:
+- `OTL_PT`: ST73–76, how often students meet 4 problem types in lessons and tests (8 items, 1–4, higher = more often).
+- `EXPUREM` and `EXAPPLM`: PISA indices of experience with pure-math and applied-math tasks (ST61).
+
+| Sample | r math–OTL (FAMCONC) | r math–OTL_PT | r math–EXPUREM | r math–EXAPPLM | r OTL–OTL_PT | r OTL–EXPUREM | r OTL–EXAPPLM |
+|---|---|---|---|---|---|---|---|
+| Model 1 (n = 146) | 0.68 | 0.24 | 0.50 | 0.31 | 0.24 | 0.53 | 0.24 |
+| Model 2 (n = 139) | 0.71 | 0.24 | 0.53 | 0.31 | 0.24 | 0.54 | 0.25 |
+
+- Cronbach's alpha of the 8 ST73–76 school means (Model 1 sample): 0.74. Only the procedural-task items (ST74) track math (r = 0.37 and 0.46).
+- Every school in both samples has at least 10 students with ST73–76 data.
