@@ -10,7 +10,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
    - install seminr from GitHub as in `R/README.md`, last paragraph.
 3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (61 pass, 2 skip). `Rscript R/run_all.R` runs every automated step (about 35 min); `DRY_RUN=1` lists them.
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
-5. **Commit rules:** see `CLAUDE.md`. Commits are authored as QW, with no `Co-Authored-By: Claude` line.
+5. **Commit rules:** see `CLAUDE.md`. Commits are authored as QW, with no `Co-Authored-By: Claude` or `Claude-Session` line.
 6. **Repo name:** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (renamed from `ses-olt-math-science-…`). Attach the new name to cloud sessions.
 
 ## Next task: v0.1.0 released and archived; the analysis items below are next (updated 2026-11-20, end of session 7)
