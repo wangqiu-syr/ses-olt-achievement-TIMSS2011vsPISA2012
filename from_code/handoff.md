@@ -40,6 +40,8 @@ The repo is restructured for release. Code merged it to `main` at the user's req
    - R Core Team (2024) and Wickham (2016, ggplot2) were added to the references (51 now).
    - The PNG texts of Figures 1 and 4 still say "primary runs", and Figure 4 says "(spec)"; the notes explain both. To change the images, edit the label strings in `R/a2_06` and run `FROM=6 Rscript R/run_all.R` with the data.
    - Style choice left to the user: "math" (used throughout) or "mathematics".
+7. **The repo was renamed** to `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (seen 2026-11-20). `CITATION.cff` now points there. Old links redirect. Sessions are attached to the old name, so git push works through the redirect, but the GitHub API (PRs) refuses. Start new sessions on the new name.
+8. **Session 7's PR was not opened** (API refused under the new name). The branch `claude/pisa-reading` is pushed, ahead of `main`. Open and merge it at https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012/compare/main...claude/pisa-reading. A suggested title and body are in the session 7 chat.
 5. **Release checklist (the user's GitHub actions, after 1–4):**
    - make the repo public (Settings → General → Danger Zone → Change visibility);
    - tag `v0.1.0` (Releases → Draft a new release → tag `v0.1.0` on `main`), or ask Code to;
