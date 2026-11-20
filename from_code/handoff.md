@@ -2,67 +2,68 @@
 
 ## Start here (every new session)
 Each cloud session starts as a fresh container with no data and no R. Do this first:
-1. **Data:** the user attaches `US_PISA_2012_STSCH.sav` in the chat. Copy it to `data/raw/pisa2012/user_sav/`, which is gitignored. SmartPLS exports go in `data/raw/smartpls_exports/<subject>/` (any names).
-2. **R** (CRAN is blocked, so packages come from apt, and renv can't download itself):
+1. **Repo and rules:** the repo is `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (renamed from `ses-olt-math-science-…`); attach the new name to cloud sessions. Follow `CLAUDE.md`:
+   - set `git config user.name "QW"` and `user.email "351734548+wangqiu-syr@users.noreply.github.com"`;
+   - put no `Co-Authored-By: Claude` or `Claude-Session` lines in commits or PRs;
+   - start new work from `main`.
+2. **Data** (only for analysis tasks): the user attaches `US_PISA_2012_STSCH.sav`. Copy it to `data/raw/pisa2012/user_sav/` (gitignored). SmartPLS exports go in `data/raw/smartpls_exports/<subject>/`.
+3. **R** (CRAN is blocked, so packages come from apt, and renv can't download itself):
    - `apt-get update && apt-get install -y r-base-core r-cran-renv r-cran-testthat r-cran-haven r-cran-readxl r-cran-lavaan r-cran-glue r-cran-ggplot2 r-cran-ragg graphviz`;
    - seed renv into the project library: `lib=$(R_PROFILE_USER=/dev/null Rscript -e 'cat(renv::paths$library())'); mkdir -p "$lib"; cp -r /usr/lib/R/site-library/renv "$lib/"`;
    - then `Rscript -e 'renv::hydrate()'`;
    - install seminr from GitHub as in `R/README.md`, last paragraph.
-3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (61 pass, 2 skip). `Rscript R/run_all.R` runs every automated step (about 35 min); `DRY_RUN=1` lists them.
-4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
-5. **Commit rules:** see `CLAUDE.md`. Commits are authored as QW, with no `Co-Authored-By: Claude` or `Claude-Session` line.
-6. **Repo name:** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (renamed from `ses-olt-math-science-…`). Attach the new name to cloud sessions.
+4. **Check:** `Rscript tests/testthat.R` should give 66 pass, 2 skip (without data). With data: `Rscript R/run_all.R` runs every step in about 35 min; `DRY_RUN=1` lists them.
+5. **Cloud limits:** pushes to branches and `main` work, through the old-name redirect. These are refused, so the user does them on GitHub:
+   - opening or merging PRs;
+   - pushing tags;
+   - deleting branches.
 
-## Next task: v0.1.0 released and archived; the analysis items below are next (updated 2026-11-20, end of session 7)
+   zenodo.org, orcid.org, doi.org and DataCite are blocked.
 
-### Status
-- **The repo is renamed** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012`; old links redirect. Start new sessions on the new name. A session attached to the old name can still `git push` through the redirect, but it cannot open or merge PRs.
-- **Session 6** (merged to `main` in PR #5) restructured the repo for release:
-  - `README.md` is a replication README (Social Science Data Editors template);
-  - `report/` holds `report.md` (the full study), `figures/` (fig0–fig4) and `references.bib`;
-  - `R/run_all.R` runs every automated step;
-  - `LICENSE` (MIT) covers the code and `LICENSE-report` (CC BY 4.0) the report text and figures;
-  - `tests/testthat/test-release-layout.R` checks the layout.
-- **Session 7** (the user's review), on branch `claude/pisa-reading`, commits `f7f76d3` and `fc1148c`:
-  - figure order fixed: the OTL-measure section is now §7, after moderation; Discussion is §8, Limitations §9, Conclusions §10, and Tables 5–7 are renumbered;
-  - one title everywhere: "Opportunity to learn, socioeconomic status and school ICT in US achievement: from TIMSS 2011 to PISA 2012";
-  - "grid"/"runs" became "models"/"96 model specifications" in the report, the README and Figure 0;
-  - figure and table notes spell out every abbreviation;
-  - "the paper" always carries the citation (Zhang & Wang, 2020);
-  - R Core Team (2024) and Wickham (2016) were added to the references (51);
-  - `CITATION.cff` points to the new repo URL.
-- **Merged:** at the user's request, Code fast-forwarded `main` to `claude/pisa-reading` (`727862b` → `d552ca2`, then this note) by git push, because the PR API is refused under the renamed repo. `main` has all of sessions 6 and 7; start new work from `main`.
-- **Tests:** 61 pass, 2 skip (A1 and the OECD parity check wait for data).
+## Session 7 (2026-11-20): review, release v0.1.0, Zenodo DOI. Done
+- **Report and README review:**
+  - one title everywhere;
+  - figures in order (the OTL-measure section is §7, after moderation; Discussion §8, Limitations §9, Conclusions §10);
+  - "96 model specifications" instead of "grid"/"runs";
+  - full names in every figure and table note;
+  - "mathematics" throughout;
+  - every mention of the 2020 paper cited (Zhang & Wang, 2020);
+  - Figure 0's model labelled "adapted from Zhang & Wang, 2020, Figure 1";
+  - R and ggplot2 added to the references (51).
+- **Authors:**
+  - Qiu Wang: Syracuse University, ORCID 0000-0003-1635-8050;
+  - Yue Zhang: Google, ORCID 0000-0002-9070-9990;
+  - recorded in `CITATION.cff`, `.zenodo.json` and the README and report bylines.
+- **Licences:**
+  - code MIT (`LICENSE`, Qiu Wang);
+  - report text and figures CC BY 4.0 (`LICENSE-report`, both authors);
+  - no change needed for later papers with other co-authors.
+- **Release:**
+  - v0.1.0 published on GitHub; tag `v0.1.0` = `9c3c5fe`;
+  - the first attempt (`v1.0.0`) failed on Zenodo ("Citation metadata load failed"), and the user deleted it;
+  - `.zenodo.json` fixed it;
+  - Zenodo DOI **10.5281/zenodo.24407221**, now in the README badge, "How to cite", `CITATION.cff` and the report.
+- **Housekeeping:**
+  - old branches deleted by the user;
+  - `CLAUDE.md` added (commit rules);
+  - `main` = `claude/pisa-reading` at the end of the session.
 
-### Open (the user)
-1. ~~**`CITATION.cff` authors**~~ done (session 7, from the user):
-   - Qiu Wang: Syracuse University, https://orcid.org/0000-0003-1635-8050;
-   - Yue Zhang: Google, https://orcid.org/0000-0002-9070-9990;
-   - both iDs have valid check digits; the order Wang, Zhang is kept;
-   - the README and report bylines now show both affiliations, with the names linked to the ORCID pages.
-2. ~~**Copyright holders**~~ closed, no change (the user): `LICENSE` (code) names Qiu Wang, who wrote it; `LICENSE-report` names both authors, as the report's byline does. Later papers with new co-authors do not change this repo.
-3. **README rights box:** confirm the ticked box ("legitimate access to the data").
-4. ~~**Style**~~ done: "mathematics" throughout the report and README, as in OECD usage. The image text of Figures 1–4 still says "Math" until `R/a2_06` is rerun. Figure 0's structural model is now labelled "adapted from Zhang & Wang, 2020, Figure 1".
-5. **Release (GitHub, after 2–3):**
-   - make the repo public (Settings → General → Danger Zone → Change visibility);
-   - optional: connect Zenodo first, to get a DOI;
-   - tag `v0.1.0` on `main` (Releases → Draft a new release);
-   - optional: delete the merged remote branches.
+## Next task
+**Open for the user (small):**
+1. Check on the Zenodo record whether 10.5281/zenodo.24407221 is the "all versions" DOI (sidebar: "Cite all versions?"). If the sidebar shows a different number, switch the README badge and `CITATION.cff` `doi:` to that number. The v0.1.0 DOI can go under `identifiers`.
+2. Confirm the README rights box ("legitimate access to the data").
+3. Repo visibility: it is the user's choice (it was public for the Zenodo archive). The GitHub release and the Zenodo record are already published.
 
-### Open (analysis, later)
-- Figures 1 and 4: the PNG text says "primary runs", and Figure 4 says "(spec)". The report's notes explain both. To change them, edit the labels in `R/a2_06` and run `FROM=6 Rscript R/run_all.R` (needs the PISA file).
-- Per-PV pooling and a weighted analysis (`R/a2_07`).
+**Analysis (needs the PISA file):**
+- Redraw Figures 1–4 so their image text says "Mathematics" and "primary models" instead of "Math", "primary runs" and "(spec)". Edit the labels in `R/a2_06`, then run `FROM=6 Rscript R/run_all.R`.
+- Pooling across the five plausible values, and a weighted analysis (`R/a2_07`).
 - A direct test of the digital-vs-print interaction difference.
-- Check in the PISA 2012 Technical Report that the CBA plausible values are imputed for non-sampled students.
-- A1 when the TIMSS files arrive; then Phase B (multilevel, cross-level SES × ICT).
+- Check in the PISA 2012 Technical Report that the computer-based plausible values are imputed for students not sampled.
+- A1 when the TIMSS files arrive; then Phase B (multilevel models with cross-level SES × ICT terms).
 
-### Next step: release done (2026-11-20, end of session 7)
-- The user deleted the v1.0.0 release and tag, and published **v0.1.0**. With `.zenodo.json` in place, Zenodo archived it: **DOI 10.5281/zenodo.24407221** (https://doi.org/10.5281/zenodo.24407221), as given by the user.
-- The DOI is in the README (badge and a citation line under "How to cite"), in `CITATION.cff` (`doi:`) and in the report (Data and code availability). It was added to `main` after the tag, so the archived v0.1.0 files do not contain it; that is normal.
-- **Unconfirmed:** whether this DOI is Zenodo's "all versions" (concept) DOI or the v0.1.0 DOI. Zenodo, doi.org and DataCite are blocked from cloud sessions, so the user should check on the Zenodo record page.
-  - If it is the v0.1.0 DOI, the README badge and `doi:` should use the all-versions DOI (shown in the sidebar under "Cite all versions?"), so they stay right after the next release; the v0.1.0 DOI can go under `identifiers` in `CITATION.cff`.
-- **Next release:** bump `version`/`date-released` in `CITATION.cff` and the version in the README and report bylines; Zenodo makes a new DOI per release.
-- Repo visibility: the user decides; Zenodo needed it public at release time.
+**At the next release:** bump `version` and `date-released` in `CITATION.cff`, and the version in the README and report bylines. Zenodo will make a new DOI.
+
+**Next step:** a new chat on the renamed repo, starting with "Start here", then item 1 above, or the first analysis item if the PISA file is attached.
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**
