@@ -12,7 +12,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 5. **Repo name:** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (renamed from `ses-olt-math-science-…`). Attach the new name to cloud sessions.
 
-## Next task: confirm the merge, then make public and tag v0.1.0 (updated 2026-11-20, end of session 7)
+## Next task: last checks, then make public and tag v0.1.0 (updated 2026-11-20, end of session 7)
 
 ### Status
 - **The repo is renamed** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012`; old links redirect. Start new sessions on the new name. A session attached to the old name can still `git push` through the redirect, but it cannot open or merge PRs.
@@ -30,7 +30,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
   - "the paper" always carries the citation (Zhang & Wang, 2020);
   - R Core Team (2024) and Wickham (2016) were added to the references (51);
   - `CITATION.cff` points to the new repo URL.
-- **Merge check:** the user twice reported merging session 7. Seen from the cloud session, GitHub's `main` was still at the PR #5 merge (`727862b`), and there was no PR #6. On GitHub, `main`'s latest commit should be a merge of `claude/pisa-reading` that includes the "authors' affiliations and ORCIDs" commit. If it is not, open and merge https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012/compare/main...claude/pisa-reading.
+- **Merged:** at the user's request, Code fast-forwarded `main` to `claude/pisa-reading` (`727862b` → `d552ca2`, then this note) by git push, because the PR API is refused under the renamed repo. `main` has all of sessions 6 and 7; start new work from `main`.
 - **Tests:** 61 pass, 2 skip (A1 and the OECD parity check wait for data).
 
 ### Open (the user)
@@ -56,7 +56,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 - A1 when the TIMSS files arrive; then Phase B (multilevel, cross-level SES × ICT).
 
 ### Next step
-Confirm that `main` has session 7 (merge check above). Then settle items 2–4 and release (item 5).
+Settle items 2–4, then release (item 5).
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**
