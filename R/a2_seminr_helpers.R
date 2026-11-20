@@ -16,8 +16,8 @@ a2_key <- function(x) sub("^SES\\*ICT$", "SESxICT", x)
 # "ESCS"; otl_col: the OTL indicator column (OTL = FAMCONC, OTL_PT, EXPUREM, EXAPPLM).
 # Returns list(est = data.frame(id, estimate, se, p_value, ci_low, ci_high), fl_ok, iterations, n),
 # plus boot (the seminr bootstrap object, for draws) when return_boot = TRUE.
-a2_fit_pls <- function(model, lv, ses_col = "SES", otl_col = "OTL", nboot = 5000, seed = 20261120,
-                       cores = max(1L, parallel::detectCores()), return_boot = FALSE) {
+# Build the data, measurement and structural model for one run (interaction = FALSE drops SES x ICT).
+a2_build <- function(model, lv, ses_col = "SES", otl_col = "OTL", interaction = TRUE) {
   dat <- utils::read.csv(sprintf("data/derived/a2_smartpls_model%s.csv", substr(model, 2, 2)))
   # Single items get their own names so they don't clash with the construct names.
   dat$ses_item <- dat[[ses_col]]
@@ -25,17 +25,31 @@ a2_fit_pls <- function(model, lv, ses_col = "SES", otl_col = "OTL", nboot = 5000
   ach <- paste0(lv, 1:5)
   items <- a2_ict_items[[model]]
   dat <- dat[, c("ses_item", "otl_item", items, ach)]
-  mm <- constructs(
+  cons <- list(
     composite("SES", single_item("ses_item")),
     composite("OTL", single_item("otl_item")),
     # Mode A composites = SmartPLS's plain PLS-SEM. seminr's reflective() would switch to PLSc.
     composite("ICT", items, weights = mode_A),
-    composite("ACH", ach, weights = mode_A),
-    interaction_term(iv = "SES", moderator = "ICT", method = two_stage))
+    composite("ACH", ach, weights = mode_A))
+  if (interaction) cons <- c(cons, list(interaction_term(iv = "SES", moderator = "ICT", method = two_stage)))
+  mm <- do.call(constructs, cons)
   sm <- relationships(
     paths(from = c("SES", "ICT"), to = "OTL"),
-    paths(from = c("SES", "ICT", "OTL", "SES*ICT"), to = "ACH"))
-  est <- estimate_pls(dat, mm, sm, inner_weights = path_weighting, maxIt = 3000, stopCriterion = 7)
+    paths(from = c("SES", "ICT", "OTL", if (interaction) "SES*ICT"), to = "ACH"))
+  list(dat = dat, mm = mm, sm = sm, items = items)
+}
+
+# Point estimates only (no bootstrap), e.g. for R-square with and without the interaction (f-square).
+a2_estimate <- function(model, lv, ses_col = "SES", otl_col = "OTL", interaction = TRUE) {
+  m <- a2_build(model, lv, ses_col, otl_col, interaction)
+  estimate_pls(m$dat, m$mm, m$sm, inner_weights = path_weighting, maxIt = 3000, stopCriterion = 7)
+}
+
+a2_fit_pls <- function(model, lv, ses_col = "SES", otl_col = "OTL", nboot = 5000, seed = 20261120,
+                       cores = max(1L, parallel::detectCores()), return_boot = FALSE) {
+  m <- a2_build(model, lv, ses_col, otl_col)
+  dat <- m$dat; items <- m$items
+  est <- estimate_pls(dat, m$mm, m$sm, inner_weights = path_weighting, maxIt = 3000, stopCriterion = 7)
   s <- summary(est)
   pval <- function(e, sd) 2 * stats::pt(-abs(e / sd), df = nboot - 1)
 

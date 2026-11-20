@@ -12,7 +12,9 @@
 # Outputs results/a2_seminr/figures/fig{1..4}_*.png; results/a2_seminr/simple_slopes.csv
 # NBOOT (default 5000) sets the bootstrap for the two refits behind Fig 2.
 
-source("R/a2_seminr_helpers.R")
+# Labels use ×, → and −: read and draw them as UTF-8 even where the session locale is C/POSIX.
+invisible(Sys.setlocale("LC_CTYPE", "C.UTF-8"))
+source("R/a2_seminr_helpers.R", encoding = "UTF-8")
 suppressMessages(library(ggplot2))
 nboot <- as.integer(Sys.getenv("NBOOT", "5000"))
 dir.create("results/a2_seminr/figures", showWarnings = FALSE, recursive = TRUE)
@@ -67,7 +69,7 @@ fig1 <- ggplot(m, aes(estimate, row, colour = mode)) +
   labs(title = "Figure 1. SES × ICT moderation of the SES → achievement path",
        subtitle = "Standardized interaction path with 95% bootstrap CI, school level, primary runs (SES composite)",
        x = "SES × ICT → achievement", y = NULL,
-       caption = "PISA 2012 US, 146 schools (Model 1) and 139 (Model 2). seminr PLS-SEM, two-stage interaction, 5,000 bootstrap samples.\nRows: outcome · OTL measure. Filled = p < .05; labelled with the estimate.") +
+       caption = "PISA 2012 US, 146 schools (Model 1) and 139 (Model 2). seminr PLS-SEM, two-stage interaction, 5,000 bootstrap samples.\nRows: outcome · OTL measure. Filled = p < .05 (t-test on the bootstrap SE, as in SmartPLS); bars = 95% percentile interval,\nwhich can touch zero in borderline cases. Labelled with the estimate.") +
   theme_viz + theme(panel.grid.major.y = element_line(colour = "#f1f0ed", linewidth = .25))
 save(fig1, "fig1_moderation_all.png", 9, 7.5)
 
@@ -81,6 +83,25 @@ if (nrow(sig)) {
 } else { f_out <- "digital"; f_mod <- "M2"; f_otl <- "famconc" }
 c_out <- outc$counterpart[outc$outcome == f_out]
 otl_col <- c(famconc = "OTL", pt = "OTL_PT", expurem = "EXPUREM", exapplm = "EXAPPLM")
+
+# ---- moderation statistics: effect size f² and Benjamini-Hochberg ------------------------
+# f² = (R² with SES x ICT - R² without) / (1 - R² with), from a refit without the interaction.
+# BH within each SES measure: across all 48 cells, and across the 12 FAMCONC cells (the spec's OTL).
+mods <- est[est$id == "path_SESxICT_ACH", c("outcome", "otl", "model", "ses", "estimate", "se", "p_value", "ci_low", "ci_high")]
+r2w  <- est[est$id == "r2_ACH", c("outcome", "otl", "model", "ses", "estimate")]; names(r2w)[5] <- "r2_with"
+mods <- merge(mods, r2w, by = c("outcome", "otl", "model", "ses"))
+mods$r2_without <- unname(mapply(function(o, t, m, s) {
+  e <- suppressMessages(a2_estimate(m, outc$lv[outc$outcome == o], if (s == "escs") "ESCS" else "SES", otl_col[[t]], interaction = FALSE))
+  e$rSquared["Rsq", "ACH"] }, mods$outcome, mods$otl, mods$model, mods$ses))
+mods$f2 <- (mods$r2_with - mods$r2_without) / (1 - mods$r2_with)
+mods$ci_excludes_0 <- mods$ci_low > 0 | mods$ci_high < 0
+mods$p_bh_48 <- stats::ave(mods$p_value, mods$ses, FUN = function(p) stats::p.adjust(p, "BH"))
+mods$p_bh_famconc_12 <- NA_real_
+for (sv in unique(mods$ses)) { k <- mods$ses == sv & mods$otl == "famconc"; mods$p_bh_famconc_12[k] <- stats::p.adjust(mods$p_value[k], "BH") }
+mods <- mods[order(mods$ses != "primary", mods$p_value), ]
+mods_out <- mods; num_cols <- vapply(mods_out, is.numeric, logical(1))
+mods_out[num_cols] <- lapply(mods_out[num_cols], function(x) signif(x, 4))
+utils::write.csv(mods_out, "results/a2_seminr/moderation_stats.csv", row.names = FALSE)
 
 # ---- Fig 2: simple slopes with bootstrap CIs ------------------------------------------------
 z <- c(-1, 0, 1); zlab <- c("Low ICT (−1 SD)", "Mean ICT", "High ICT (+1 SD)")
