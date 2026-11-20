@@ -38,7 +38,13 @@ The files also hold school means of five more sets of PVs:
 - `CPRO1`–`CPRO5`: problem solving.
 
 For a run, copy a model and swap the **MATH** indicators for one of these sets. Name the outcome construct after its prefix (`READ`, `SCIE`, `CREA`, `CMAT` or `CPRO`).
-- PISA 2012 has OTL items for **math only**. The reading and science runs (2026-11-19) kept OTL = FAMCONC as a stated proxy; do the same for digital reading so the runs compare.
+- PISA 2012 has OTL items for **math only**. The reading and science runs (2026-11-19) kept OTL = FAMCONC as a stated proxy.
+- **OTL versions.** The spec's OTL is FAMCONC, column `OTL`. Three columns don't use FAMCONC:
+  - `OTL_PT`: ST73–76 problem-type exposure;
+  - `EXPUREM`: experience with pure-math tasks;
+  - `EXAPPLM`: experience with applied-math tasks.
+
+  See `results/a2/a2_01_pisa2012_school_data.md`, last section. For a non-FAMCONC run, **keep the construct named `OTL` and swap only its indicator**, so the runs line up and `R/a2_02` can tell them apart. For an OTL-free run, delete the OTL construct.
 - The same 8 exports per subject as math: Model 1 and Model 2, primary and ESCS, each with algorithm and 5,000-sample bootstrap.
 - File names don't matter. `R/a2_02` identifies each export by its content.
 

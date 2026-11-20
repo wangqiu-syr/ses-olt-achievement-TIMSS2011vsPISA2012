@@ -57,6 +57,17 @@ st <- data.frame(
   OTL      = num(d$FAMCONC),
   sapply(c(pv, unname(unlist(pv_extra))), function(v) num(d[[v]]))
 )
+# Alternative OTL measures without FAMCONC (exploratory; the spec's OTL stays FAMCONC).
+# ST73-76 ("OTL" items in the file): how often students meet 4 problem types (algebraic word
+# problems, procedural tasks, pure and applied reasoning) in lessons (Q01) and tests (Q02).
+# 1 = frequently ... 4 = never, reversed so higher = more often; mean of >= 6 of the 8 items.
+pt_items <- paste0("ST7", rep(3:6, each = 2), "Q0", 1:2)
+pt <- sapply(pt_items, function(v) 5 - num(d[[v]]))
+colnames(pt) <- paste0("PT_", pt_items)
+st <- cbind(st, pt)
+st$OTL_PT  <- ifelse(rowSums(!is.na(pt)) >= 6, rowMeans(pt, na.rm = TRUE), NA_real_)
+st$EXPUREM <- num(d$EXPUREM)   # PISA index: experience with pure-math tasks at school (ST61)
+st$EXAPPLM <- num(d$EXAPPLM)   # PISA index: experience with applied-math tasks at school (ST61)
 
 # ---- school level ----------------------------------------------------------
 sch_vars <- c("SC13Q01", "SC13Q02", "SC13Q03", "SC14Q07", "SC14Q08", "SC14Q09",
@@ -75,9 +86,14 @@ sch <- do.call(rbind, lapply(names(by_sch), function(id) {
     SES    = wmean(s$SES,  s$w),
     ESCS   = wmean(s$ESCS, s$w),
     OTL    = wmean(s$OTL,  s$w),
+    n_otl_pt = sum(!is.na(s$OTL_PT)),
+    OTL_PT  = wmean(s$OTL_PT,  s$w),
+    EXPUREM = wmean(s$EXPUREM, s$w),
+    EXAPPLM = wmean(s$EXAPPLM, s$w),
     sum_stu_wt = sum(s$w)
   )
   for (k in 1:5) out[[paste0("MATH", k)]] <- wmean(s[[pv[k]]], s$w)
+  for (v in colnames(pt)) out[[v]] <- wmean(s[[v]], s$w)
   for (dom in names(pv_extra)) for (k in 1:5) out[[paste0(dom, k)]] <- wmean(s[[pv_extra[[dom]][k]]], s$w)
   for (v in sch_vars) out[[v]] <- num(d[[v]][i[1]])
   out
@@ -104,7 +120,8 @@ sch$in_m2 <- sch$enough_otl & stats::complete.cases(sch[, c(core, m2_items)])
 
 utils::write.csv(sch, "data/derived/a2_pisa2012_school.csv", row.names = FALSE)
 keep <- c("SCHOOLID", "SES", "OTL", paste0("MATH", 1:5), "ESCS", "sum_stu_wt",
-          paste0(rep(names(pv_extra), each = 5), 1:5))  # READ/SCIE/CREA/CMAT/CPRO: exploratory runs only
+          paste0(rep(names(pv_extra), each = 5), 1:5),  # READ/SCIE/CREA/CMAT/CPRO: exploratory runs only
+          "OTL_PT", "EXPUREM", "EXAPPLM")              # OTL without FAMCONC: exploratory runs only
 # SmartPLS wants plain numeric CSV: comma-delimited, no quotes, numeric ID.
 write_spls <- function(df, path) {
   df$SCHOOLID <- as.integer(df$SCHOOLID)
@@ -114,6 +131,7 @@ write_spls <- function(df, path) {
 }
 write_spls(sch[sch$in_m1, c(keep, m1_items)], "data/derived/a2_smartpls_model1.csv")
 write_spls(sch[sch$in_m2, c(keep, m2_items)], "data/derived/a2_smartpls_model2.csv")
+stopifnot(!anyNA(sch[sch$in_m1 | sch$in_m2, keep]))  # SmartPLS rejects missing cells
 
 # ---- checks (spec 6, D1-D5) ------------------------------------------------
 math_mean <- mean(sapply(pv, function(v) wmean(num(d[[v]]), w)))
@@ -196,7 +214,21 @@ rep <- c(
   sprintf("- ICT resources, 3 shortage items only: %s", fmt(alpha(as.matrix(m2[, m2_items[1:3]])))),
   sprintf("- Math, 5 PV school means: %s", fmt(alpha(as.matrix(m1[, paste0("MATH", 1:5)])), 3)),
   sprintf("- Correlation of RATCMP15 with the shortage composite: %s", fmt(stats::cor(m2$ICTRES_RATIO, comp(m2, m2_items[1:3])))),
-  sprintf("- RATCMP15 range %s to %s (skewed; watch its loading).", fmt(min(m2$ICTRES_RATIO)), fmt(max(m2$ICTRES_RATIO)))
+  sprintf("- RATCMP15 range %s to %s (skewed; watch its loading).", fmt(min(m2$ICTRES_RATIO)), fmt(max(m2$ICTRES_RATIO))),
+  "", "## OTL without FAMCONC (exploratory)", "",
+  "The spec's OTL is FAMCONC (column `OTL`). The files also carry three measures that don't use it, all school means:",
+  "- `OTL_PT`: ST73–76, how often students meet 4 problem types in lessons and tests (8 items, 1–4, higher = more often).",
+  "- `EXPUREM` and `EXAPPLM`: PISA indices of experience with pure-math and applied-math tasks (ST61).", "",
+  "| Sample | r math–OTL (FAMCONC) | r math–OTL_PT | r math–EXPUREM | r math–EXAPPLM | r OTL–OTL_PT | r OTL–EXPUREM | r OTL–EXAPPLM |",
+  "|---|---|---|---|---|---|---|---|",
+  vapply(list(list(m1, "Model 1"), list(m2, "Model 2")), function(z) { x <- z[[1]]; mth <- rowMeans(x[, paste0("MATH", 1:5)])
+    paste0(sprintf("| %s (n = %d) | ", z[[2]], nrow(x)), paste(fmt(c(stats::cor(mth, x$OTL), stats::cor(mth, x$OTL_PT), stats::cor(mth, x$EXPUREM),
+      stats::cor(mth, x$EXAPPLM), stats::cor(x$OTL, x$OTL_PT), stats::cor(x$OTL, x$EXPUREM), stats::cor(x$OTL, x$EXAPPLM))), collapse = " | "), " |") }, ""),
+  "",
+  sprintf("- Cronbach's alpha of the 8 ST73–76 school means (Model 1 sample): %s. Only the procedural-task items (ST74) track math (r = %s and %s).",
+          fmt(alpha(as.matrix(m1[, colnames(pt)]))), fmt(stats::cor(m1$PT_ST74Q01, rowMeans(m1[, paste0("MATH", 1:5)]))),
+          fmt(stats::cor(m1$PT_ST74Q02, rowMeans(m1[, paste0("MATH", 1:5)])))),
+  sprintf("- Every school in both samples has at least %d students with ST73–76 data.", as.integer(min(sch$n_otl_pt[sch$in_m1 | sch$in_m2])))
 )
 writeLines(rep, "results/a2/a2_01_pisa2012_school_data.md")
 

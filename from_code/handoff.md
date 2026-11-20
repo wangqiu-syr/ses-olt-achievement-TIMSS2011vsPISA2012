@@ -14,7 +14,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 The `reading` results are **print reading** (`PV1READ`–`PV5READ`). Digital reading is `CREA`. Relabel the reading report "print reading" once digital is in.
 
 **Runs the user plans for tonight:**
-1. OTL-free runs: the same models without FAMCONC (answers session 5 open item 1).
+1. A second OTL without FAMCONC, run beside the FAMCONC one (the user: "two OTLs, one with, one without"). Construct `OTL`, with its indicator swapped for `OTL_PT`, `EXPUREM` or `EXAPPLM`. All runs so far used FAMCONC.
 2. Digital reading (`CREA`).
 3. Computer-based math (`CMAT`) and problem solving (`CPRO`), with FAMCONC as OTL.
 
@@ -24,7 +24,8 @@ The `reading` results are **print reading** (`PV1READ`–`PV5READ`). Digital rea
 - **To check:** school-level r(READ1, CREA1) is .82–.83, and r(MATH1, CMAT1) .81–.82, r(MATH1, CPRO1) .78–.79. These are *lower* than the student-level r = .86, though school means usually correlate more strongly than students. That fits only a subsample sitting the computer-based test, with model-imputed PVs for the rest. Check the PISA 2012 technical report before interpreting CBA paths.
 
 **Still to do before reading tonight's exports:**
-- `R/a2_02` can't yet tell an OTL-free run from a with-OTL run of the same subject: both classify as the same run and the script stops. Add an `otl` field to the classifier (OTL construct present or not), a run label such as `primary_nootl`, and the no-OTL rows to the reports. Add `CMAT`/`CPRO` to the outcome list.
+- `R/a2_02` can't yet tell OTL versions apart: two runs of one subject that differ only in OTL classify as the same run, and the script stops. Add an `otl` field to the classifier, taken from the OTL construct's indicator (`OTL <- OTL` = famconc; `OTL_PT`, `EXPUREM`, `EXAPPLM`; or no OTL construct = none). Add run labels such as `primary_otlpt`, and report the versions side by side. Add `CMAT`/`CPRO` to the outcome list.
+- **Session 5, end:** added the non-FAMCONC OTL columns to `R/a2_01`, rebuilt, and re-sent the two CSVs. The samples are unchanged. School-level r with math: FAMCONC .68–.71, `EXPUREM` .50–.53, `EXAPPLM` .31, `OTL_PT` .24. `OTL_PT` α = .74, and only its ST74 procedural items track math. Details: `results/a2/a2_01_pisa2012_school_data.md`, last section.
 - **Repo:** the user said "leave the power to another repo now". Read it as: CMAT/CPRO (or that strand) goes to its own repo later, and no PR now. Confirm with the user. Code can't create repos; the user creates them empty on GitHub.
 
 ## Session 5 (2026-11-19): PISA reading and science read (branch `claude/pisa-reading`, off `main`)
