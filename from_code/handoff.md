@@ -12,7 +12,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
 ## Next task: the user's review, then release (restructure done 2026-11-20, session 6)
-The repo is restructured for release on `claude/pisa-reading`, and a PR to `main` is open. The user's decisions (2026-11-20):
+The repo is restructured for release on `claude/pisa-reading`, and a PR to `main` is open: https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012/pull/5. The user's decisions (2026-11-20):
 - full-study report;
 - Markdown;
 - MIT for code and CC BY 4.0 for the report and figures;
