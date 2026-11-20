@@ -12,7 +12,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 5. **Repo name:** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (renamed from `ses-olt-math-science-…`). Attach the new name to cloud sessions.
 
-## Next task: last checks, then make public and tag v0.1.0 (updated 2026-11-20, end of session 7)
+## Next task: Zenodo DOI for v0.1.0, then make the repo public (updated 2026-11-20, end of session 7)
 
 ### Status
 - **The repo is renamed** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012`; old links redirect. Start new sessions on the new name. A session attached to the old name can still `git push` through the redirect, but it cannot open or merge PRs.
@@ -55,8 +55,23 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 - Check in the PISA 2012 Technical Report that the CBA plausible values are imputed for non-sampled students.
 - A1 when the TIMSS files arrive; then Phase B (multilevel, cross-level SES × ICT).
 
-### Next step
-Confirm item 3, then release (item 5).
+### Next step: get the Zenodo DOI (paused 2026-11-20; the user is in a meeting)
+State at pause:
+- the user published GitHub release v0.1.0, then set the repo back to **private**;
+- Zenodo's GitHub page lists `ses-olt-achievement-TIMSS2011vsPISA2012` as ON, but with **no DOI**, so Zenodo never archived the release;
+- the cloud session cannot see the `v0.1.0` tag, and still lists the old branches `claude/bold-gates-y7az9v` and `claude/charming-tesla-llewy4`, which the user deleted; recheck both on GitHub;
+- tag pushes and branch deletions are refused for cloud sessions (HTTP 403), so the user does those on GitHub.
+
+To finish:
+1. Make the repo public (Settings → General → Danger Zone). Zenodo does not support private repositories.
+2. On https://zenodo.org/account/settings/github/, click the repo name and check whether v0.1.0 is listed:
+   - not listed: Zenodo never received it, probably because the repo was private when it was published;
+   - listed with an error: read the error. If it is about metadata, add a `.zenodo.json`.
+3. Re-publish: on GitHub's Releases page, delete the v0.1.0 *release* but keep the tag, then go to "Draft a new release", choose tag `v0.1.0`, use the same notes, and Publish. Editing the release does not trigger Zenodo.
+4. When the DOI badge appears, take both DOIs (the "all versions" DOI and the v0.1.0 DOI). Then add:
+   - a README badge and a citation line, using the all-versions DOI;
+   - in `CITATION.cff`, `doi:` set to the all-versions DOI, and the v0.1.0 DOI under `identifiers`;
+   - then push to `main`.
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**
