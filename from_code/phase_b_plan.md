@@ -56,6 +56,7 @@ Students within classes (teacher link file BST), with teacher computer use and O
 3. Missing OTL: FIML in Mplus with WeMix on complete cases as a check, or multiple imputation for both.
 4. SES: composite primary and ESCS as sensitivity, as in Phase A.
 5. New repo name.
+6. Independent test: the H1 hypothesis came from these US PISA 2012 data, so a test on the same students is not independent. Also fit the preregistered models on other countries that took PISA 2012's computer-based tests, or on a later cycle? (Added in session 8.)
 
 ## First steps in the new chat (laptop)
 1. Create the new repo with this repo's layout, and reuse `R/a2_01_prepare_pisa2012.R` for the SES, OTL and ICT construction.
