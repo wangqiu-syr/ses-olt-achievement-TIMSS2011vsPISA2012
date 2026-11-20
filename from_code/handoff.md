@@ -10,43 +10,53 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
    - install seminr from GitHub as in `R/README.md`, last paragraph.
 3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (61 pass, 2 skip). `Rscript R/run_all.R` runs every automated step (about 35 min); `DRY_RUN=1` lists them.
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
+5. **Repo name:** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (renamed from `ses-olt-math-science-…`). Attach the new name to cloud sessions.
 
-## Next task: the user's review, then make public and tag (restructure merged 2026-11-20, session 6; edits session 7)
-The repo is restructured for release. Code merged it to `main` at the user's request: https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012/pull/5. `main` now has everything; start new work from `main`. The user's decisions (2026-11-20):
-- full-study report;
-- Markdown;
-- MIT for code and CC BY 4.0 for the report and figures;
-- restructure on the branch, then one PR.
+## Next task: authors' details, then make public and tag v0.1.0 (updated 2026-11-20, end of session 7)
 
-**Done:**
-- `report/report.md` is the main body: question, data and measures, confirmatory math vs. TIMSS, exploratory grid, moderation, discussion, limitations, conclusions. It is built from the old `results/a2_seminr/moderation_report.md` (now a stub pointing to the report) and `results/a2/summary.md`.
-- `report/references.bib` holds the report's 49 references. Authors are given with initials, as in the checked list.
-- `report/figures/` holds `fig0_design_flowchart` (moved from `docs/figures/`, label updated, re-rendered) and `fig1`–`fig4` (moved from `results/a2_seminr/figures/`). `R/a2_06` now writes there.
-- `README.md` follows the Social Science Data Editors template, with a map of tables and figures to programs.
-- `R/run_all.R` runs a2_01, a2_04 × 3, a2_05, a2_06 and the tests (`FROM`, `TO`, `DRY_RUN`, `NBOOT`).
-- `LICENSE` now names Qiu Wang (it said "QW"). `LICENSE-report` holds CC BY 4.0, with the full legal text from the SPDX copy. `CITATION.cff` lists both licences.
-- `tests/testthat/test-release-layout.R` checks links, run_all's scripts, the figure paths and the bib count (17 tests).
+### Status
+- **The repo is renamed** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012`; old links redirect. Start new sessions on the new name. A session attached to the old name can still `git push` through the redirect, but it cannot open or merge PRs.
+- **Session 6** (merged to `main` in PR #5) restructured the repo for release:
+  - `README.md` is a replication README (Social Science Data Editors template);
+  - `report/` holds `report.md` (the full study), `figures/` (fig0–fig4) and `references.bib`;
+  - `R/run_all.R` runs every automated step;
+  - `LICENSE` (MIT) covers the code and `LICENSE-report` (CC BY 4.0) the report text and figures;
+  - `tests/testthat/test-release-layout.R` checks the layout.
+- **Session 7** (the user's review), on branch `claude/pisa-reading`, commits `f7f76d3` and `fc1148c`:
+  - figure order fixed: the OTL-measure section is now §7, after moderation; Discussion is §8, Limitations §9, Conclusions §10, and Tables 5–7 are renumbered;
+  - one title everywhere: "Opportunity to learn, socioeconomic status and school ICT in US achievement: from TIMSS 2011 to PISA 2012";
+  - "grid"/"runs" became "models"/"96 model specifications" in the report, the README and Figure 0;
+  - figure and table notes spell out every abbreviation;
+  - "the paper" always carries the citation (Zhang & Wang, 2020);
+  - R Core Team (2024) and Wickham (2016) were added to the references (51);
+  - `CITATION.cff` points to the new repo URL.
+- **Merge check:** the user reported merging session 7. At the end of the session, GitHub's `main` was still at the PR #5 merge (`727862b`), without `f7f76d3`, `fc1148c` or this note. If `main` still lacks them, open and merge https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012/compare/main...claude/pisa-reading.
+- **Tests:** 61 pass, 2 skip (A1 and the OECD parity check wait for data).
 
-**Open for the user:**
-1. Review `report/report.md` and `README.md`. Review edits now go to the report, not the stub.
-2. `CITATION.cff`: author order, affiliations and ORCIDs. LICENSE names Qiu Wang only, and LICENSE-report names both authors; confirm both.
-3. README rights statement: confirm the checked box (legitimate access to the PISA data).
-4. ~~Figure order~~ fixed in session 7: the OTL-measure section moved after moderation (now §7), so the figures run 0–4 in order. Discussion is now §8, limitations §9 and conclusions §10; Tables 5–7 were renumbered.
-6. **Session 7 edits (2026-11-20, at the user's request):**
-   - one title everywhere (README, report, CITATION): "Opportunity to learn, socioeconomic status and school ICT in US achievement: from TIMSS 2011 to PISA 2012". It names no citation, because the authors' own 2020 paper is cited in the first line of the abstract.
-   - "grid" and "runs" became "models" / "96 model specifications" in the report, the README and Figure 0. The technical files (`docs/`, `results/`, code) keep "grid".
-   - Every figure and table note in the report spells out FAMCONC, OTL_PT, EXPUREM, EXAPPLM, ESCS and the other abbreviations.
-   - "the paper" now always carries the citation (Zhang & Wang, 2020).
-   - R Core Team (2024) and Wickham (2016, ggplot2) were added to the references (51 now).
-   - The PNG texts of Figures 1 and 4 still say "primary runs", and Figure 4 says "(spec)"; the notes explain both. To change the images, edit the label strings in `R/a2_06` and run `FROM=6 Rscript R/run_all.R` with the data.
-   - Style choice left to the user: "math" (used throughout) or "mathematics".
-7. **The repo was renamed** to `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (seen 2026-11-20). `CITATION.cff` now points there. Old links redirect. Sessions are attached to the old name, so git push works through the redirect, but the GitHub API (PRs) refuses. Start new sessions on the new name.
-8. **Session 7's PR was not opened** (API refused under the new name). The branch `claude/pisa-reading` is pushed, ahead of `main`. Open and merge it at https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012/compare/main...claude/pisa-reading. A suggested title and body are in the session 7 chat.
-5. **Release checklist (the user's GitHub actions, after 1–4):**
+### Open (the user)
+1. **`CITATION.cff` authors:** order, affiliations, ORCIDs.
+   - Yue Zhang's ORCID is https://orcid.org/0000-0002-9070-9990 (from the user; the check digit is valid). It is not in `CITATION.cff` yet.
+   - Her affiliation is unknown. orcid.org is blocked from cloud sessions, and a web search found nothing. The user can read it off her ORCID page.
+   - Qiu Wang's ORCID and affiliation are also needed.
+   - CFF format, per author: `orcid: "https://orcid.org/…"` and `affiliation: "…"`.
+2. **Copyright holders:** `LICENSE` names Qiu Wang only; `LICENSE-report` names both authors.
+3. **README rights box:** confirm the ticked box ("legitimate access to the data").
+4. **Style:** "math" (used throughout) or "mathematics".
+5. **Release (GitHub, after 1–3):**
    - make the repo public (Settings → General → Danger Zone → Change visibility);
-   - tag `v0.1.0` (Releases → Draft a new release → tag `v0.1.0` on `main`), or ask Code to;
-   - optional: connect Zenodo before tagging, to get a DOI;
+   - optional: connect Zenodo first, to get a DOI;
+   - tag `v0.1.0` on `main` (Releases → Draft a new release);
    - optional: delete the merged remote branches.
+
+### Open (analysis, later)
+- Figures 1 and 4: the PNG text says "primary runs", and Figure 4 says "(spec)". The report's notes explain both. To change them, edit the labels in `R/a2_06` and run `FROM=6 Rscript R/run_all.R` (needs the PISA file).
+- Per-PV pooling and a weighted analysis (`R/a2_07`).
+- A direct test of the digital-vs-print interaction difference.
+- Check in the PISA 2012 Technical Report that the CBA plausible values are imputed for non-sampled students.
+- A1 when the TIMSS files arrive; then Phase B (multilevel, cross-level SES × ICT).
+
+### Next step
+Confirm that `main` has session 7 (merge check above). Then fill in `CITATION.cff` (item 1). That edit is small enough to make on GitHub directly, or in a new session on the renamed repo.
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**
