@@ -27,6 +27,16 @@ data/
 | PISA 2012, user copy (A2) | User | Upload the raw `.sav` into `data/raw/pisa2012/user_sav/`. |
 | PISA 2012, independent copy (A2) | Code | An `R/` script downloads from oecd.org into `data/raw/pisa2012/oecd/`. If blocked, the user uploads the OECD originals (see plan.md). |
 
+## The PISA 2012 file used here
+
+`data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav` is a **US extract of the PISA 2012 international database**: the student questionnaire file merged with the school questionnaire file by `SCHOOLID`, with 4,978 students in 162 schools. The project uses these variables:
+- student: `W_FSTUWT`, `ST28Q01`, `HISCED`, `HOMEPOS`, `ESCS`, `FAMCONC`, `EXPUREM`, `EXAPPLM`, `ST73Q01`–`ST76Q02`, and the PVs for `MATH`, `READ`, `SCIE`, `CREA`, `CMAT`, `CPRO`;
+- school: `SC13Q01`–`03`, `SC14Q07`–`09`, `RATCMP15`, `cSC40Q01`, `W_FSCHWT`.
+
+Its SHA-256 is in `results/a2/data_manifest.csv`.
+
+**To rebuild it**, download the PISA 2012 student and school questionnaire data files from the OECD PISA 2012 database page. Keep `CNT == "USA"`, merge school onto student records by `SCHOOLID`, and save as SPSS. Then check it against `results/a2/a2_01_checks.csv`: `R/a2_01` must report 4,978 students, 162 schools and a weighted math mean of 481.37. The data are © OECD and used under the OECD terms; they are not redistributed here.
+
 ## Provenance
 
 For every raw file it reads, Code records the file name, size, SHA-256 and

@@ -1,15 +1,26 @@
-# PLACEHOLDER: fill in authors, title, version and DOI before release.
+# Confirm author order, affiliations and ORCIDs before tagging a release.
 cff-version: 1.2.0
-message: "If you use this code, please cite it as below."
+message: "If you use this code or its results, please cite it as below, and cite Zhang & Wang (2020)."
 type: software
-title: "SES, opportunity to learn, and math/science achievement: TIMSS 2011 vs PISA 2012 (replication code)"
+title: "SES, opportunity to learn, computer use and achievement: Zhang & Wang (2020) on TIMSS 2011, and an analogue on PISA 2012"
 authors:
-  - family-names: "TODO"
-    given-names: "TODO"
-version: "0.0.0"
-date-released: "2026-11-19"
+  - family-names: "Wang"
+    given-names: "Qiu"
+  - family-names: "Zhang"
+    given-names: "Yue"
+version: "0.1.0"
+date-released: "2026-11-20"
 license: MIT
 repository-code: "https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012"
+keywords:
+  - opportunity to learn
+  - socioeconomic status
+  - ICT
+  - moderation
+  - PISA 2012
+  - TIMSS 2011
+  - PLS-SEM
+  - replication
 references:
   - type: article
     authors:

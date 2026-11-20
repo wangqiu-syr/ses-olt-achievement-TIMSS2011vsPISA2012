@@ -91,4 +91,4 @@ PISA math is from `results/a2/`; its indirect and total effects are products and
 
 - **Differences between subjects are descriptive.** Every run uses the same schools, the same SES, OTL and ICT measures, and outcomes that are school means of correlated PVs, so similar paths are expected. Testing a reading-vs-math difference needs both outcomes in one model with a shared bootstrap. Overlapping CIs show only that these data can't tell the paths apart.
 - With 139–146 schools, paths below about |.21| are unlikely to reach p < .05 (spec D4). Many paths are tested per run, so a single p just under .05 is weak evidence.
-- TIMSS 2011 has no reading assessment, so there is no paper column. Digital reading (`CREA1`–`CREA5`) is the planned next comparison; the school files now carry it.
+- TIMSS 2011 has no reading assessment, so there is no paper column. Digital reading (`CREA`) is in the `seminr` grid: `results/a2_seminr/`.

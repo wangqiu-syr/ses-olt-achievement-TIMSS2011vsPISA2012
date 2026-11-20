@@ -14,9 +14,10 @@ a2_key <- function(x) sub("^SES\\*ICT$", "SESxICT", x)
 
 # Fit one run. model: "M1" or "M2"; lv: outcome prefix (MATH, READ, ...); ses_col: "SES" or
 # "ESCS"; otl_col: the OTL indicator column (OTL = FAMCONC, OTL_PT, EXPUREM, EXAPPLM).
-# Returns list(est = data.frame(id, estimate, se, p_value, ci_low, ci_high), fl_ok, iterations, n).
+# Returns list(est = data.frame(id, estimate, se, p_value, ci_low, ci_high), fl_ok, iterations, n),
+# plus boot (the seminr bootstrap object, for draws) when return_boot = TRUE.
 a2_fit_pls <- function(model, lv, ses_col = "SES", otl_col = "OTL", nboot = 5000, seed = 20261120,
-                       cores = max(1L, parallel::detectCores())) {
+                       cores = max(1L, parallel::detectCores()), return_boot = FALSE) {
   dat <- utils::read.csv(sprintf("data/derived/a2_smartpls_model%s.csv", substr(model, 2, 2)))
   # Single items get their own names so they don't clash with the construct names.
   dat$ses_item <- dat[[ses_col]]
@@ -85,7 +86,9 @@ a2_fit_pls <- function(model, lv, ses_col = "SES", otl_col = "OTL", nboot = 5000
   sq <- sqrt(c(SES = 1, OTL = 1, ICT = rel["ICT", "AVE"], ACH = rel["ACH", "AVE"]))
   fl_ok <- all(vapply(utils::combn(names(sq), 2, simplify = FALSE),
                       function(pr) abs(lc[pr[1], pr[2]]) < min(sq[pr]), logical(1)))
-  list(est = do.call(rbind, rows), fl_ok = fl_ok, iterations = est$iterations, n = nrow(dat))
+  out <- list(est = do.call(rbind, rows), fl_ok = fl_ok, iterations = est$iterations, n = nrow(dat))
+  if (return_boot) out$boot <- b
+  out
 }
 
 # Criteria M1-M4 (spec section 6) for one fitted run, as in R/a2_02.

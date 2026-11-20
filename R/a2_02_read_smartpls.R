@@ -509,7 +509,7 @@ rep <- c(
   sprintf("- **Differences between subjects are descriptive.** Every run uses the same schools, the same SES, OTL and ICT measures, and outcomes that are school means of correlated PVs, so similar paths are expected. Testing a %s-vs-math difference needs both outcomes in one model with a shared bootstrap. Overlapping CIs show only that these data can't tell the paths apart.", l),
   "- With 139–146 schools, paths below about |.21| are unlikely to reach p < .05 (spec D4). Many paths are tested per run, so a single p just under .05 is weak evidence.",
   if (timss) "- TIMSS-vs-PISA differences in design (teacher vs. school level, Grade 8 vs. age 15, teacher-reported vs. student-reported OTL, classroom vs. principal-reported ICT) are listed in spec section 7. For science, add that PISA's OTL is about math, not science.",
-  if (outcome == "reading") "- TIMSS 2011 has no reading assessment, so there is no paper column. Digital reading (`CREA1`–`CREA5`) is the planned next comparison; the school files now carry it."
+  if (outcome == "reading") "- TIMSS 2011 has no reading assessment, so there is no paper column. Digital reading (`CREA`) is in the `seminr` grid: `results/a2_seminr/`."
 )
 }
 writeLines(rep, file.path(oc$dir, "summary.md"))
