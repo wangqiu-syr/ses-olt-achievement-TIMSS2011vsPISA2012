@@ -37,9 +37,38 @@ CC BY 4.0 (CC-By Attribution 4.0 International), matching `LICENSE-report`.
 - **Conflict of interest:** None (the user's decision). There is no funding, and the study evaluates no product.
 - **Published in a journal?** No.
 
+## Citations
+
+### OSF fields "Publication DOI" and "Publication citation"
+These fields are for a version already published elsewhere, usually a peer-reviewed journal article, and OSF shows them on the preprint page as that published version. **Recommended: leave both empty.** The report has no journal version yet, and the Zenodo archive is already linked as data and code.
+
+When a journal publishes the paper, edit the preprint on OSF and fill in both fields with the journal's DOI and citation.
+
+If you still want to point to the Zenodo archive here, use the same citation as the README:
+
+> Wang, Q., & Zhang, Y. (2026). *Opportunity to learn, socioeconomic status and school ICT in US achievement: From TIMSS 2011 to PISA 2012* (Version 0.1.0) [Computer software and report]. Zenodo. https://doi.org/10.5281/zenodo.24407221
+
+### Citation of the preprint itself
+OSF generates APA, MLA and Chicago citations on the preprint page from the form, so enter the names as "Qiu Wang" and "Yue Zhang" and the title exactly as above. Once moderation gives the DOI (EdArXiv DOIs start `10.35542/osf.io/`), the citation is:
+
+> Wang, Q., & Zhang, Y. (2026). *Opportunity to learn, socioeconomic status and school ICT in US achievement: From TIMSS 2011 to PISA 2012* [Preprint]. EdArXiv. https://doi.org/10.35542/osf.io/XXXXX
+
+```bibtex
+@misc{wang2026otl,
+  author    = {Wang, Qiu and Zhang, Yue},
+  title     = {Opportunity to learn, socioeconomic status and school {ICT} in {US} achievement: From {TIMSS} 2011 to {PISA} 2012},
+  year      = {2026},
+  publisher = {EdArXiv},
+  note      = {Preprint},
+  doi       = {10.35542/osf.io/XXXXX}
+}
+```
+
+Replace `XXXXX` with the real identifier, keeping any version suffix such as `_v1`. The README's "How to cite" will then give two citations: the preprint for the report, and Zenodo for the code and results.
+
 ## After moderation (a day or two)
 Send the preprint DOI to a Code session. It will:
-- add the DOI to the README ("How to cite"), the report's byline and "Data and code availability", and `CITATION.cff`/`.zenodo.json` as a related identifier;
+- add the DOI to the README ("How to cite", with the preprint citation above), the report's byline and "Data and code availability", and `CITATION.cff`/`.zenodo.json` as a related identifier;
 - rebuild the PDF.
 
 Then on Zenodo, edit the record's metadata and add the preprint DOI under "Related works" (e.g. "Is supplement to"). Editing metadata does not need a new version.

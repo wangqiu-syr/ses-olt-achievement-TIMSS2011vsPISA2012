@@ -30,6 +30,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 - **EdArXiv form answers:** `from_code/edarxiv_submission.md`.
 - Keywords, preregistration (no) and conflict of interest (none) were settled by the user.
 - Pushed to `claude/laughing-thompson-e3voj8` and to `main` (the user's instruction).
+- **Citations:** the OSF fields "Publication DOI" and "Publication citation" should be left empty (they are for a journal version); the preprint citation templates are in `from_code/edarxiv_submission.md`. The README citation block no longer runs into the next sentence.
 - **Phase B preregistration (advice given):** not required, but the report itself (§8.7) says directional interaction hypotheses should be preregistered. Use OSF's secondary-data preregistration template and declare what is already known from A2. A multilevel test on the same US PISA 2012 students is not independent of the school-level finding that motivated it; a later PISA cycle or other countries would be a real test.
 
 ## Session 7 (2026-11-20): review, release v0.1.0, Zenodo DOI. Done
@@ -68,7 +69,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 4. Repo visibility is the user's choice.
 5. **Phase B:** the user asked whether to preregister it. Recommended: an OSF registration with the secondary-data template before fitting, ideally tested on data the A2 finding didn't come from (see session 8).
 
-**After EdArXiv moderation:** add the preprint DOI to the README ("How to cite"), the report (byline and "Data and code availability") and `CITATION.cff`/`.zenodo.json` (related identifier), then rebuild the PDF. On Zenodo, add the preprint DOI under "Related works".
+**After EdArXiv moderation:** add the preprint DOI to the README ("How to cite", using the APA and BibTeX templates in `from_code/edarxiv_submission.md`, "Citations"), the report (byline and "Data and code availability") and `CITATION.cff`/`.zenodo.json` (related identifier), then rebuild the PDF. On Zenodo, add the preprint DOI under "Related works".
 
 **Analysis (needs the PISA file):**
 - Redraw Figures 1–4 so their image text says "Mathematics" and "primary models" instead of "Math", "primary runs" and "(spec)". Edit the labels in `R/a2_06`, then run `FROM=6 Rscript R/run_all.R`, then `bash report/pdf/build.sh`.
