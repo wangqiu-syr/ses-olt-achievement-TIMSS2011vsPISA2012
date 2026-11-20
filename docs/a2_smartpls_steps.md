@@ -48,6 +48,8 @@ For a run, copy a model and swap the **MATH** indicators for one of these sets. 
 - The same 8 exports per subject as math: Model 1 and Model 2, primary and ESCS, each with algorithm and 5,000-sample bootstrap.
 - File names don't matter. `R/a2_02` identifies each export by its content.
 
+**Scripted alternative (2026-11-20).** `R/a2_05_seminr_runs.R` fits every outcome × OTL measure × model × SES combination in R with `seminr`, using these SmartPLS settings. `R/a2_04` showed the settings reproduce SmartPLS. Results are in `results/a2_seminr/`. SmartPLS runs by hand are now optional, for spot checks.
+
 ## Send back
 Attach the Excel exports here: 2 primary runs plus up to 4 sensitivity runs. Name each file `M1_primary`, `M2_PLSc`, and so on. Include the bootstrap seed.
 

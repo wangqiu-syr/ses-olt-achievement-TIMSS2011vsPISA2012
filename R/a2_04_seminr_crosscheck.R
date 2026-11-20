@@ -16,7 +16,7 @@
 # seminr: CRAN is blocked in the cloud sandbox, so seminr 2.6.0 was installed from its GitHub
 # source (see R/README.md). On a laptop, install.packages("seminr") is enough.
 
-suppressMessages(library(seminr))
+source("R/a2_seminr_helpers.R")
 args    <- commandArgs(trailingOnly = TRUE)
 outcome <- if (length(args)) tolower(args[1]) else "math"
 cfg <- list(math    = list(tag = "math", lv = "MATH", label = "Math",    dir = "results/a2"),
@@ -27,80 +27,16 @@ oc    <- cfg[[outcome]]
 nboot <- as.integer(Sys.getenv("NBOOT", "5000"))
 seed  <- 20261120
 cores <- max(1L, parallel::detectCores())
-ict_items <- list(M1 = c("ICTUSE_LESSON", "ICTUSE_HOMEWK", "ICTUSE_ASSIGN"),
-                  M2 = c("ICTRES_COMP", "ICTRES_NET", "ICTRES_SOFT"))  # ICTRES_RATIO dropped, as in SmartPLS
 runs <- expand.grid(run = c("primary", "escs"), model = c("M1", "M2"), stringsAsFactors = FALSE)[, 2:1]
-key  <- function(x) sub("^SES\\*ICT$", "SESxICT", x)
-pval <- function(est, sd) 2 * stats::pt(-abs(est / sd), df = nboot - 1)
 
-# ---- fit one run -------------------------------------------------------------------
+# ---- fit one run (model code in R/a2_seminr_helpers.R) -------------------------------
 fit_run <- function(model, run) {
-  dat <- utils::read.csv(sprintf("data/derived/a2_smartpls_model%s.csv", substr(model, 2, 2)))
-  # Single items get their own names so they don't clash with the construct names.
-  dat$ses_item <- dat[[if (run == "escs") "ESCS" else "SES"]]
-  dat$otl_item <- dat$OTL
-  ach <- paste0(oc$lv, 1:5)
-  dat <- dat[, c("ses_item", "otl_item", ict_items[[model]], ach)]
-  mm <- constructs(
-    composite("SES", single_item("ses_item")),
-    composite("OTL", single_item("otl_item")),
-    # Mode A composites = SmartPLS's plain PLS-SEM. seminr's reflective() would switch to PLSc.
-    composite("ICT", ict_items[[model]], weights = mode_A),
-    composite("ACH", ach, weights = mode_A),
-    interaction_term(iv = "SES", moderator = "ICT", method = two_stage))
-  sm <- relationships(
-    paths(from = c("SES", "ICT"), to = "OTL"),
-    paths(from = c("SES", "ICT", "OTL", "SES*ICT"), to = "ACH"))
-  est <- estimate_pls(dat, mm, sm, inner_weights = path_weighting, maxIt = 3000, stopCriterion = 7)
-  s <- summary(est)
-
-  rows <- list()
-  add <- function(id, v, se = NA, p = NA, lo = NA, hi = NA)
-    rows[[length(rows) + 1]] <<- data.frame(id = id, seminr = unname(v), seminr_se = se,
-                                            seminr_p = p, seminr_ci_low = lo, seminr_ci_high = hi)
-  # bootstrap (paths and total effects)
-  b  <- suppressMessages(bootstrap_model(est, nboot = nboot, cores = cores, seed = seed))
-  sb <- summary(b)
-  boot_rows <- function(tab, prefix, keep = NULL) {
-    for (k in seq_len(nrow(tab))) {
-      ab <- trimws(strsplit(rownames(tab)[k], "->", fixed = TRUE)[[1]])
-      id <- paste0(prefix, key(ab[1]), "_", key(ab[2]))
-      if (!is.null(keep) && !id %in% keep) next
-      add(id, tab[k, "Original Est."], tab[k, "Bootstrap SD"], pval(tab[k, "Original Est."], tab[k, "Bootstrap SD"]),
-          tab[k, "2.5% CI"], tab[k, "97.5% CI"])
-    }
-  }
-  boot_rows(sb$bootstrapped_paths, "path_")
-  boot_rows(sb$bootstrapped_total_paths, "tot_", c("tot_SES_ACH", "tot_ICT_ACH"))
-  for (f in c("SES", "ICT")) {
-    ie <- specific_effect_significance(b, from = f, through = "OTL", to = "ACH", alpha = 0.05)  # 1-row table
-    add(paste0("ind_", f, "_OTL_ACH"), ie[1, "Original Est."], ie[1, "Bootstrap SD"],
-        pval(ie[1, "Original Est."], ie[1, "Bootstrap SD"]), ie[1, "2.5% CI"], ie[1, "97.5% CI"])
-  }
-  # R-square, reliability, loadings
-  for (cn in c("ACH", "OTL")) add(paste0("r2_", cn), est$rSquared["Rsq", cn])
-  rel <- s$reliability
-  for (cn in c("ICT", "ACH")) {
-    add(paste0("alpha_", cn), rel[cn, "alpha"]); add(paste0("rhoa_", cn), rel[cn, "rhoA"])
-    add(paste0("rhoc_", cn),  rel[cn, "rhoC"]);  add(paste0("ave_", cn),  rel[cn, "AVE"])
-  }
-  for (it in ict_items[[model]]) add(paste0("loading_", it), est$outer_loadings[it, "ICT"])
-  # HTMT (main constructs; seminr fills one triangle)
-  h <- s$validity$htmt
-  for (pr in utils::combn(c("SES", "OTL", "ICT", "ACH"), 2, simplify = FALSE)) {
-    v <- suppressWarnings(max(c(h[pr[1], pr[2]], h[pr[2], pr[1]]), na.rm = TRUE))
-    add(paste0("htmt_", paste(sort(pr), collapse = "_")), if (is.finite(v)) v else NA)
-  }
-  # inner VIF per path
-  for (to in names(s$vif_antecedents)) for (f in names(s$vif_antecedents[[to]]))
-    add(paste0("vif_", key(f), "_", key(to)), s$vif_antecedents[[to]][[f]])
-  # latent variable correlations
-  lc <- stats::cor(est$construct_scores)
-  for (pr in list(c("SES", "OTL"), c("SES", "ICT"), c("SES", "ACH"), c("OTL", "ICT"), c("OTL", "ACH"), c("ICT", "ACH")))
-    add(paste0("cor_", pr[1], "_", pr[2]), lc[pr[1], pr[2]])
-  out <- do.call(rbind, rows)
+  f <- a2_fit_pls(model, oc$lv, ses_col = if (run == "escs") "ESCS" else "SES", otl_col = "OTL",
+                  nboot = nboot, seed = seed, cores = cores)
+  out <- f$est
+  names(out)[2:6] <- c("seminr", "seminr_se", "seminr_p", "seminr_ci_low", "seminr_ci_high")
   out$estimate_id <- paste0(model, "_", oc$tag, "_", out$id)
-  cbind(run = paste(model, run, sep = "_"), out, iterations = est$iterations)
+  cbind(run = paste(model, run, sep = "_"), out, iterations = f$iterations)
 }
 
 t0  <- Sys.time()
