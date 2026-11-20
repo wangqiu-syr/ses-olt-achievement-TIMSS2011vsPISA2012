@@ -36,7 +36,15 @@ The model is fitted with factor-based PLS-SEM in WarpPLS 5.0. Model 1 uses the c
   - Achievement: 5 plausible values.
   - ICT: use (Model 1) or resources (Model 2).
   - Estimation: PLS-SEM in SmartPLS 4 with 5,000 bootstrap samples, run by the author. Code builds the data and reads the results.
-- **A2 reading and science (exploratory, branch `claude/pisa-reading`).** The math model with the outcome swapped for reading or science (5 PVs each), same schools, same criteria. OTL stays FAMCONC as a stated proxy. Digital reading (`CREA1`–`5`) is in the school files for the next run.
+- **A2 R cross-check (done).** `seminr` re-estimates all 12 SmartPLS runs (math, print reading, science × 2 ICT models × SES composite or ESCS) with SmartPLS's settings. Every estimate is within .0003, and every significance verdict is the same.
+- **A2 exploratory grid (done).** 96 runs in `seminr`: 6 outcomes × 4 OTL measures × 2 ICT models × 2 SES measures, each with 5,000 bootstrap samples, same schools and same criteria. [docs/spec_exploratory.md](docs/spec_exploratory.md) records the design and how to read it.
+  - Outcomes: math, print reading and science (paper-based); digital reading, computer-based math and problem solving (computer-based).
+  - OTL: FAMCONC (the spec), `OTL_PT` (ST73–76 problem types), `EXPUREM` and `EXAPPLM` (experience with pure and applied math tasks).
+  - A result counts as a pattern only if it holds across OTL measures and with ESCS; a single significant cell is a lead.
+
+![Design and procedure: data preparation, check against SmartPLS, the 96-run grid, and reporting](docs/figures/design_flowchart.png)
+
+*Figure: design and procedure. Source: [docs/figures/design_flowchart.dot](docs/figures/design_flowchart.dot) (Graphviz); also as [SVG](docs/figures/design_flowchart.svg).*
 
 ## What differed
 
