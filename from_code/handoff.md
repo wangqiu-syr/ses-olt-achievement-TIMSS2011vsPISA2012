@@ -11,7 +11,36 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (44 pass, 2 skip).
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
-## Next task (after the user's review on 2026-11-20)
+## Next task: restructure for release, with the report as the main body (proposed 2026-11-20; decisions pending)
+The user liked the moderation report (also published as a private web page: https://claude.ai/artifact/2zoMcKtpKjK3LvK3eYdw4J) and wants it as the repo's main body. The README should follow the Social Science Data Editors template (https://social-science-data-editors.github.io/template_README/).
+
+Proposed layout:
+- `README.md`: the replication README, in the template's sections:
+  - Overview;
+  - data availability and provenance (rights, licence, summary, details per source);
+  - dataset list;
+  - computational requirements (software and versions, controlled randomness, memory, run time, storage);
+  - description of code (with its licence);
+  - instructions to replicators;
+  - a list of tables and figures mapped to program and output file;
+  - references;
+  - acknowledgements.
+
+  It opens with the title, a three-line abstract, the key figure and a link to the report.
+- `report/report.md` + `report/figures/` + `report/references.bib`: the full study (question, data and measures, confirmatory math vs. TIMSS, exploratory grid, moderation, discussion, conclusions), built from `results/a2_seminr/moderation_report.md` and `results/a2/summary.md`.
+- `R/run_all.R`: runs the automated steps in order (a2_01, a2_04 × 3, a2_05, a2_06, tests). SmartPLS stays an optional manual step.
+- `LICENSE` (MIT, code) + `LICENSE-report` (CC BY 4.0, text and figures, if the user agrees). Zenodo DOI at release.
+- Keep `docs/`, `results/`, `data/README.md`, `tests/` and `from_code/` as they are; update the links.
+
+Decisions the user owes (asked 2026-11-20):
+1. Report scope: the full study (recommended) or the moderation report only.
+2. Format: Markdown now (recommended) or Quarto `paper.qmd`.
+3. Licences: MIT for code + CC BY 4.0 for the report (recommended).
+4. Merge `claude/pisa-reading` to `main` first, or restructure on the branch and then merge.
+
+Why GitHub looks different: the default view is `main`, which lacks the 12 commits (50 files) on `claude/pisa-reading`.
+
+## Earlier next task (still open: the user's review on 2026-11-20)
 1. **The user reviews:**
    - `results/a2_seminr/moderation_report.md`, with figures in `results/a2_seminr/figures/`;
    - the README;
