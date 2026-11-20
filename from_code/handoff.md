@@ -28,6 +28,20 @@ The `reading` results are **print reading** (`PV1READ`–`PV5READ`). Digital rea
 - **Session 5, end:** added the non-FAMCONC OTL columns to `R/a2_01`, rebuilt, and re-sent the two CSVs. The samples are unchanged. School-level r with math: FAMCONC .68–.71, `EXPUREM` .50–.53, `EXAPPLM` .31, `OTL_PT` .24. `OTL_PT` α = .74, and only its ST74 procedural items track math. Details: `results/a2/a2_01_pisa2012_school_data.md`, last section.
 - **Repo:** the user said "leave the power to another repo now". Read it as: CMAT/CPRO (or that strand) goes to its own repo later, and no PR now. Confirm with the user. Code can't create repos; the user creates them empty on GitHub.
 
+## Session 5, part 2 (2026-11-20): R cross-check of the math SmartPLS runs
+- **Done:** `R/a2_04_seminr_crosscheck.R` re-estimates the 4 math runs in R with `seminr` 2.6.0, with SmartPLS's settings (PLS-SEM mode A, path weighting, two-stage interaction, 5,000-sample bootstrap). It compares every shared estimate.
+  - Every point estimate matches to within .0002. The largest gap is the SES × ICT path; all others are within .00001.
+  - All 24 path significance verdicts agree. Bootstrap SEs differ by at most .001.
+  - Report: `results/a2/a2_04_seminr_crosscheck.md`. New test `test-a2-seminr.R`. Tests: 30 pass, 4 skip.
+- **Gotcha:** `reflective()` in seminr means PLSc. Use `composite(..., weights = mode_A)` to match SmartPLS PLS-SEM.
+- **seminr install (CRAN blocked):** `git clone --depth 1 https://github.com/sem-in-r/seminr` (commit `cfc0b30`). Then move DiagrammeR and DiagrammeRsvg from Imports to Suggests in DESCRIPTION, and `apt-get install r-cran-lavaan r-cran-glue`.
+  - Then `renv::hydrate(packages = c("lavaan", "glue"))` and `R CMD INSTALL -l renv/library/R-4.3/x86_64-pc-linux-gnu <clone>`.
+  - `renv.lock` now records seminr at that GitHub commit, plus 6 dependencies.
+- **Next uses:**
+  - the same script for reading and science (`Rscript R/a2_04_seminr_crosscheck.R reading`);
+  - then, instead of SmartPLS by hand, scripted runs of every subject × OTL version.
+  - `a2_05`: per-PV pooling and a weighted run.
+
 ## Session 5 (2026-11-19): PISA reading and science read (branch `claude/pisa-reading`, off `main`)
 
 ### Done
