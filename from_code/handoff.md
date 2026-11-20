@@ -37,8 +37,9 @@ The `reading` results are **print reading** (`PV1READ`–`PV5READ`). Digital rea
 - **seminr install (CRAN blocked):** `git clone --depth 1 https://github.com/sem-in-r/seminr` (commit `cfc0b30`). Then move DiagrammeR and DiagrammeRsvg from Imports to Suggests in DESCRIPTION, and `apt-get install r-cran-lavaan r-cran-glue`.
   - Then `renv::hydrate(packages = c("lavaan", "glue"))` and `R CMD INSTALL -l renv/library/R-4.3/x86_64-pc-linux-gnu <clone>`.
   - `renv.lock` now records seminr at that GitHub commit, plus 6 dependencies.
+- **Reading and science cross-checked too** (OTL = FAMCONC, as the user ran them). Every estimate is within .0003. All 24 paths and all 16 total and indirect effects per subject get the same verdict. The reading lead (M1 ICT-use total effect .145*) holds in seminr. Tests: 36 pass, 2 skip.
+  - Fixed on the way: seminr's `specific_effect_significance()` returns a 1-row table, so index it `[1, "Original Est."]`.
 - **Next uses:**
-  - the same script for reading and science (`Rscript R/a2_04_seminr_crosscheck.R reading`);
   - then, instead of SmartPLS by hand, scripted runs of every subject × OTL version.
   - `a2_05`: per-PV pooling and a weighted run.
 

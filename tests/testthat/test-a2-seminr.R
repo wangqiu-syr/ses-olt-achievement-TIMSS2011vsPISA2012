@@ -10,7 +10,7 @@ for (dir in c("a2", "a2_reading", "a2_science")) {
     point <- x[x$type %in% c("path", "tot", "ind", "r2", "loading", "alpha", "rhoc", "ave"), ]
     big <- point$estimate_id[abs(point$diff) >= 0.001]
     expect(length(big) == 0, paste("Point estimates differ by >= .001:", toString(big)))
-    p <- x[x$type == "path", ]
+    p <- x[x$type %in% c("path", "tot", "ind"), ]
     flip <- paste(p$run, p$estimate_id)[(p$smartpls_p < .05) != (p$seminr_p < .05)]
     expect(length(flip) == 0, paste("Significance verdict differs:", toString(flip)))
   })

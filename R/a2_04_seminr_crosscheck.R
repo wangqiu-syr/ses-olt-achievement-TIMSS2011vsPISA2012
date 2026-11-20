@@ -73,9 +73,9 @@ fit_run <- function(model, run) {
   boot_rows(sb$bootstrapped_paths, "path_")
   boot_rows(sb$bootstrapped_total_paths, "tot_", c("tot_SES_ACH", "tot_ICT_ACH"))
   for (f in c("SES", "ICT")) {
-    ie <- specific_effect_significance(b, from = f, through = "OTL", to = "ACH", alpha = 0.05)
-    add(paste0("ind_", f, "_OTL_ACH"), ie["Original Est."], ie["Bootstrap SD"],
-        pval(ie["Original Est."], ie["Bootstrap SD"]), ie["2.5% CI"], ie["97.5% CI"])
+    ie <- specific_effect_significance(b, from = f, through = "OTL", to = "ACH", alpha = 0.05)  # 1-row table
+    add(paste0("ind_", f, "_OTL_ACH"), ie[1, "Original Est."], ie[1, "Bootstrap SD"],
+        pval(ie[1, "Original Est."], ie[1, "Bootstrap SD"]), ie[1, "2.5% CI"], ie[1, "97.5% CI"])
   }
   # R-square, reliability, loadings
   for (cn in c("ACH", "OTL")) add(paste0("r2_", cn), est$rSquared["Rsq", cn])
@@ -137,8 +137,10 @@ by_type <- do.call(rbind, lapply(names(type_lab), function(t) { x <- cmp[cmp$typ
              max_abs_diff_se = if (all(is.na(x$smartpls_se))) NA else max(abs(x$seminr_se - x$smartpls_se), na.rm = TRUE)) }))
 pth <- cmp[cmp$type == "path", ]
 pth$agree <- (pth$smartpls_p < .05) == (pth$seminr_p < .05)
+eff <- cmp[cmp$type %in% c("tot", "ind"), ]
+eff$agree <- (eff$smartpls_p < .05) == (eff$seminr_p < .05)
 point_tol <- 0.001
-point_ok  <- all(abs(cmp$diff[cmp$type %in% c("path", "tot", "ind", "r2", "loading", "alpha", "rhoc", "ave")]) < point_tol)
+point_ok  <- isTRUE(all(abs(cmp$diff[cmp$type %in% c("path", "tot", "ind", "r2", "loading", "alpha", "rhoc", "ave")]) < point_tol))
 iters <- tapply(sem$iterations, sem$run, `[`, 1)
 
 rep <- c(
@@ -152,7 +154,8 @@ rep <- c(
   sprintf("- **Point estimates:** %s. Largest gap across paths, effects, R², loadings, α, ρC and AVE: %s.",
           if (point_ok) sprintf("seminr reproduces SmartPLS to within %s on every run", point_tol) else sprintf("some differ from SmartPLS by %s or more (see the table)", point_tol),
           f4(max(abs(cmp$diff[cmp$type %in% c("path", "tot", "ind", "r2", "loading", "alpha", "rhoc", "ave")])))),
-  sprintf("- **Significance:** %d of %d paths reach the same verdict at p < .05 in both programs.", sum(pth$agree), nrow(pth)),
+  sprintf("- **Significance:** %d of %d paths reach the same verdict at p < .05 in both programs%s.", sum(pth$agree), nrow(pth),
+          if (nrow(eff)) sprintf(", and %d of %d total and indirect effects", sum(eff$agree), nrow(eff)) else ""),
   sprintf("- **Bootstrap standard errors** differ by at most %s. Different random resamples give small differences like this even within one program.",
           f4(max(abs(pth$seminr_se - pth$smartpls_se)))),
   "- The only visible point difference is the SES × ICT path (up to .0002): the two programs build the two-stage product term with slightly different numerics.",
@@ -176,9 +179,14 @@ rep <- c(
   "| Run | Path | SmartPLS | seminr | Difference | SE SmartPLS | SE seminr | Same verdict at .05 |",
   "|---|---|---|---|---|---|---|---|",
   paste0("| ", pth$run, " | ", sub("^path_", "", pth$id), " | ", f3(pth$smartpls), pstar(pth$smartpls_p), " | ", f3(pth$seminr), pstar(pth$seminr_p),
-         " | ", f4(pth$diff), " | ", f3(pth$smartpls_se), " | ", f3(pth$seminr_se), " | ", ifelse(pth$agree, "yes", "**no**"), " |")
+         " | ", f4(pth$diff), " | ", f3(pth$smartpls_se), " | ", f3(pth$seminr_se), " | ", ifelse(pth$agree, "yes", "**no**"), " |"),
+  if (nrow(eff)) c("", "## Total and indirect effects, side by side", "",
+    "| Run | Effect | SmartPLS | seminr | Difference | SE SmartPLS | SE seminr | Same verdict at .05 |",
+    "|---|---|---|---|---|---|---|---|",
+    paste0("| ", eff$run, " | ", eff$id, " | ", f3(eff$smartpls), pstar(eff$smartpls_p), " | ", f3(eff$seminr), pstar(eff$seminr_p),
+           " | ", f4(eff$diff), " | ", f3(eff$smartpls_se), " | ", f3(eff$seminr_se), " | ", ifelse(eff$agree, "yes", "**no**"), " |"))
 )
 writeLines(rep, file.path(oc$dir, "a2_04_seminr_crosscheck.md"))
 print(by_type, row.names = FALSE)
-cat(sprintf("Paths with the same verdict: %d of %d. Point estimates within %s: %s. %.0f s\n",
-            sum(pth$agree), nrow(pth), point_tol, point_ok, secs))
+cat(sprintf("Paths with the same verdict: %d of %d; total/indirect effects: %d of %d. Point estimates within %s: %s. %.0f s\n",
+            sum(pth$agree), nrow(pth), sum(eff$agree), nrow(eff), point_tol, point_ok, secs))
