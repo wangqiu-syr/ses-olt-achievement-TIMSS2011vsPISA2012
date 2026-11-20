@@ -51,3 +51,17 @@ test_that("the report's BibTeX holds one entry per reference in the report", {
   bib    <- readLines(root_path("report", "references.bib"), encoding = "UTF-8", warn = FALSE)
   expect_equal(sum(grepl("^@", bib)), sum(grepl("^- ", refs)))
 })
+
+test_that(".zenodo.json is valid enough for Zenodo and agrees with CITATION.cff", {
+  zen <- root_path(".zenodo.json")
+  skip_if_not(file.exists(zen), "no .zenodo.json")
+  z   <- paste(readLines(zen, encoding = "UTF-8", warn = FALSE), collapse = "\n")
+  cff <- paste(readLines(root_path("CITATION.cff"), encoding = "UTF-8", warn = FALSE), collapse = "\n")
+  # Zenodo reads one licence id, and uses .zenodo.json in place of CITATION.cff
+  expect_match(z, "\"license\": \"(cc-by-4\\.0|mit)\"")
+  title <- sub('^.*\ntitle: "([^"]+)".*$', "\\1", cff)
+  expect_true(grepl(title, z, fixed = TRUE), info = "same title in both files")
+  orcids <- regmatches(cff, gregexpr("[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]", cff))[[1]]
+  expect_length(orcids, 2)
+  for (o in orcids) expect_true(grepl(o, z, fixed = TRUE), info = o)
+})

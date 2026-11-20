@@ -56,6 +56,11 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 - A1 when the TIMSS files arrive; then Phase B (multilevel, cross-level SES × ICT).
 
 ### Next step: get the Zenodo DOI (paused 2026-11-20; the user is in a meeting)
+**Update:** the user published the release as **`v1.0.0`** (the repo says 0.1.0), and Zenodo **failed** with "Citation metadata load failed": it could not read `CITATION.cff`, probably because of the two-licence list. Fix pushed to `main`:
+- `.zenodo.json` gives Zenodo its metadata directly, with licence `cc-by-4.0` for the archive; the description says the code is MIT. Zenodo uses it instead of `CITATION.cff`, and `CITATION.cff` is unchanged for GitHub;
+- a test keeps the title and ORCIDs of the two files in step.
+
+To redo the release: delete the v1.0.0 release and the `v1.0.0` tag on GitHub; make the repo public; publish a new release, tag `v0.1.0`, target `main` (it must include `.zenodo.json`).
 State at pause:
 - the user published GitHub release v0.1.0, then set the repo back to **private**;
 - Zenodo's GitHub page lists `ses-olt-achievement-TIMSS2011vsPISA2012` as ON, but with **no DOI**, so Zenodo never archived the release;

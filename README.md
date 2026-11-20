@@ -30,7 +30,8 @@ results/         machine outputs, indexed by results/README.md
 data/README.md   data rights, and how to obtain and rebuild the PISA file (the data are not in the repository)
 tests/           testthat suite
 renv.lock        package versions
-CITATION.cff     how to cite
+CITATION.cff     how to cite (GitHub)
+.zenodo.json     metadata for the Zenodo archive (Zenodo reads it instead of CITATION.cff)
 LICENSE          MIT, for the code
 LICENSE-report   CC BY 4.0, for the report text and figures
 from_code/       working plan and session handoff notes (the project log)
