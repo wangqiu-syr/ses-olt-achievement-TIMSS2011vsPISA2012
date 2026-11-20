@@ -4,29 +4,55 @@
 Each cloud session starts as a fresh container with no data and no R. Do this first:
 1. **Data:** the user attaches `US_PISA_2012_STSCH.sav` in the chat. Copy it to `data/raw/pisa2012/user_sav/`, which is gitignored. SmartPLS exports go in `data/raw/smartpls_exports/<subject>/` (any names).
 2. **R** (CRAN is blocked, so packages come from apt, and renv can't download itself):
-   - `apt-get update && apt-get install -y r-base-core r-cran-renv r-cran-testthat r-cran-haven r-cran-readxl` (without `update`, apt can't find haven or readxl);
+   - `apt-get update && apt-get install -y r-base-core r-cran-renv r-cran-testthat r-cran-haven r-cran-readxl r-cran-lavaan r-cran-glue r-cran-ggplot2 r-cran-ragg graphviz`;
    - seed renv into the project library: `lib=$(R_PROFILE_USER=/dev/null Rscript -e 'cat(renv::paths$library())'); mkdir -p "$lib"; cp -r /usr/lib/R/site-library/renv "$lib/"`;
-   - then `Rscript -e 'renv::hydrate()'`.
-3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (27 pass, 2 skip).
+   - then `Rscript -e 'renv::hydrate()'`;
+   - install seminr from GitHub as in `R/README.md`, last paragraph.
+3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (44 pass, 2 skip).
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
-## Next task: read the user's evening runs (planned 2026-11-19)
-The `reading` results are **print reading** (`PV1READ`–`PV5READ`). Digital reading is `CREA`. Relabel the reading report "print reading" once digital is in.
+## Next task (after the user's review on 2026-11-20)
+1. **The user reviews:**
+   - `results/a2_seminr/moderation_report.md`, with figures in `results/a2_seminr/figures/`;
+   - the README;
+   - `CITATION.cff` (author order, affiliations, ORCIDs).
+2. **Release (the user's GitHub actions):**
+   - ask Code for a PR from `claude/pisa-reading` to `main`, then merge;
+   - make the repo public;
+   - optionally delete the merged remote branches `claude/bold-gates-y7az9v`, `claude/charming-tesla-llewy4` and `claude/sweet-davinci-2optvo`;
+   - add Yue Zhang as a collaborator if not done;
+   - tag `v0.1.0`.
+3. **Open analysis items:**
+   - per-PV pooling and a weighted run (`R/a2_07`);
+   - test the digital-vs-print interaction difference directly (a joint model);
+   - confirm in the PISA 2012 Technical Report that digital reading and computer-based math PVs are imputed for students who did not sit the CBA (only inferred so far);
+   - A1 when the TIMSS files arrive;
+   - Phase B multilevel (cross-level SES × ICT), the proper test of the moderation.
+4. The user's SmartPLS evening runs (no-FAMCONC OTL, CREA, CMAT, CPRO) are **superseded** by the seminr grid. If the user still sends exports, `R/a2_02` needs an `otl` field in its classifier and `CMAT`/`CPRO` in its outcome list (see session 5, end).
 
-**Runs the user plans for tonight:**
-1. A second OTL without FAMCONC, run beside the FAMCONC one (the user: "two OTLs, one with, one without"). Construct `OTL`, with its indicator swapped for `OTL_PT`, `EXPUREM` or `EXAPPLM`. All runs so far used FAMCONC.
-2. Digital reading (`CREA`).
-3. Computer-based math (`CMAT`) and problem solving (`CPRO`), with FAMCONC as OTL.
-
-**Done (session 5, end):** the user attached the `.sav` (same SHA-256 as the manifest). `R/a2_01` now builds `CREA`, `CMAT` and `CPRO` too. The samples are still 146/139, and the 5 hard checks pass.
-- Weighted means vs. published: CREA 511.21 (511), CMAT 498.03 (498), CPRO 507.93 (508).
-- The two CSVs went to the user, with 0 missing cells.
-- **To check:** school-level r(READ1, CREA1) is .82–.83, and r(MATH1, CMAT1) .81–.82, r(MATH1, CPRO1) .78–.79. These are *lower* than the student-level r = .86, though school means usually correlate more strongly than students. That fits only a subsample sitting the computer-based test, with model-imputed PVs for the rest. Check the PISA 2012 technical report before interpreting CBA paths.
-
-**Still to do before reading tonight's exports:**
-- `R/a2_02` can't yet tell OTL versions apart: two runs of one subject that differ only in OTL classify as the same run, and the script stops. Add an `otl` field to the classifier, taken from the OTL construct's indicator (`OTL <- OTL` = famconc; `OTL_PT`, `EXPUREM`, `EXAPPLM`; or no OTL construct = none). Add run labels such as `primary_otlpt`, and report the versions side by side. Add `CMAT`/`CPRO` to the outcome list.
-- **Session 5, end:** added the non-FAMCONC OTL columns to `R/a2_01`, rebuilt, and re-sent the two CSVs. The samples are unchanged. School-level r with math: FAMCONC .68–.71, `EXPUREM` .50–.53, `EXAPPLM` .31, `OTL_PT` .24. `OTL_PT` α = .74, and only its ST74 procedural items track math. Details: `results/a2/a2_01_pisa2012_school_data.md`, last section.
-- **Repo:** the user said "leave the power to another repo now". Read it as: CMAT/CPRO (or that strand) goes to its own repo later, and no PR now. Confirm with the user. Code can't create repos; the user creates them empty on GitHub.
+## Session 5, part 3 (2026-11-20): 96-run grid, moderation report, release prep
+- **Grid:**
+  - `R/a2_05_seminr_runs.R` runs 6 outcomes × 4 OTL measures × 2 ICT models × SES/ESCS = 96 runs, 5,000 bootstraps each, in 25 min. All 96 pass M1–M4.
+  - `R/a2_seminr_helpers.R` holds the shared model code (`a2_build`, `a2_fit_pls`, `a2_estimate`, `a2_criteria`).
+- **Findings:** see `results/a2_seminr/moderation_report.md`.
+  - **Moderation:** digital reading × ICT resources (M2), SES × ICT .11–.13, p < .05 for 3 of 4 OTL measures; with ESCS .08–.10 (n.s.); BH q ≥ .36; f² .03–.04; power about 25%.
+  - **Sign pattern:** the interaction is positive for resources (24/24 cells) and negative for use (24/24).
+  - **Robust ICT result:** ICT use → print reading, total .14–.16.
+  - **OTL:** OTL → achievement .23–.42 with FAMCONC vs .02–.13 with OTL_PT.
+  - **Fit:** R² for the computer-based outcomes is .40–.63, against .66–.70 for paper.
+- **Figures:**
+  - `R/a2_06_moderation_figures.R`: moderation across the grid, simple slopes with bootstrap CIs, robustness, OTL by measure, plus `moderation_stats.csv` (f², BH) and `simple_slopes.csv`.
+  - Needs a UTF-8 locale for the × → labels; the script sets `LC_CTYPE`.
+  - Flow chart: `docs/figures/design_flowchart.{dot,png,svg}` (Graphviz), in the README's Design section.
+- **Literature:** 57 references verified against publisher, DOI or repository listings by a research agent. Its full notes are not in the repo; the report cites the ones used. Not confirmed: the exact Technical Report page on CBA sub-sampling.
+- **Release prep:**
+  - `docs/spec_exploratory.md`, `results/README.md`, and the data provenance and rebuild steps in `data/README.md`;
+  - `CITATION.cff` filled (to confirm);
+  - README rewritten (key findings, results, reproduce, files, status, authors);
+  - `renv.lock` adds ggplot2, ragg and seminr;
+  - no broken relative links;
+  - history scan: no data, PDFs or emails ever committed.
+- **Tests:** 44 pass, 0 fail, 2 skip.
 
 ## Session 5, part 2 (2026-11-20): R cross-check of the math SmartPLS runs
 - **Done:** `R/a2_04_seminr_crosscheck.R` re-estimates the 4 math runs in R with `seminr` 2.6.0, with SmartPLS's settings (PLS-SEM mode A, path weighting, two-stage interaction, 5,000-sample bootstrap). It compares every shared estimate.
