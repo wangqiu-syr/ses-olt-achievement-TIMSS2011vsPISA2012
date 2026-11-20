@@ -28,7 +28,9 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
   - `.gitignore` now allows `report/report.pdf`; the README layout and program table list the PDF and the build script.
 - **Report text:** "Data and code availability" now names the GitHub repository (it said "this repository", which is unclear in a PDF).
 - **EdArXiv form answers:** `from_code/edarxiv_submission.md`.
-- Pushed to `claude/laughing-thompson-e3voj8`, which still has to be merged into `main`.
+- Keywords, preregistration (no) and conflict of interest (none) were settled by the user.
+- Pushed to `claude/laughing-thompson-e3voj8` and to `main` (the user's instruction).
+- **Phase B preregistration (advice given):** not required, but the report itself (§8.7) says directional interaction hypotheses should be preregistered. Use OSF's secondary-data preregistration template and declare what is already known from A2. A multilevel test on the same US PISA 2012 students is not independent of the school-level finding that motivated it; a later PISA cycle or other countries would be a real test.
 
 ## Session 7 (2026-11-20): review, release v0.1.0, Zenodo DOI. Done
 - **Report and README review:**
@@ -60,11 +62,11 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 
 ## Next task
 **Open for the user:**
-1. **EdArXiv:** submit `report/report.pdf` with the answers in `from_code/edarxiv_submission.md`, which has three "You decide" items: a tag, preregistration and conflict of interest.
-2. **Merge** `claude/laughing-thompson-e3voj8` into `main` on GitHub.
-3. **Zenodo:** read the "Cite all versions?" DOI on https://zenodo.org/records/24407221 and give it to Code. If it differs from 24407221, put it in the README badge and in `doi:` in `CITATION.cff`, and move 24407221 under `identifiers`. Use the all-versions DOI for EdArXiv's data link too.
-4. Confirm the README rights box ("legitimate access to the data").
-5. Repo visibility is the user's choice.
+1. **EdArXiv:** submit `report/report.pdf` in the browser (osf.io is blocked from cloud sessions), using the answers in `from_code/edarxiv_submission.md`. They are settled: no "replication" tag; "achievement", "digital reading" and "STEM" added (also in `CITATION.cff` and `.zenodo.json`); no preregistration; no conflict of interest. Tell Yue Zhang before submitting, since EdArXiv expects every author to agree to posting.
+2. **Zenodo:** the user gave 10.5281/zenodo.24407221, the DOI of the v0.1.0 record (`/records/24407221`), which the report matches. Zenodo's "Cite all versions" DOI is a different number. Optionally switch the README badge to it, since it always points to the latest version. Nothing else depends on it.
+3. Confirm the README rights box ("legitimate access to the data").
+4. Repo visibility is the user's choice.
+5. **Phase B:** the user asked whether to preregister it. Recommended: an OSF registration with the secondary-data template before fitting, ideally tested on data the A2 finding didn't come from (see session 8).
 
 **After EdArXiv moderation:** add the preprint DOI to the README ("How to cite"), the report (byline and "Data and code availability") and `CITATION.cff`/`.zenodo.json` (related identifier), then rebuild the PDF. On Zenodo, add the preprint DOI under "Related works".
 

@@ -1,6 +1,6 @@
 # EdArXiv submission: form answers (2026-11-20)
 
-Copy these into osf.io → EdArXiv → Add a preprint. Items marked **You decide** are judgement calls.
+Copy these into osf.io → EdArXiv → Add a preprint. The user settled the judgement calls on 2026-11-20.
 
 ## File
 `report/report.pdf` (19 pages, US Letter, fonts embedded). Rebuild it with `bash report/pdf/build.sh` after any change to `report/report.md`. Its links to repository files point to tag `v0.1.0`.
@@ -22,19 +22,19 @@ Pick from the EdArXiv list. This session couldn't load the list, so the names be
 - Education → Educational Technology
 - a quantitative-methods subject, if the list has one (e.g. under Social and Behavioral Sciences)
 
-## Tags (the keywords in `CITATION.cff`)
-opportunity to learn · socioeconomic status · ICT · moderation · PISA 2012 · TIMSS 2011 · PLS-SEM · replication
+## Tags (same as the keywords in `CITATION.cff` and `.zenodo.json`)
+opportunity to learn · socioeconomic status · ICT · moderation · PISA 2012 · TIMSS 2011 · PLS-SEM · achievement · digital reading · STEM
 
-**You decide:** "replication" may oversell. This report is an *analogue* on PISA; the replication of the paper itself (A1, TIMSS) is not done yet. "digital divide" is an alternative.
+(The user dropped "replication" and added the last three on 2026-11-20.)
 
 ## Licence
 CC BY 4.0 (CC-By Attribution 4.0 International), matching `LICENSE-report`.
 
 ## Links and author assertions
-- **Data and code:** Zenodo DOI 10.5281/zenodo.24407221 and https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012. If the Zenodo sidebar's "Cite all versions" DOI is a different number, give that one, since it stays valid for later versions.
+- **Data and code:** Zenodo DOI 10.5281/zenodo.24407221 (the v0.1.0 archive, which the report matches) and https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012.
 - **Public data:** suggested answer "Available", with the two links above. Suggested description: "Code, estimates and figures are archived on Zenodo and GitHub. The PISA 2012 data are © OECD and public, but not redistributed. data/README.md in the repository says how to obtain and rebuild the extract."
-- **Preregistration: You decide.** Suggested answer: "No". The confirmatory plan (`docs/spec.md`) was written before the results were read, but it was committed to git, not registered with a time-stamped registry. The report already describes this.
-- **Conflict of interest: You decide.**
+- **Preregistration:** No (the user's decision). The confirmatory plan (`docs/spec.md`) was written before the results were read but not registered.
+- **Conflict of interest:** None (the user's decision). There is no funding, and the study evaluates no product.
 - **Published in a journal?** No.
 
 ## After moderation (a day or two)
