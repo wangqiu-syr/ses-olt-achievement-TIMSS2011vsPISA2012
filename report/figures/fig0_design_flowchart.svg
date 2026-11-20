@@ -342,22 +342,22 @@
 <!-- rep -->
 <g id="node20" class="node">
 <title>rep</title>
-<path fill="#eef4fc" stroke="#2a78d6" stroke-width="1.1" d="M445.5,-56C445.5,-56 252.5,-56 252.5,-56 246.5,-56 240.5,-50 240.5,-44 240.5,-44 240.5,-32 240.5,-32 240.5,-26 246.5,-20 252.5,-20 252.5,-20 445.5,-20 445.5,-20 451.5,-20 457.5,-26 457.5,-32 457.5,-32 457.5,-44 457.5,-44 457.5,-50 451.5,-56 445.5,-56"/>
-<text text-anchor="start" x="271.5" y="-41" font-family="Inter" font-weight="bold" font-size="10.00" fill="#0b0b0b">Moderation report</text>
-<text text-anchor="start" x="359.5" y="-41" font-family="Inter" font-size="10.00" fill="#0b0b0b"> with literature</text>
-<text text-anchor="start" x="252.5" y="-31" font-family="Inter" font-size="10.00" fill="#52514e">results/a2_seminr/moderation_report.md</text>
+<path fill="#eef4fc" stroke="#2a78d6" stroke-width="1.1" d="M432.5,-56C432.5,-56 261.5,-56 261.5,-56 255.5,-56 249.5,-50 249.5,-44 249.5,-44 249.5,-32 249.5,-32 249.5,-26 255.5,-20 261.5,-20 261.5,-20 432.5,-20 432.5,-20 438.5,-20 444.5,-26 444.5,-32 444.5,-32 444.5,-44 444.5,-44 444.5,-50 438.5,-56 432.5,-56"/>
+<text text-anchor="start" x="261.5" y="-41" font-family="Inter" font-weight="bold" font-size="10.00" fill="#0b0b0b">Report</text>
+<text text-anchor="start" x="295.5" y="-41" font-family="Inter" font-size="10.00" fill="#0b0b0b">: the full study, with literature</text>
+<text text-anchor="start" x="307.5" y="-31" font-family="Inter" font-size="10.00" fill="#52514e">report/report.md</text>
 </g>
 <!-- rule&#45;&gt;rep -->
 <g id="edge19" class="edge">
 <title>rule&#45;&gt;rep</title>
-<path fill="none" stroke="#52514e" stroke-dasharray="5,2" d="M261.12,-86.88C277.41,-78 295.54,-68.12 311.08,-59.66"/>
-<polygon fill="#52514e" stroke="#52514e" points="312.59,-61.63 317.56,-56.13 310.25,-57.32 312.59,-61.63"/>
+<path fill="none" stroke="#52514e" stroke-dasharray="5,2" d="M260.43,-86.88C276.48,-78 294.34,-68.12 309.64,-59.66"/>
+<polygon fill="#52514e" stroke="#52514e" points="311.09,-61.66 316.03,-56.13 308.72,-57.37 311.09,-61.66"/>
 </g>
 <!-- figs&#45;&gt;rep -->
 <g id="edge18" class="edge">
 <title>figs&#45;&gt;rep</title>
-<path fill="none" stroke="#52514e" d="M442.41,-91.86C424.74,-81.86 403.42,-69.8 385.62,-59.72"/>
-<polygon fill="#52514e" stroke="#52514e" points="386.53,-57.42 379.23,-56.11 384.12,-61.69 386.53,-57.42"/>
+<path fill="none" stroke="#52514e" d="M441.86,-91.86C423.92,-81.86 402.27,-69.8 384.19,-59.72"/>
+<polygon fill="#52514e" stroke="#52514e" points="385.01,-57.37 377.7,-56.11 382.62,-61.65 385.01,-57.37"/>
 </g>
 </g>
 </svg>

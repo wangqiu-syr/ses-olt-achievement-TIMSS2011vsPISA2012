@@ -1,204 +1,212 @@
 # Opportunity to learn, SES and school ICT in achievement: Zhang and Wang (2020) on TIMSS 2011, and an analogue on PISA 2012
 
-Version 0.1.0 · November 2026 · Qiu Wang and Yue Zhang · A2 (PISA 2012) done; A1 (TIMSS 2011 replication) waits for the data
+Qiu Wang and Yue Zhang · Version 0.1.0 · November 2026 · **[Read the report](report/report.md)**
 
-## Key findings
+> In 139–146 US schools in PISA 2012, SES is the strongest predictor of math achievement, as in Zhang and Wang's (2020) TIMSS 2011 study. Opportunity to learn (OTL) matters more than in TIMSS and depends more on SES, and school ICT has no effect on math.
+> An exploratory grid of 96 runs shows that OTL's role depends on how OTL is measured, and that school internet use relates to print reading.
+> ICT resources steepen the SES slope for digital reading, but only borderline and not robustly. Across all outcomes, the interaction's sign follows the kind of ICT: positive for resources and negative for use.
 
-Zhang and Wang (2020) modelled US Grade 8 mathematics and science achievement in TIMSS 2011 at teacher level. Their model has three parts: content coverage as opportunity to learn (OTL), family socioeconomic status (SES), and in-class computer use (ICT) as a moderator of SES. This project fits an analogue on PISA 2012 for the United States at school level (A2), and will replicate the paper itself (A1).
+![SES × ICT moderation across 6 outcomes and 4 OTL measures, with 95% bootstrap intervals](report/figures/fig1_moderation_all.png)
 
-**Confirmatory (math, OTL = FAMCONC, as specified in [docs/spec.md](docs/spec.md)):**
-- **SES dominates in both studies.** SES → math is .53–.55 in PISA (139–146 schools), against .64–.65 in the paper's TIMSS results.
-- **OTL matters more in PISA, and depends more on SES.** OTL → math is .37–.38 against .20–.21 in TIMSS. SES → OTL is .52–.61 against .12–.13.
-- **No ICT effect on math, and no moderation.** PISA's ICT measures are principal reports on internet use and resources, not classroom computer use, so this is not a like-for-like test of the TIMSS result.
-- **The measures pass, and the results reproduce.** Every run meets the pre-set reliability, validity and collinearity criteria. Re-estimating all 12 SmartPLS runs in R (`seminr`) gives the same estimates (within .0003) and the same significance verdicts.
+*Figure 1 of the report: the SES × ICT path for every outcome and OTL measure, both ICT models, with 95% bootstrap intervals. Filled points are p < .05. The full study, with the confirmatory math results, the discussion and the literature, is in [report/report.md](report/report.md).*
 
-**Exploratory (96 runs: 6 outcomes × 4 OTL measures × 2 ICT models × SES composite or ESCS; [moderation report](results/a2_seminr/moderation_report.md)):**
-- **The OTL result depends on the OTL measure.** With FAMCONC (concept familiarity), OTL → achievement is .23–.42. With problem-type exposure (ST73–76), it is .02–.13. The total SES effect is unchanged; only its split between the direct path and the path through OTL moves.
-- **ICT use relates to print reading** (total effect .14–.16). This is robust across all four OTL measures and with ESCS.
-- **Moderation is borderline and fragile.** School ICT *resources* steepen the SES slope for digital reading (SES × ICT .11–.13, p < .05 in three of four OTL measures). It does not survive ESCS or a false-discovery-rate correction, and power is about 25%.
-- **The interaction's sign follows the kind of ICT.** It is positive for resources and negative for use, in every outcome. Individually these estimates are almost all non-significant; together they are a hypothesis, resource multiplication versus substitution, for a better-powered design.
+## Overview
 
-These comparisons are descriptive. The two studies differ in unit (schools vs. teachers), population (15-year-olds vs. Grade 8) and measures; see [What differed](#what-differed).
+This repository holds the report, the code and the results of an analogue of Zhang and Wang (2020) on PISA 2012 for the United States (A2). It is laid out as a replication package. The code builds school-level files from the PISA 2012 student and school questionnaires. It then re-estimates the confirmatory SmartPLS runs in R, runs a 96-run exploratory grid, and draws the report's figures. One script, [R/run_all.R](R/run_all.R), runs every automated step and the tests in about 35 minutes on 4 cores. The only manual step, the SmartPLS 4 runs, is optional: its outputs are committed.
 
-## Why this project
+A replication of the paper itself on the TIMSS 2011 files (A1) is planned and waits for the data. The paper's 120 reported values are already in [results/paper_zhang_wang_2020.csv](results/paper_zhang_wang_2020.csv).
 
-The paper's TIMSS findings concern US Grade 8 classrooms in one year. Two questions follow: does the same OTL–SES–achievement structure appear in PISA 2012, which measures OTL differently, and does the paper's own analysis reproduce from the public TIMSS data? A2 answers the first. A1 will answer the second and check the pipeline against the published numbers.
+### Repository layout
 
-## Background
+```
+README.md        this file: the replication README
+report/          the study
+  report.md        question, data and measures, confirmatory math results, exploratory grid, moderation, discussion, conclusions
+  figures/         Figure 0 (design flow chart) to Figure 4
+  references.bib   the report's references in BibTeX
+R/               scripts, and run_all.R, which runs the automated steps in order
+docs/            confirmatory spec, exploratory spec, data audit, SmartPLS steps
+results/         machine outputs, indexed by results/README.md
+data/README.md   data rights, and how to obtain and rebuild the PISA file (the data are not in the repository)
+tests/           testthat suite
+renv.lock        package versions
+CITATION.cff     how to cite
+LICENSE          MIT, for the code
+LICENSE-report   CC BY 4.0, for the report text and figures
+from_code/       working plan and session handoff notes (the project log)
+```
 
-The paper builds on the OTL–SES–performance model of Schmidt et al. (2011, 2015; cited in the paper). SES relates to achievement directly and through OTL. Computer use in class relates to OTL and to achievement, and may moderate the SES–achievement link.
+## Data availability and provenance statements
 
-The data are TIMSS 2011, US Grade 8: math 3,398 students and 183 teachers; science 3,989 students and 363 teachers. Only classes whose teachers use computers are included. Student data are aggregated to teacher level.
+### Statement about rights
 
-The model is fitted with factor-based PLS-SEM in WarpPLS 5.0. Model 1 uses the computer as an information tool and Model 2 as a learning tool.
+- [x] The authors have legitimate access to and permission to use the data used in this report.
+- [ ] The authors have documented permission to redistribute the data. *Not applicable: the PISA data are not redistributed here. [data/README.md](data/README.md) says how to obtain them.*
 
-## Design
+### License for data
 
-- **A1 (TIMSS 2011, pending).** The same sample, measures and model as the paper. The paper's 120 reported values are transcribed in [results/paper_zhang_wang_2020.csv](results/paper_zhang_wang_2020.csv). The A1 test checks against them once the tolerances are set.
-- **A2 (PISA 2012, done).** US students aggregated to schools, math only. [docs/spec.md](docs/spec.md) records the decisions and the acceptance criteria.
-  - SES: books, parent education and home possessions, as in TIMSS. ESCS is a sensitivity check.
-  - OTL: FAMCONC.
-  - Achievement: 5 plausible values.
-  - ICT: use (Model 1) or resources (Model 2).
-  - Estimation: PLS-SEM in SmartPLS 4 with 5,000 bootstrap samples, run by the author. Code builds the data and reads the results.
-- **A2 R cross-check (done).** `seminr` re-estimates all 12 SmartPLS runs (math, print reading, science × 2 ICT models × SES composite or ESCS) with SmartPLS's settings. Every estimate is within .0003, and every significance verdict is the same.
-- **A2 exploratory grid (done).** 96 runs in `seminr`: 6 outcomes × 4 OTL measures × 2 ICT models × 2 SES measures, each with 5,000 bootstrap samples, same schools and same criteria. [docs/spec_exploratory.md](docs/spec_exploratory.md) records the design and how to read it.
-  - Outcomes: math, print reading and science (paper-based); digital reading, computer-based math and problem solving (computer-based).
-  - OTL: FAMCONC (the spec), `OTL_PT` (ST73–76 problem types), `EXPUREM` and `EXAPPLM` (experience with pure and applied math tasks).
-  - A result counts as a pattern only if it holds across OTL measures and with ESCS; a single significant cell is a lead.
+The PISA 2012 data are © OECD and are used under the OECD's terms. They are not covered by this repository's licences. The 120 values in `results/paper_zhang_wang_2020.csv` are transcribed from Zhang and Wang (2020) for comparison; please cite the paper. The paper's PDF is not included.
 
-![Design and procedure: data preparation, check against SmartPLS, the 96-run grid, and reporting](docs/figures/design_flowchart.png)
+### Summary of availability
 
-*Figure: design and procedure. Source: [docs/figures/design_flowchart.dot](docs/figures/design_flowchart.dot) (Graphviz); also as [SVG](docs/figures/design_flowchart.svg).*
+- [x] All data **are** publicly available.
+- [ ] Some data **cannot be made** publicly available.
+- [ ] **No data can be made** publicly available.
 
-## What differed
+### Details on each data source
 
-| | TIMSS 2011 (paper) | PISA 2012 (A2) |
-|---|---|---|
-| Unit | Teachers (students aggregated) | Schools (students aggregated; PISA has no teacher link) |
-| Population | Grade 8 | 15-year-olds, mostly Grade 10 |
-| OTL | Teacher-reported topic coverage this year | Student-reported familiarity with 13 concepts (cumulative) |
-| Computer use | Teacher-reported classroom use | Principal-reported internet use for schoolwork (M1) or ICT resources (M2) |
-| Subjects | Math and science | Math (spec). Reading and science are exploratory, with math OTL as a proxy: PISA 2012 has no reading or science OTL, and the US skipped the ICT questionnaire |
-| Software | WarpPLS 5.0, factor-based PLS | SmartPLS 4, PLS-SEM; `seminr` (R) for the cross-check and the exploratory grid |
+**PISA 2012, United States (OECD, 2014).** The analysis uses a US extract of the PISA 2012 international database: the student questionnaire file merged with the school questionnaire file by `SCHOOLID`, with 4,978 students in 162 schools. The data are free to download from the PISA 2012 database page on oecd.org. [data/README.md](data/README.md) lists the variables used, how to rebuild the extract, and the checks it must pass (4,978 students, 162 schools, weighted math mean 481.37). The SHA-256 of the file used is in [results/a2/data_manifest.csv](results/a2/data_manifest.csv).
 
-One more caution: some paper paths don't follow from its own correlations (e.g. math SES–OTL r = .02, but the path is .12). This suggests WarpPLS's nonlinear algorithm, so an exact A1 match is unlikely.
+**SmartPLS 4 exports (the authors).** The confirmatory runs were made by hand in SmartPLS 4, a commercial program (Ringle et al., 2024). Their Excel exports are not in the repository, and their SHA-256 values are in `results/a2*/a2_02_exports_manifest.csv`. The estimates and criteria read from them by `R/a2_02_read_smartpls.R` are committed, so every later step runs without SmartPLS.
 
-## Results
+**Published values (Zhang & Wang, 2020).** The 120 values reported in Tables 2–3, Figure 2 and section 6.2 of the paper, transcribed by hand: [results/paper_zhang_wang_2020.csv](results/paper_zhang_wang_2020.csv).
 
-A2, math, primary runs (TIMSS values from the paper's Figure 2):
+**TIMSS 2011 (IEA), for A1.** Not used yet. The A1 replication will download the US Grade 8 files when it runs.
 
-| Path | TIMSS M1 | PISA M1 (ICT use) | TIMSS M2 | PISA M2 (ICT resources) |
-|---|---|---|---|---|
-| SES → OTL | .12* | .52*** | .13* | .61*** |
-| SES → Math | .65** | .53*** | .64** | .55*** |
-| OTL → Math | .20** | .37*** | .21** | .38*** |
-| ICT → OTL | .29** | .12 | .17** | .00 |
-| ICT → Math | .08 | .03 | .08 | −.02 |
-| SES × ICT → Math | .04 | −.05 | .03 | .03 |
-| R² Math | .50 | .67 | .50 | .69 |
+## Dataset list
 
-\* p < .05, \*\* p < .01, \*\*\* p < .001. [results/a2/summary.md](results/a2/summary.md) has the full tables: confidence intervals, fit, correlations, the ESCS runs and the criteria.
-
-Reading and science (exploratory) set each subject beside PISA math, with indirect and total effects: [results/a2_reading/summary.md](results/a2_reading/summary.md) and [results/a2_science/summary.md](results/a2_science/summary.md). The science report also has the paper's TIMSS science column.
-
-**Moderation across the exploratory grid.** The SES × ICT path for every outcome and OTL measure, with 95% bootstrap intervals; filled points are p < .05:
-
-![SES × ICT moderation across 6 outcomes and 4 OTL measures](results/a2_seminr/figures/fig1_moderation_all.png)
-
-[results/a2_seminr/moderation_report.md](results/a2_seminr/moderation_report.md) has the simple slopes, robustness checks, effect sizes and multiple-testing adjustment. It also covers the literature for and against amplification, why most interactions are null, and the theoretical and practical importance. All 96 runs are summarised in [results/a2_seminr/summary.md](results/a2_seminr/summary.md).
-
-## Reproduce
-
-From the repository root, with R 4.3. Packages are pinned in `renv.lock`: haven, readxl, testthat, seminr, ggplot2, ragg. Raw data are not in the repo; [data/README.md](data/README.md) says what the PISA file is, where it goes and how to rebuild it.
-
-| Step | Command | Time | Notes |
+| Data file | Source | Notes | Provided |
 |---|---|---|---|
-| 0. Packages | `renv::restore()` | minutes | Where CRAN is blocked, see `R/README.md` (apt packages, and `seminr` from GitHub) |
-| 1. School-level data | `Rscript R/a2_01_prepare_pisa2012.R` | seconds | Needs `data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav`; writes `data/derived/` and data checks D1–D5 |
-| 2. SmartPLS models (optional) | SmartPLS 4, by hand | — | [docs/a2_smartpls_steps.md](docs/a2_smartpls_steps.md); exports go in `data/raw/smartpls_exports/` |
-| 3. Read SmartPLS results | `Rscript R/a2_02_read_smartpls.R` (math), then `... reading`, `... science` | seconds | Needs step 2's exports; matched to runs by content |
-| 4. R cross-check | `Rscript R/a2_04_seminr_crosscheck.R` (math), then `... reading`, `... science` | ~1 min each | Needs step 3's CSVs (committed) |
-| 5. Exploratory grid | `Rscript R/a2_05_seminr_runs.R` | ~25 min on 4 cores | 96 runs × 5,000 bootstrap samples; `NBOOT=200` for a quick check |
-| 6. Moderation figures and statistics | `Rscript R/a2_06_moderation_figures.R` | ~2 min | Needs step 5 |
-| 7. Tests | `Rscript tests/testthat.R` | seconds | 44 pass; 2 skip until A1 and the PISA parity check exist |
+| `data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav` | OECD PISA 2012, US extract | 4,978 students, 162 schools; 16.7 MB; SHA-256 in `results/a2/data_manifest.csv` | No; see [data/README.md](data/README.md) |
+| `data/derived/a2_pisa2012_school.csv`, `a2_smartpls_model1.csv`, `a2_smartpls_model2.csv` | `R/a2_01_prepare_pisa2012.R` | School-level analysis files | No; rebuilt by step 1 |
+| `data/raw/smartpls_exports/` | The authors, SmartPLS 4 | Excel exports of the 12 SmartPLS runs | No; SHA-256 in `results/a2*/a2_02_exports_manifest.csv` |
+| `results/a2*/a2_pisa2012_estimates_user_sav.csv`, `..._sensitivity.csv`, `a2_02_criteria.csv` | `R/a2_02_read_smartpls.R`, from the exports | SmartPLS estimates and criteria | Yes |
+| `results/paper_zhang_wang_2020.csv` | Zhang and Wang (2020) | 120 published values, for comparison | Yes |
 
-## Files
+## Computational requirements
 
-### Start here
+### Software requirements
 
-This README gives the overview. [results/a2/summary.md](results/a2/summary.md) sets the PISA math results beside the paper's, and [results/a2_seminr/moderation_report.md](results/a2_seminr/moderation_report.md) is the exploratory report. [docs/spec.md](docs/spec.md) records every confirmatory decision, and [docs/spec_exploratory.md](docs/spec_exploratory.md) the exploratory ones.
+- **R 4.3.3.** Packages are pinned in [renv.lock](renv.lock), including:
+  - haven 2.5.4 and readxl 1.4.3 (reading data);
+  - seminr 2.6.0, installed from GitHub at commit `cfc0b30` (Ray et al., 2026);
+  - lavaan 0.6-17;
+  - ggplot2 3.4.4 and ragg 1.2.7 (figures);
+  - testthat 3.2.1.
+  
+  `Rscript -e 'renv::restore()'` installs them. Where CRAN is blocked, [R/README.md](R/README.md) gives the apt and GitHub route.
+- **Inter font**, for the figure labels (rendered by ragg).
+- **Optional:**
+  - Graphviz, to redraw Figure 0;
+  - Python 3 with numpy, pandas and pyreadstat, for the exploratory data audit (`R/a2_00_audit_pisa2012.py`);
+  - SmartPLS 4, for the confirmatory runs, whose outputs are committed.
 
-### Design and decisions
+### Controlled randomness
 
-- [docs/spec.md](docs/spec.md): A2 decisions, measures, model, estimation, acceptance criteria and known differences (confirmatory: math, OTL = FAMCONC).
-- [docs/spec_exploratory.md](docs/spec_exploratory.md): the exploratory extension, with five more outcomes, three more OTL measures and the 96-run grid.
-- [docs/a2_data_audit.md](docs/a2_data_audit.md): the audit of the PISA file against the paper and the variable plan, which led to the measure choices.
-- [docs/a2_smartpls_steps.md](docs/a2_smartpls_steps.md): the SmartPLS runs, and the scripted alternative.
-- [docs/figures/](docs/figures/): the design flow chart (PNG, SVG and Graphviz source).
+- [x] Random seed is set at line 28 of `R/a2_04_seminr_crosscheck.R` and line 20 of `R/a2_05_seminr_runs.R` (20261120). `R/a2_06_moderation_figures.R` uses the same seed through the default in `R/a2_seminr_helpers.R`.
+- The SmartPLS runs used a fixed seed, but SmartPLS does not export its value.
+- The report's results were produced on 4 cores.
 
-### Code
+### Memory, runtime and storage
 
-Scripts are in `R/` and run from the repository root; [R/README.md](R/README.md) lists them by role.
-- [R/a2_01_prepare_pisa2012.R](R/a2_01_prepare_pisa2012.R) builds the school files and data checks.
-- [R/a2_02_read_smartpls.R](R/a2_02_read_smartpls.R) reads the SmartPLS exports for one outcome, checks the criteria and writes the report.
-- [R/a2_04_seminr_crosscheck.R](R/a2_04_seminr_crosscheck.R) re-estimates the SmartPLS runs in R and compares them.
-- [R/a2_05_seminr_runs.R](R/a2_05_seminr_runs.R) runs the 96-run grid, and [R/a2_06_moderation_figures.R](R/a2_06_moderation_figures.R) makes the moderation figures and statistics.
-- [R/a2_seminr_helpers.R](R/a2_seminr_helpers.R) holds the shared model code.
-- [R/a2_00_audit_pisa2012.py](R/a2_00_audit_pisa2012.py) is the exploratory audit, in Python.
-- Tests are in `tests/testthat/`.
+- **Runtime:** about 35 minutes on a 4-core Linux machine.
+  - Step 1 takes seconds.
+  - The cross-checks take about 1 minute each.
+  - The grid takes about 25 minutes.
+  - The figures take about 2 minutes.
+- **Storage:** under 25 MB for the PISA file, the derived files and the repository, plus the R package library.
+- **Machine:** the code was last run in a 4-core Linux cloud container. Memory use was not measured.
 
-### Results
+## Description of programs and code
 
-[results/README.md](results/README.md) indexes the result folders and file conventions.
-- `results/a2/` is the confirmatory math analysis.
-- `results/a2_reading/` and `results/a2_science/` hold the SmartPLS reading and science runs.
-- `results/a2_seminr/` holds the exploratory grid, the moderation report and its figures.
+All scripts run from the repository root. [R/README.md](R/README.md) lists them by role and status.
 
-<details>
-<summary>A2 math CSVs and records (11 files)</summary>
+| Program | What it does |
+|---|---|
+| [R/run_all.R](R/run_all.R) | Runs steps 1–7 below in order |
+| [R/a2_01_prepare_pisa2012.R](R/a2_01_prepare_pisa2012.R) | Builds the school-level files and runs data checks D1–D5 |
+| [R/a2_02_read_smartpls.R](R/a2_02_read_smartpls.R) | Reads the SmartPLS exports for one outcome, checks criteria M1–M5 and writes its summary (manual step) |
+| [R/a2_04_seminr_crosscheck.R](R/a2_04_seminr_crosscheck.R) | Re-estimates the SmartPLS runs in R and compares every shared estimate |
+| [R/a2_05_seminr_runs.R](R/a2_05_seminr_runs.R) | Runs the 96-run exploratory grid |
+| [R/a2_06_moderation_figures.R](R/a2_06_moderation_figures.R) | Draws Figures 1–4 and computes f², Benjamini–Hochberg q and the simple slopes |
+| [R/a2_seminr_helpers.R](R/a2_seminr_helpers.R) | Shared model code, sourced by `a2_04`, `a2_05` and `a2_06` |
+| [R/a2_00_audit_pisa2012.py](R/a2_00_audit_pisa2012.py) | Exploratory audit of the PISA file (Python; optional) |
+| [report/figures/fig0_design_flowchart.dot](report/figures/fig0_design_flowchart.dot) | Graphviz source of Figure 0 |
+| `tests/testthat/` | Data checks, acceptance criteria, cross-check agreement and grid completeness |
 
-- **Estimates:**
-  - [results/a2/a2_pisa2012_estimates_user_sav.csv](results/a2/a2_pisa2012_estimates_user_sav.csv): primary runs, with SE, p and 95% CI;
-  - [results/a2/a2_pisa2012_estimates_sensitivity.csv](results/a2/a2_pisa2012_estimates_sensitivity.csv): ESCS runs.
-- **Criteria:**
-  - [results/a2/a2_02_criteria.csv](results/a2/a2_02_criteria.csv): model criteria M1–M4 per run;
-  - [results/a2/a2_01_checks.csv](results/a2/a2_01_checks.csv): data checks D1–D5.
-- **R cross-check:** [results/a2/a2_04_seminr_crosscheck.md](results/a2/a2_04_seminr_crosscheck.md) (report) and [results/a2/a2_04_seminr_vs_smartpls.csv](results/a2/a2_04_seminr_vs_smartpls.csv): seminr vs. SmartPLS, every shared estimate.
-- **Data report:** [results/a2/a2_01_pisa2012_school_data.md](results/a2/a2_01_pisa2012_school_data.md): samples, descriptives, correlations, reliabilities, and the OTL measures without FAMCONC.
-- **Audit output:** [results/a2/a2_00_pisa2012_data_audit_output.txt](results/a2/a2_00_pisa2012_data_audit_output.txt).
-- **Provenance:**
-  - [results/a2/data_manifest.csv](results/a2/data_manifest.csv): raw files;
-  - [results/a2/a2_02_exports_manifest.csv](results/a2/a2_02_exports_manifest.csv): SmartPLS exports, with SHA-256.
+### License for code
 
-</details>
+The code is licensed under the MIT License; see [LICENSE](LICENSE). The report text and figures are licensed under CC BY 4.0; see [LICENSE-report](LICENSE-report).
 
-### Published values
+## Instructions to replicators
 
-[results/paper_zhang_wang_2020.csv](results/paper_zhang_wang_2020.csv) holds the 120 values transcribed from the paper: Tables 2–3, Figure 2 and section 6.2. They are for comparison only, and the paper's PDF is not included.
+1. Get the PISA 2012 US extract as described in [data/README.md](data/README.md), and save it as `data/raw/pisa2012/user_sav/US_PISA_2012_STSCH.sav`.
+2. Install R 4.3.3, then run `Rscript -e 'renv::restore()'` from the repository root.
+3. Run everything:
 
-### Project files
+   ```bash
+   Rscript R/run_all.R
+   ```
 
-- [LICENSE](LICENSE) (MIT), [CITATION.cff](CITATION.cff) and [.gitignore](.gitignore) (keeps data, PDFs and Word files out).
-- `renv.lock` and `renv/`: package versions.
-- `from_code/`: the working plan and the session-by-session handoff notes (the project log).
+   - `NBOOT=200 Rscript R/run_all.R` gives a quick check in a few minutes; its numbers are not the report's.
+   - `FROM=6 Rscript R/run_all.R` redraws the figures from the committed grid.
+   - `DRY_RUN=1 Rscript R/run_all.R` lists the steps.
+4. Optional manual steps:
+   - Re-run SmartPLS ([docs/a2_smartpls_steps.md](docs/a2_smartpls_steps.md)), put the exports in `data/raw/smartpls_exports/`, then run `Rscript R/a2_02_read_smartpls.R` with `math`, `reading` or `science`.
+   - Redraw Figure 0 with the `dot` commands at the top of [its source](report/figures/fig0_design_flowchart.dot).
+
+| Step in `run_all.R` | Command | Time | Writes |
+|---|---|---|---|
+| 1. School-level data | `Rscript R/a2_01_prepare_pisa2012.R` | seconds | `data/derived/`; `results/a2/a2_01_*`, `data_manifest.csv` |
+| 2–4. R cross-check | `Rscript R/a2_04_seminr_crosscheck.R` with `math`, `reading`, `science` | ~1 min each | `results/a2*/a2_04_*` |
+| 5. Exploratory grid | `Rscript R/a2_05_seminr_runs.R` | ~25 min on 4 cores | `results/a2_seminr/estimates.csv`, `criteria.csv`, `summary.md` |
+| 6. Figures and moderation statistics | `Rscript R/a2_06_moderation_figures.R` | ~2 min | `report/figures/fig1–4`; `results/a2_seminr/moderation_stats.csv`, `simple_slopes.csv` |
+| 7. Tests | `Rscript tests/testthat.R` | seconds | none |
+
+The tests skip, rather than fail, where an input does not exist yet (A1, and the OECD parity check).
+
+## List of tables and programs
+
+Numbers refer to [report/report.md](report/report.md).
+
+| Figure or table | Program | Output file | Note |
+|---|---|---|---|
+| Figure 0 | Graphviz | [report/figures/fig0_design_flowchart.png](report/figures/fig0_design_flowchart.png), `.svg` | Drawn from [fig0_design_flowchart.dot](report/figures/fig0_design_flowchart.dot) |
+| Figure 1 | `R/a2_06_moderation_figures.R` | [report/figures/fig1_moderation_all.png](report/figures/fig1_moderation_all.png) | From `results/a2_seminr/estimates.csv` |
+| Figure 2 | `R/a2_06_moderation_figures.R` | [report/figures/fig2_simple_slopes.png](report/figures/fig2_simple_slopes.png) | Values in `results/a2_seminr/simple_slopes.csv` |
+| Figure 3 | `R/a2_06_moderation_figures.R` | [report/figures/fig3_moderation_robustness.png](report/figures/fig3_moderation_robustness.png) | |
+| Figure 4 | `R/a2_06_moderation_figures.R` | [report/figures/fig4_otl_by_measure.png](report/figures/fig4_otl_by_measure.png) | |
+| Table 1 | `R/a2_01_prepare_pisa2012.R` builds the measures | [docs/spec.md](docs/spec.md) §3; [docs/spec_exploratory.md](docs/spec_exploratory.md) §2 | Descriptive |
+| Table 2 | – | [docs/spec.md](docs/spec.md) §7 | Descriptive |
+| Tables 3–4 | `R/a2_02_read_smartpls.R` | [results/a2/summary.md](results/a2/summary.md); `results/a2/a2_pisa2012_estimates_user_sav.csv`, `..._sensitivity.csv` | TIMSS column from `results/paper_zhang_wang_2020.csv` |
+| Table 5 | `R/a2_05_seminr_runs.R` | [results/a2_seminr/summary.md](results/a2_seminr/summary.md), "How much the OTL measure matters" | |
+| Table 6 | `R/a2_05_seminr_runs.R`, `R/a2_06_moderation_figures.R` | `results/a2_seminr/moderation_stats.csv`; ESCS column from `estimates.csv` | |
+| Table 7 | `R/a2_05_seminr_runs.R` | `results/a2_seminr/estimates.csv` (`path_SESxICT_ACH`) | |
+| §2.1, data checks | `R/a2_01_prepare_pisa2012.R` | [results/a2/a2_01_checks.csv](results/a2/a2_01_checks.csv) | |
+| §3.3, R cross-check | `R/a2_04_seminr_crosscheck.R` | [results/a2/a2_04_seminr_crosscheck.md](results/a2/a2_04_seminr_crosscheck.md), and the same in `a2_reading/`, `a2_science/` | |
+| §6.3, power | by hand | – | Inverse square root rule (Kock & Hadaya, 2018) |
+
+[results/README.md](results/README.md) explains the result folders and the `estimate_id` scheme.
 
 ## Status
 
-- **A2 (PISA 2012):**
-  - confirmatory math analysis: done;
-  - R cross-check: done for math, reading and science;
-  - exploratory grid and moderation report: done.
-  - Still to do:
-    - the parity check against an OECD download (needs OECD access);
-    - per-PV pooling and a weighted run (`R/a2_07`);
-    - optional PLSc runs.
-- **A1 (TIMSS 2011 replication):** waiting for the TIMSS 2011 US Grade 8 files. Tolerances are to be set in the spec, given WarpPLS.
-- **Phase B (multilevel model):** after the gate review of A1 and A2. Student-level models with cross-level SES × ICT terms are the natural test of the exploratory moderation (see the report, §3.5).
-
-## Authors
-
-Qiu Wang and Yue Zhang. Questions and issues: please open a GitHub issue.
-
-## AI assistance
-
-The code was written with assistance from Claude Code (Anthropic).
+- **A2 (PISA 2012):** the confirmatory math analysis, the R cross-check and the exploratory grid are done. Still to do:
+  - the parity check against an independent OECD download;
+  - per-PV pooling and a weighted run (`R/a2_07`);
+  - optional PLSc runs.
+- **A1 (TIMSS 2011 replication):** waits for the TIMSS 2011 US Grade 8 files.
+- **Phase B (multilevel model):** after A1 and A2. Student-level models with cross-level SES × ICT terms are the natural test of the exploratory moderation (report, §7.7).
 
 ## References
 
-- Becker, J.-M., Ringle, C. M., & Sarstedt, M. (2018). Estimating moderating effects in PLS-SEM and PLSc-SEM: Interaction term generation × data treatment. *Journal of Applied Structural Equation Modeling, 2*(2), 1–21.
+- Becker, J.-M., Ringle, C. M., & Sarstedt, M. (2018). Estimating moderating effects in PLS-SEM and PLSc-SEM: Interaction term generation × data treatment. *Journal of Applied Structural Equation Modeling, 2*(2), 1–21. https://epub.ub.uni-muenchen.de/96102/
 - Kock, N., & Hadaya, P. (2018). Minimum sample size estimation in PLS-SEM: The inverse square root and gamma-exponential methods. *Information Systems Journal, 28*(1), 227–261. https://doi.org/10.1111/isj.12131
 - OECD. (2013). *PISA 2012 results: What students know and can do (Volume I)*. OECD Publishing. https://doi.org/10.1787/9789264201118-en
-- OECD. (2015). *Students, computers and learning: Making the connection*. OECD Publishing. https://doi.org/10.1787/9789264239555-en
+- OECD. (2014). *PISA 2012 technical report*. OECD Publishing. https://www.oecd.org/content/dam/oecd/en/about/programmes/edu/pisa/publications/technical-report/PISA-2012-technical-report-final.pdf
 - Ray, S., Danks, N. P., & Calero Valdez, A. (2026). *seminr: Building and estimating structural equation models* (Version 2.6.0) [R package]. https://github.com/sem-in-r/seminr
 - Ringle, C. M., Wende, S., & Becker, J.-M. (2024). *SmartPLS 4*. SmartPLS. https://www.smartpls.com
-- Schmidt, W. H., Burroughs, N. A., Zoido, P., & Houang, R. T. (2015). The role of schooling in perpetuating educational inequality: An international perspective. *Educational Researcher, 44*(7), 371–386. https://doi.org/10.3102/0013189X15603982
 - Zhang, Y., & Wang, Q. (2020). Content learning opportunities, computer-based instruction, and students' mathematics and science achievement. *International Journal of Mathematical Education in Science and Technology*. https://doi.org/10.1080/0020739X.2020.1717659
+
+The report has the full reference list, also as [BibTeX](report/references.bib).
+
+## Acknowledgements
+
+The data come from the OECD's Programme for International Student Assessment (PISA) 2012. The code and drafts of the report were written with assistance from Claude Code (Anthropic).
 
 ## How to cite
 
-Use the metadata in [CITATION.cff](CITATION.cff) (GitHub's "Cite this repository" button), and please also cite Zhang and Wang (2020). The moderation report has its own reference list.
+Use the metadata in [CITATION.cff](CITATION.cff) (GitHub's "Cite this repository" button), and please also cite Zhang and Wang (2020). Questions and issues: please open a GitHub issue.
 
 ## License
 
-MIT (see `LICENSE`).
+Code: MIT ([LICENSE](LICENSE)). Report text and figures: CC BY 4.0 ([LICENSE-report](LICENSE-report)). Data: © OECD, not redistributed.

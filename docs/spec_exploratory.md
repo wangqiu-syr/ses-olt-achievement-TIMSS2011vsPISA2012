@@ -20,5 +20,5 @@ Status: exploratory, 2026-11-20. The A2 spec (`spec.md`) covers **math with OTL 
 ## 3. How to read the results
 - **The OTL measures are all about math.** For reading, science and problem solving, OTL is a proxy for a school's mathematical press, not subject-specific opportunity to learn.
 - **The grid holds many tests**: 96 runs, each with 6 paths and 4 effects. At α = .05, some results reach significance by chance. A result counts as a pattern only if it holds across OTL measures *and* with ESCS. A single significant cell is a lead.
-- **Computer-based outcomes may carry extra noise.** At school level, their PVs correlate only .78–.83 with their paper counterparts, below the student-level .86. Check the PISA 2012 computer-based assessment design before interpreting paper-vs-computer contrasts. `results/a2_seminr/moderation_report.md` gives the source.
+- **Computer-based outcomes may carry extra noise.** At school level, their PVs correlate only .78–.83 with their paper counterparts, below the student-level .86. Check the PISA 2012 computer-based assessment design before interpreting paper-vs-computer contrasts. The report, [§7.4](../report/report.md#74-why-moderation-is-not-significant-elsewhere), point 6, gives the source.
 - Comparisons between outcomes and OTL measures are descriptive: same schools, correlated outcomes, no joint test.

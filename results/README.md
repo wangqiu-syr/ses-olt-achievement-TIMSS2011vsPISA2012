@@ -1,13 +1,13 @@
 # results/
 
-Every file here is written by a script in `R/` and is reproducible from the raw data (see the main README, *Reproduce*). Raw and derived data are not in the repository.
+Machine outputs. Every file here is written by a script in `R/` and is reproducible from the raw data (see the main README, *Instructions to replicators*), except `paper_zhang_wang_2020.csv`, which is transcribed. Raw and derived data are not in the repository. The study itself is [report/report.md](../report/report.md), and its figures are in `report/figures/`.
 
 | Folder or file | What it holds | Written by |
 |---|---|---|
 | `paper_zhang_wang_2020.csv` | The 120 values reported in Zhang & Wang (2020), for comparison | transcribed by hand |
 | `a2/` | **A2, the confirmatory analysis:** PISA 2012 math, OTL = FAMCONC. SmartPLS estimates, criteria, data checks, and the `seminr` cross-check. Report: `a2/summary.md` | `a2_01`, `a2_02`, `a2_04` |
 | `a2_reading/`, `a2_science/` | Exploratory: the user's SmartPLS runs for print reading and science, each compared with math, plus their `seminr` cross-checks. Reports: `summary.md` in each | `a2_02`, `a2_04` |
-| `a2_seminr/` | Exploratory: the 96-run `seminr` grid (6 outcomes × 4 OTL measures × 2 ICT models × SES or ESCS). Reports: `summary.md` (all runs), `moderation_report.md` (SES × ICT moderation, with literature), and `figures/` | `a2_05`, `a2_06` |
+| `a2_seminr/` | Exploratory: the 96-run `seminr` grid (6 outcomes × 4 OTL measures × 2 ICT models × SES or ESCS). Report: `summary.md` (all runs). `moderation_stats.csv` and `simple_slopes.csv` feed the report's §6; `moderation_report.md` now points to the report | `a2_05`, `a2_06` |
 | `a1/` | A1, the replication of the paper on TIMSS 2011. Not yet produced; waits on the TIMSS files | `a1_*` (to come) |
 
 ## File conventions

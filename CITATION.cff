@@ -1,8 +1,8 @@
 # Confirm author order, affiliations and ORCIDs before tagging a release.
 cff-version: 1.2.0
-message: "If you use this code or its results, please cite it as below, and cite Zhang & Wang (2020)."
+message: "If you use this code, the report or its results, please cite it as below, and cite Zhang & Wang (2020)."
 type: software
-title: "SES, opportunity to learn, computer use and achievement: Zhang & Wang (2020) on TIMSS 2011, and an analogue on PISA 2012"
+title: "Opportunity to learn, SES and school ICT in achievement: Zhang and Wang (2020) on TIMSS 2011, and an analogue on PISA 2012"
 authors:
   - family-names: "Wang"
     given-names: "Qiu"
@@ -10,7 +10,10 @@ authors:
     given-names: "Yue"
 version: "0.1.0"
 date-released: "2026-11-20"
-license: MIT
+# MIT for the code (LICENSE); CC BY 4.0 for the report text and figures (LICENSE-report).
+license:
+  - MIT
+  - CC-BY-4.0
 repository-code: "https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012"
 keywords:
   - opportunity to learn

@@ -8,41 +8,35 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
    - seed renv into the project library: `lib=$(R_PROFILE_USER=/dev/null Rscript -e 'cat(renv::paths$library())'); mkdir -p "$lib"; cp -r /usr/lib/R/site-library/renv "$lib/"`;
    - then `Rscript -e 'renv::hydrate()'`;
    - install seminr from GitHub as in `R/README.md`, last paragraph.
-3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (44 pass, 2 skip).
+3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (61 pass, 2 skip). `Rscript R/run_all.R` runs every automated step (about 35 min); `DRY_RUN=1` lists them.
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
-## Next task: restructure for release, with the report as the main body (proposed 2026-11-20; decisions pending)
-The user liked the moderation report (also published as a private web page: https://claude.ai/artifact/2zoMcKtpKjK3LvK3eYdw4J) and wants it as the repo's main body. The README should follow the Social Science Data Editors template (https://social-science-data-editors.github.io/template_README/).
+## Next task: the user's review, then release (restructure done 2026-11-20, session 6)
+The repo is restructured for release on `claude/pisa-reading`, and a PR to `main` is open. The user's decisions (2026-11-20):
+- full-study report;
+- Markdown;
+- MIT for code and CC BY 4.0 for the report and figures;
+- restructure on the branch, then one PR.
 
-Proposed layout:
-- `README.md`: the replication README, in the template's sections:
-  - Overview;
-  - data availability and provenance (rights, licence, summary, details per source);
-  - dataset list;
-  - computational requirements (software and versions, controlled randomness, memory, run time, storage);
-  - description of code (with its licence);
-  - instructions to replicators;
-  - a list of tables and figures mapped to program and output file;
-  - references;
-  - acknowledgements.
+**Done:**
+- `report/report.md` is the main body: question, data and measures, confirmatory math vs. TIMSS, exploratory grid, moderation, discussion, limitations, conclusions. It is built from the old `results/a2_seminr/moderation_report.md` (now a stub pointing to the report) and `results/a2/summary.md`.
+- `report/references.bib` holds the report's 49 references. Authors are given with initials, as in the checked list.
+- `report/figures/` holds `fig0_design_flowchart` (moved from `docs/figures/`, label updated, re-rendered) and `fig1`–`fig4` (moved from `results/a2_seminr/figures/`). `R/a2_06` now writes there.
+- `README.md` follows the Social Science Data Editors template, with a map of tables and figures to programs.
+- `R/run_all.R` runs a2_01, a2_04 × 3, a2_05, a2_06 and the tests (`FROM`, `TO`, `DRY_RUN`, `NBOOT`).
+- `LICENSE` now names Qiu Wang (it said "QW"). `LICENSE-report` holds CC BY 4.0, with the full legal text from the SPDX copy. `CITATION.cff` lists both licences.
+- `tests/testthat/test-release-layout.R` checks links, run_all's scripts, the figure paths and the bib count (17 tests).
 
-  It opens with the title, a three-line abstract, the key figure and a link to the report.
-- `report/report.md` + `report/figures/` + `report/references.bib`: the full study (question, data and measures, confirmatory math vs. TIMSS, exploratory grid, moderation, discussion, conclusions), built from `results/a2_seminr/moderation_report.md` and `results/a2/summary.md`.
-- `R/run_all.R`: runs the automated steps in order (a2_01, a2_04 × 3, a2_05, a2_06, tests). SmartPLS stays an optional manual step.
-- `LICENSE` (MIT, code) + `LICENSE-report` (CC BY 4.0, text and figures, if the user agrees). Zenodo DOI at release.
-- Keep `docs/`, `results/`, `data/README.md`, `tests/` and `from_code/` as they are; update the links.
+**Open for the user:**
+1. Review `report/report.md` and `README.md`. Review edits now go to the report, not the stub.
+2. `CITATION.cff`: author order, affiliations and ORCIDs. LICENSE names Qiu Wang only, and LICENSE-report names both authors; confirm both.
+3. README rights statement: confirm the checked box (legitimate access to the PISA data).
+4. Figure order: the figure numbers are baked into the PNG titles, so in the report Figure 4 (§5.1) appears before Figures 1–3 (§6). To fix this, renumber in `R/a2_06` and rerun `FROM=6` (needs the data). Moving §5.1 after §6 would fix it too.
+5. Then merge, make the repo public and tag `v0.1.0`, plus a Zenodo DOI if wanted.
 
-Decisions the user owes (asked 2026-11-20):
-1. Report scope: the full study (recommended) or the moderation report only.
-2. Format: Markdown now (recommended) or Quarto `paper.qmd`.
-3. Licences: MIT for code + CC BY 4.0 for the report (recommended).
-4. Merge `claude/pisa-reading` to `main` first, or restructure on the branch and then merge.
-
-Why GitHub looks different: the default view is `main`, which lacks the 12 commits (50 files) on `claude/pisa-reading`.
-
-## Earlier next task (still open: the user's review on 2026-11-20)
+## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**
-   - `results/a2_seminr/moderation_report.md`, with figures in `results/a2_seminr/figures/`;
+   - `report/report.md` (was `results/a2_seminr/moderation_report.md`), with figures in `report/figures/`;
    - the README;
    - `CITATION.cff` (author order, affiliations, ORCIDs).
 2. **Release (the user's GitHub actions):**

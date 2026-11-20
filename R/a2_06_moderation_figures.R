@@ -9,7 +9,8 @@
 # Fig 4  OTL -> achievement by OTL measure: how much OTL's role depends on its measure
 #
 # Inputs  results/a2_seminr/estimates.csv (a2_05); data/derived/a2_smartpls_model{1,2}.csv (a2_01)
-# Outputs results/a2_seminr/figures/fig{1..4}_*.png; results/a2_seminr/simple_slopes.csv
+# Outputs report/figures/fig{1..4}_*.png (the report's figures); results/a2_seminr/simple_slopes.csv and
+#         moderation_stats.csv (f², Benjamini–Hochberg q)
 # NBOOT (default 5000) sets the bootstrap for the two refits behind Fig 2.
 
 # Labels use ×, → and −: read and draw them as UTF-8 even where the session locale is C/POSIX.
@@ -17,7 +18,8 @@ invisible(Sys.setlocale("LC_CTYPE", "C.UTF-8"))
 source("R/a2_seminr_helpers.R", encoding = "UTF-8")
 suppressMessages(library(ggplot2))
 nboot <- as.integer(Sys.getenv("NBOOT", "5000"))
-dir.create("results/a2_seminr/figures", showWarnings = FALSE, recursive = TRUE)
+fig_dir <- "report/figures"
+dir.create(fig_dir, showWarnings = FALSE, recursive = TRUE)
 est <- utils::read.csv("results/a2_seminr/estimates.csv", stringsAsFactors = FALSE)
 
 outc <- data.frame(outcome = c("math", "reading", "science", "digital", "cmat", "cpro"),
@@ -47,7 +49,7 @@ theme_viz <- theme_minimal(base_size = 10, base_family = font) + theme(
   plot.caption.position = "plot")
 sig_shapes <- c("p < .05" = 16, "not significant" = 21)
 nz <- function(x) sub("^(-?)0\\.", "\\1.", formatC(x, format = "f", digits = 2))
-save <- function(p, name, w, h) ggsave(file.path("results/a2_seminr/figures", name), p, width = w, height = h, dpi = 200,
+save <- function(p, name, w, h) ggsave(file.path(fig_dir, name), p, width = w, height = h, dpi = 200,
                                        bg = surface, device = ragg::agg_png)
 
 # ---- Fig 1: SES x ICT everywhere ----------------------------------------------------------
@@ -188,5 +190,5 @@ fig4 <- ggplot(o, aes(estimate, row, colour = model_f, group = model_f)) +
   theme_viz
 save(fig4, "fig4_otl_by_measure.png", 10, 4.2)
 
-cat(sprintf("Focal moderation cell: %s, %s, OTL = %s; counterpart: %s. Figures in results/a2_seminr/figures/\n",
+cat(sprintf("Focal moderation cell: %s, %s, OTL = %s; counterpart: %s. Figures in report/figures/\n",
             f_out, f_mod, f_otl, c_out))

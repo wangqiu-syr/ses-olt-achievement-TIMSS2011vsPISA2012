@@ -1,7 +1,7 @@
 // Design and procedure of the A2 analysis and its exploratory 96-run grid.
 // Render from the repository root:
-//   dot -Tpng -Gdpi=200 docs/figures/design_flowchart.dot -o docs/figures/design_flowchart.png
-//   dot -Tsvg           docs/figures/design_flowchart.dot -o docs/figures/design_flowchart.svg
+//   dot -Tpng -Gdpi=200 report/figures/fig0_design_flowchart.dot -o report/figures/fig0_design_flowchart.png
+//   dot -Tsvg           report/figures/fig0_design_flowchart.dot -o report/figures/fig0_design_flowchart.svg
 digraph design {
   graph [rankdir=TB, fontname="Inter", fontsize=11, bgcolor="#fcfcfb", nodesep=0.35, ranksep=0.42,
          pad=0.3, newrank=true, compound=true, labeljust=l];
@@ -72,7 +72,7 @@ digraph design {
     rule [shape=note, fillcolor="#ffffff", color="#52514e",
           label=<<B>Decision rule</B><BR/>a result is a pattern only if it holds<BR/>across OTL measures <I>and</I> with ESCS;<BR/>a single significant cell is a lead>];
     figs [label=<<B>Figures</B>: moderation across the grid · simple slopes<BR/>robustness · OTL by measure<BR/><FONT COLOR="#52514e">R/a2_06_moderation_figures.R</FONT>>];
-    rep  [label=<<B>Moderation report</B> with literature<BR/><FONT COLOR="#52514e">results/a2_seminr/moderation_report.md</FONT>>];
+    rep  [label=<<B>Report</B>: the full study, with literature<BR/><FONT COLOR="#52514e">report/report.md</FONT>>];
     outs -> figs -> rep;
     rule -> rep [style=dashed];
   }
