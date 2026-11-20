@@ -65,7 +65,17 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 
 **At the next release:** bump `version` and `date-released` in `CITATION.cff`, and the version in the README and report bylines. Zenodo will make a new DOI.
 
-**Next step:** a new chat on the renamed repo, starting with "Start here", then item 1 above, or the first analysis item if the PISA file is attached.
+**Publish the report on OSF (the user's plan, 2026-11-20):** post it as a preprint on EdArXiv, OSF's education preprint server, which gives it its own DOI.
+1. Code builds `report/report.pdf` from `report.md`. Pandoc is installed in the container but LaTeX is not, so go Markdown → HTML with pandoc, then print to PDF with Chromium (Playwright).
+2. The user signs in to osf.io with ORCID, then goes to EdArXiv → Add a preprint and fills in:
+   - the PDF, the title and the abstract;
+   - authors: Wang, then Zhang (add Yue Zhang as a contributor);
+   - subjects, and tags = the keywords;
+   - licence CC BY 4.0;
+   - data and code links: the Zenodo DOI and the GitHub repo.
+3. Moderation takes a day or two. Afterwards, add the preprint DOI to the README and the report. On Zenodo, link it under Related works.
+
+**Next step:** a new chat on the renamed repo, starting with "Start here", then building the PDF for EdArXiv (step 1 above). The Zenodo checks (item 1) and the analysis items can follow.
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**
