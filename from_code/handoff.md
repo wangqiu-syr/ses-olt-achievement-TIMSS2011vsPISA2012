@@ -11,8 +11,8 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (61 pass, 2 skip). `Rscript R/run_all.R` runs every automated step (about 35 min); `DRY_RUN=1` lists them.
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
-## Next task: the user's review, then release (restructure done 2026-11-20, session 6)
-The repo is restructured for release on `claude/pisa-reading`, and a PR to `main` is open: https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012/pull/5. The user's decisions (2026-11-20):
+## Next task: the user's review, then make public and tag (restructure merged 2026-11-20, session 6)
+The repo is restructured for release. Code merged it to `main` at the user's request: https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012/pull/5. `main` now has everything; start new work from `main`. The user's decisions (2026-11-20):
 - full-study report;
 - Markdown;
 - MIT for code and CC BY 4.0 for the report and figures;
@@ -32,7 +32,11 @@ The repo is restructured for release on `claude/pisa-reading`, and a PR to `main
 2. `CITATION.cff`: author order, affiliations and ORCIDs. LICENSE names Qiu Wang only, and LICENSE-report names both authors; confirm both.
 3. README rights statement: confirm the checked box (legitimate access to the PISA data).
 4. Figure order: the figure numbers are baked into the PNG titles, so in the report Figure 4 (§5.1) appears before Figures 1–3 (§6). To fix this, renumber in `R/a2_06` and rerun `FROM=6` (needs the data). Moving §5.1 after §6 would fix it too.
-5. Then merge, make the repo public and tag `v0.1.0`, plus a Zenodo DOI if wanted.
+5. **Release checklist (the user's GitHub actions, after 1–4):**
+   - make the repo public (Settings → General → Danger Zone → Change visibility);
+   - tag `v0.1.0` (Releases → Draft a new release → tag `v0.1.0` on `main`), or ask Code to;
+   - optional: connect Zenodo before tagging, to get a DOI;
+   - optional: delete the merged remote branches.
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**
