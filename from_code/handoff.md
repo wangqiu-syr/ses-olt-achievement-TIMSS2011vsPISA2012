@@ -82,7 +82,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 
 **At the next release:** bump `version` and `date-released` in `CITATION.cff`, and the version in the README and report bylines, then rebuild the PDF (its links follow the new tag). Zenodo will make a new DOI.
 
-**Next step:** a new chat with the preprint DOI (after moderation), or the PISA file for the analysis items.
+**Next step:** a new chat with the preprint DOI (after moderation), or the PISA file for the analysis items. **Phase B:** start a new chat from `from_code/phase_b_brief.md`.
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**
