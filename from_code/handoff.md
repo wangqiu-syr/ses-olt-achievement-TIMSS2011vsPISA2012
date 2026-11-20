@@ -12,7 +12,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 5. **Repo name:** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (renamed from `ses-olt-math-science-…`). Attach the new name to cloud sessions.
 
-## Next task: authors' details, then make public and tag v0.1.0 (updated 2026-11-20, end of session 7)
+## Next task: confirm the merge, then make public and tag v0.1.0 (updated 2026-11-20, end of session 7)
 
 ### Status
 - **The repo is renamed** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012`; old links redirect. Start new sessions on the new name. A session attached to the old name can still `git push` through the redirect, but it cannot open or merge PRs.
@@ -30,19 +30,19 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
   - "the paper" always carries the citation (Zhang & Wang, 2020);
   - R Core Team (2024) and Wickham (2016) were added to the references (51);
   - `CITATION.cff` points to the new repo URL.
-- **Merge check:** the user reported merging session 7. At the end of the session, GitHub's `main` was still at the PR #5 merge (`727862b`), without `f7f76d3`, `fc1148c` or this note. If `main` still lacks them, open and merge https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012/compare/main...claude/pisa-reading.
+- **Merge check:** the user twice reported merging session 7. Seen from the cloud session, GitHub's `main` was still at the PR #5 merge (`727862b`), and there was no PR #6. On GitHub, `main`'s latest commit should be a merge of `claude/pisa-reading` that includes the "authors' affiliations and ORCIDs" commit. If it is not, open and merge https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012/compare/main...claude/pisa-reading.
 - **Tests:** 61 pass, 2 skip (A1 and the OECD parity check wait for data).
 
 ### Open (the user)
-1. **`CITATION.cff` authors:** order, affiliations, ORCIDs.
-   - Yue Zhang's ORCID is https://orcid.org/0000-0002-9070-9990 (from the user; the check digit is valid). It is not in `CITATION.cff` yet.
-   - Her affiliation is unknown. orcid.org is blocked from cloud sessions, and a web search found nothing. The user can read it off her ORCID page.
-   - Qiu Wang's ORCID and affiliation are also needed.
-   - CFF format, per author: `orcid: "https://orcid.org/…"` and `affiliation: "…"`.
+1. ~~**`CITATION.cff` authors**~~ done (session 7, from the user):
+   - Qiu Wang: Syracuse University, https://orcid.org/0000-0003-1635-8050;
+   - Yue Zhang: Google, https://orcid.org/0000-0002-9070-9990;
+   - both iDs have valid check digits; the order Wang, Zhang is kept;
+   - the README and report bylines now show both affiliations, with the names linked to the ORCID pages.
 2. **Copyright holders:** `LICENSE` names Qiu Wang only; `LICENSE-report` names both authors.
 3. **README rights box:** confirm the ticked box ("legitimate access to the data").
 4. **Style:** "math" (used throughout) or "mathematics".
-5. **Release (GitHub, after 1–3):**
+5. **Release (GitHub, after 2–3):**
    - make the repo public (Settings → General → Danger Zone → Change visibility);
    - optional: connect Zenodo first, to get a DOI;
    - tag `v0.1.0` on `main` (Releases → Draft a new release);
@@ -56,7 +56,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 - A1 when the TIMSS files arrive; then Phase B (multilevel, cross-level SES × ICT).
 
 ### Next step
-Confirm that `main` has session 7 (merge check above). Then fill in `CITATION.cff` (item 1). That edit is small enough to make on GitHub directly, or in a new session on the renamed repo.
+Confirm that `main` has session 7 (merge check above). Then settle items 2–4 and release (item 5).
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**

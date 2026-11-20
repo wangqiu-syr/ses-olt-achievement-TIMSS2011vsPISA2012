@@ -1,6 +1,6 @@
 # Opportunity to learn, socioeconomic status and school ICT in US achievement: from TIMSS 2011 to PISA 2012
 
-Qiu Wang and Yue Zhang · Version 0.1.0 · November 2026
+[Qiu Wang](https://orcid.org/0000-0003-1635-8050) (Syracuse University) and [Yue Zhang](https://orcid.org/0000-0002-9070-9990) (Google) · Version 0.1.0 · November 2026
 
 Text and figures: [CC BY 4.0](../LICENSE-report). Code: [MIT](../LICENSE). How to reproduce every number: the [README](../README.md).
 

@@ -1,6 +1,6 @@
 # Opportunity to learn, socioeconomic status and school ICT in US achievement: from TIMSS 2011 to PISA 2012
 
-Qiu Wang and Yue Zhang · Version 0.1.0 · November 2026 · **[Read the report](report/report.md)**
+[Qiu Wang](https://orcid.org/0000-0003-1635-8050) (Syracuse University) and [Yue Zhang](https://orcid.org/0000-0002-9070-9990) (Google) · Version 0.1.0 · November 2026 · **[Read the report](report/report.md)**
 
 > In 139–146 US schools in PISA 2012, socioeconomic status (SES) is the strongest predictor of math achievement, as in Zhang and Wang's (2020) TIMSS 2011 study. Opportunity to learn (OTL) matters more than in TIMSS and depends more on SES, and school information and communication technology (ICT) has no effect on math.
 > An exploratory analysis of 96 model specifications (6 achievement outcomes × 4 OTL measures × 2 ICT measures × 2 SES measures) finds that school internet use relates to print reading, and that OTL's role depends on how OTL is measured.
