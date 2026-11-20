@@ -34,6 +34,7 @@ tests/           testthat suite
 renv.lock        package versions
 CITATION.cff     how to cite (GitHub)
 .zenodo.json     metadata for the Zenodo archive (Zenodo reads it instead of CITATION.cff)
+CLAUDE.md        rules for Claude Code sessions (commit authorship)
 LICENSE          MIT, for the code
 LICENSE-report   CC BY 4.0, for the report text and figures
 from_code/       working plan and session handoff notes (the project log)
