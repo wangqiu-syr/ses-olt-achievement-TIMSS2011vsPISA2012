@@ -20,6 +20,16 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 
    zenodo.org, orcid.org, doi.org and DataCite are blocked.
 
+## Session 8 (2026-11-20): report PDF for EdArXiv
+- **Zenodo check:** not done. zenodo.org (and the Zenodo API) is blocked from cloud sessions, so the "Cite all versions" DOI is still unchecked (Next task, item 1).
+- **PDF:** `report/report.pdf` (19 pages, US Letter, fonts embedded), built by `bash report/pdf/build.sh`:
+  - pandoc turns `report.md` into HTML (`filter.lua`, `style.css`), and Chromium (Playwright, `print.js`) prints it; no LaTeX is needed;
+  - the filter points relative links to GitHub at tag `v<version from CITATION.cff>` (override with `REF=`), puts figure and table titles in captions, and uses Figure 0's italic caption;
+  - `.gitignore` now allows `report/report.pdf`; the README layout and program table list the PDF and the build script.
+- **Report text:** "Data and code availability" now names the GitHub repository (it said "this repository", which is unclear in a PDF).
+- **EdArXiv form answers:** `from_code/edarxiv_submission.md`.
+- Pushed to `claude/laughing-thompson-e3voj8`, which still has to be merged into `main`.
+
 ## Session 7 (2026-11-20): review, release v0.1.0, Zenodo DOI. Done
 - **Report and README review:**
   - one title everywhere;
@@ -49,21 +59,25 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
   - `main` = `claude/pisa-reading` at the end of the session.
 
 ## Next task
-**Open for the user (small):**
-1. Check on the Zenodo record whether 10.5281/zenodo.24407221 is the "all versions" DOI (sidebar: "Cite all versions?"). If the sidebar shows a different number, switch the README badge and `CITATION.cff` `doi:` to that number. The v0.1.0 DOI can go under `identifiers`.
-2. Confirm the README rights box ("legitimate access to the data").
-3. Repo visibility: it is the user's choice (it was public for the Zenodo archive). The GitHub release and the Zenodo record are already published.
+**Open for the user:**
+1. **EdArXiv:** submit `report/report.pdf` with the answers in `from_code/edarxiv_submission.md`, which has three "You decide" items: a tag, preregistration and conflict of interest.
+2. **Merge** `claude/laughing-thompson-e3voj8` into `main` on GitHub.
+3. **Zenodo:** read the "Cite all versions?" DOI on https://zenodo.org/records/24407221 and give it to Code. If it differs from 24407221, put it in the README badge and in `doi:` in `CITATION.cff`, and move 24407221 under `identifiers`. Use the all-versions DOI for EdArXiv's data link too.
+4. Confirm the README rights box ("legitimate access to the data").
+5. Repo visibility is the user's choice.
+
+**After EdArXiv moderation:** add the preprint DOI to the README ("How to cite"), the report (byline and "Data and code availability") and `CITATION.cff`/`.zenodo.json` (related identifier), then rebuild the PDF. On Zenodo, add the preprint DOI under "Related works".
 
 **Analysis (needs the PISA file):**
-- Redraw Figures 1–4 so their image text says "Mathematics" and "primary models" instead of "Math", "primary runs" and "(spec)". Edit the labels in `R/a2_06`, then run `FROM=6 Rscript R/run_all.R`.
+- Redraw Figures 1–4 so their image text says "Mathematics" and "primary models" instead of "Math", "primary runs" and "(spec)". Edit the labels in `R/a2_06`, then run `FROM=6 Rscript R/run_all.R`, then `bash report/pdf/build.sh`.
 - Pooling across the five plausible values, and a weighted analysis (`R/a2_07`).
 - A direct test of the digital-vs-print interaction difference.
 - Check in the PISA 2012 Technical Report that the computer-based plausible values are imputed for students not sampled.
 - A1 when the TIMSS files arrive; then Phase B (multilevel models with cross-level SES × ICT terms).
 
-**At the next release:** bump `version` and `date-released` in `CITATION.cff`, and the version in the README and report bylines. Zenodo will make a new DOI.
+**At the next release:** bump `version` and `date-released` in `CITATION.cff`, and the version in the README and report bylines, then rebuild the PDF (its links follow the new tag). Zenodo will make a new DOI.
 
-**Next step:** a new chat on the renamed repo, starting with "Start here", then item 1 above, or the first analysis item if the PISA file is attached.
+**Next step:** a new chat with the preprint DOI (after moderation), or the Zenodo number, or the PISA file for the analysis items.
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**

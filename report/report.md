@@ -306,7 +306,7 @@ In Schmidt et al.'s model, about a third of the SES–literacy relation runs thr
 
 ## Data and code availability
 
-The code, results and this report are archived on Zenodo: [doi:10.5281/zenodo.24407221](https://doi.org/10.5281/zenodo.24407221). The PISA 2012 data are © OECD and are not redistributed; [data/README.md](../data/README.md) says how to obtain and rebuild the extract. All code, the estimates, the criteria and the figures are in this repository, and the [README](../README.md) maps each table and figure to the program that produces it. The study's decisions were recorded before the results were read, in [docs/spec.md](../docs/spec.md) (confirmatory) and [docs/spec_exploratory.md](../docs/spec_exploratory.md) (exploratory).
+The code, results and this report are archived on Zenodo: [doi:10.5281/zenodo.24407221](https://doi.org/10.5281/zenodo.24407221). The PISA 2012 data are © OECD and are not redistributed; [data/README.md](../data/README.md) says how to obtain and rebuild the extract. All code, the estimates, the criteria and the figures are in the GitHub repository [wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012](https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012), and the [README](../README.md) maps each table and figure to the program that produces it. The study's decisions were recorded before the results were read, in [docs/spec.md](../docs/spec.md) (confirmatory) and [docs/spec_exploratory.md](../docs/spec_exploratory.md) (exploratory).
 
 ## AI assistance
 

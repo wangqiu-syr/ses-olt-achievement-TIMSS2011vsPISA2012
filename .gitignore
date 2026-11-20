@@ -28,3 +28,5 @@ Thumbs.db
 
 # --- Copyrighted papers ----------------------------------------------------
 *.pdf
+# ...except the authors' own report (CC BY 4.0), built by report/pdf/build.sh
+!report/report.pdf

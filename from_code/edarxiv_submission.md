@@ -1,0 +1,45 @@
+# EdArXiv submission: form answers (2026-11-20)
+
+Copy these into osf.io → EdArXiv → Add a preprint. Items marked **You decide** are judgement calls.
+
+## File
+`report/report.pdf` (19 pages, US Letter, fonts embedded). Rebuild it with `bash report/pdf/build.sh` after any change to `report/report.md`. Its links to repository files point to tag `v0.1.0`.
+
+## Title
+Opportunity to learn, socioeconomic status and school ICT in US achievement: from TIMSS 2011 to PISA 2012
+
+## Abstract
+Zhang and Wang (2020) modeled US Grade 8 achievement in TIMSS 2011 with three parts: content coverage as opportunity to learn (OTL), family socioeconomic status (SES), and classroom computer use, a form of information and communication technology (ICT), as a moderator of SES. We fit an analogue of their model to PISA 2012 for the United States, at school level (139–146 schools). In the confirmatory mathematics analysis, SES stays the strongest predictor (.53–.55, against .64–.65 in TIMSS). OTL matters more than in TIMSS (.37–.38 against .20–.21) and depends more on SES (.52–.61 against .12–.13). School ICT has no effect on mathematics and does not moderate SES. Every model meets the pre-set measurement criteria, and an independent re-estimation in R reproduces all 12 SmartPLS models. An exploratory analysis then fits 96 model specifications: 6 achievement outcomes × 4 OTL measures × 2 ICT measures × 2 SES measures. School internet use for schoolwork relates to print reading. ICT resources steepen the SES slope for digital reading (.11–.13), but only borderline, and not robustly. Across all outcomes, the sign of the SES × ICT interaction follows the kind of ICT: positive for resources and negative for use. We offer this as a hypothesis for better-powered designs. Finally, OTL's role depends on how OTL is measured.
+
+## Authors (in this order, both bibliographic)
+1. Qiu Wang, Syracuse University, ORCID 0000-0003-1635-8050 (the submitter).
+2. Yue Zhang, Google, ORCID 0000-0002-9070-9990. Add Yue by OSF user search, or as an unregistered contributor with an email address. OSF then emails an invitation.
+
+## Subjects
+Pick from the EdArXiv list. This session couldn't load the list, so the names below may differ slightly; choose the closest match:
+- Education → Educational Assessment, Evaluation, and Research
+- Education → Science and Mathematics Education
+- Education → Educational Technology
+- a quantitative-methods subject, if the list has one (e.g. under Social and Behavioral Sciences)
+
+## Tags (the keywords in `CITATION.cff`)
+opportunity to learn · socioeconomic status · ICT · moderation · PISA 2012 · TIMSS 2011 · PLS-SEM · replication
+
+**You decide:** "replication" may oversell. This report is an *analogue* on PISA; the replication of the paper itself (A1, TIMSS) is not done yet. "digital divide" is an alternative.
+
+## Licence
+CC BY 4.0 (CC-By Attribution 4.0 International), matching `LICENSE-report`.
+
+## Links and author assertions
+- **Data and code:** Zenodo DOI 10.5281/zenodo.24407221 and https://github.com/wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012. If the Zenodo sidebar's "Cite all versions" DOI is a different number, give that one, since it stays valid for later versions.
+- **Public data:** suggested answer "Available", with the two links above. Suggested description: "Code, estimates and figures are archived on Zenodo and GitHub. The PISA 2012 data are © OECD and public, but not redistributed. data/README.md in the repository says how to obtain and rebuild the extract."
+- **Preregistration: You decide.** Suggested answer: "No". The confirmatory plan (`docs/spec.md`) was written before the results were read, but it was committed to git, not registered with a time-stamped registry. The report already describes this.
+- **Conflict of interest: You decide.**
+- **Published in a journal?** No.
+
+## After moderation (a day or two)
+Send the preprint DOI to a Code session. It will:
+- add the DOI to the README ("How to cite"), the report's byline and "Data and code availability", and `CITATION.cff`/`.zenodo.json` as a related identifier;
+- rebuild the PDF.
+
+Then on Zenodo, edit the record's metadata and add the preprint DOI under "Related works" (e.g. "Is supplement to"). Editing metadata does not need a new version.

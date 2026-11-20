@@ -24,6 +24,7 @@ A replication of the paper itself on the TIMSS 2011 files (A1) is planned and wa
 README.md        this file: the replication README
 report/          the study
   report.md        question, data and measures, confirmatory mathematics results, exploratory models, moderation, OTL measures, discussion, conclusions
+  report.pdf       the same report as a PDF (for the preprint), built from report.md by pdf/build.sh
   figures/         Figure 0 (design flow chart) to Figure 4
   references.bib   the report's references in BibTeX
 R/               scripts, and run_all.R, which runs the automated steps in order
@@ -126,6 +127,7 @@ All scripts run from the repository root. [R/README.md](R/README.md) lists them 
 | [R/a2_seminr_helpers.R](R/a2_seminr_helpers.R) | Shared model code, sourced by `a2_04`, `a2_05` and `a2_06` |
 | [R/a2_00_audit_pisa2012.py](R/a2_00_audit_pisa2012.py) | Exploratory audit of the PISA file (Python; optional) |
 | [report/figures/fig0_design_flowchart.dot](report/figures/fig0_design_flowchart.dot) | Graphviz source of Figure 0 |
+| [report/pdf/build.sh](report/pdf/build.sh) | Builds `report/report.pdf` from `report/report.md` (pandoc, then Chromium through Playwright) |
 | `tests/testthat/` | Data checks, acceptance criteria, cross-check agreement and completeness of the 96 models |
 
 ### License for code
