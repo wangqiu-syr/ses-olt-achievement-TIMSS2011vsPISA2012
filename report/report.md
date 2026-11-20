@@ -6,15 +6,15 @@ Text and figures: [CC BY 4.0](../LICENSE-report). Code: [MIT](../LICENSE). How t
 
 ## Abstract
 
-Zhang and Wang (2020) modeled US Grade 8 achievement in TIMSS 2011 with three parts: content coverage as opportunity to learn (OTL), family socioeconomic status (SES), and classroom computer use, a form of information and communication technology (ICT), as a moderator of SES. We fit an analogue of their model to PISA 2012 for the United States, at school level (139–146 schools). In the confirmatory math analysis, SES stays the strongest predictor (.53–.55, against .64–.65 in TIMSS). OTL matters more than in TIMSS (.37–.38 against .20–.21) and depends more on SES (.52–.61 against .12–.13). School ICT has no effect on math and does not moderate SES. Every model meets the pre-set measurement criteria, and an independent re-estimation in R reproduces all 12 SmartPLS models. An exploratory analysis then fits 96 model specifications: 6 achievement outcomes × 4 OTL measures × 2 ICT measures × 2 SES measures. School internet use for schoolwork relates to print reading. ICT resources steepen the SES slope for digital reading (.11–.13), but only borderline, and not robustly. Across all outcomes, the sign of the SES × ICT interaction follows the kind of ICT: positive for resources and negative for use. We offer this as a hypothesis for better-powered designs. Finally, OTL's role depends on how OTL is measured.
+Zhang and Wang (2020) modeled US Grade 8 achievement in TIMSS 2011 with three parts: content coverage as opportunity to learn (OTL), family socioeconomic status (SES), and classroom computer use, a form of information and communication technology (ICT), as a moderator of SES. We fit an analogue of their model to PISA 2012 for the United States, at school level (139–146 schools). In the confirmatory mathematics analysis, SES stays the strongest predictor (.53–.55, against .64–.65 in TIMSS). OTL matters more than in TIMSS (.37–.38 against .20–.21) and depends more on SES (.52–.61 against .12–.13). School ICT has no effect on mathematics and does not moderate SES. Every model meets the pre-set measurement criteria, and an independent re-estimation in R reproduces all 12 SmartPLS models. An exploratory analysis then fits 96 model specifications: 6 achievement outcomes × 4 OTL measures × 2 ICT measures × 2 SES measures. School internet use for schoolwork relates to print reading. ICT resources steepen the SES slope for digital reading (.11–.13), but only borderline, and not robustly. Across all outcomes, the sign of the SES × ICT interaction follows the kind of ICT: positive for resources and negative for use. We offer this as a hypothesis for better-powered designs. Finally, OTL's role depends on how OTL is measured.
 
 ## 1. Question
 
-Zhang and Wang (2020) build on the OTL–SES–performance model of Schmidt et al. (2011, 2015). In that model, SES relates to achievement directly and through OTL. Computer use in class relates to OTL and to achievement, and may moderate the SES–achievement link. Zhang and Wang fitted the model to TIMSS 2011, US Grade 8: math 3,398 students and 183 teachers; science 3,989 students and 363 teachers. They included only classes whose teachers use computers, and aggregated student data to teacher level. Estimation was factor-based partial least squares structural equation modeling (PLS-SEM) in WarpPLS 5.0. Their Model 1 used the computer as an information tool and Model 2 as a learning tool. They found that SES dominated, that OTL mattered less than SES, and that using the computer as an information tool moderated the SES–science association (Model 1: SES × ICT = .09, p < .05).
+Zhang and Wang (2020) build on the OTL–SES–performance model of Schmidt et al. (2011, 2015). In that model, SES relates to achievement directly and through OTL. Computer use in class relates to OTL and to achievement, and may moderate the SES–achievement link. Zhang and Wang fitted the model to TIMSS 2011, US Grade 8: mathematics 3,398 students and 183 teachers; science 3,989 students and 363 teachers. They included only classes whose teachers use computers, and aggregated student data to teacher level. Estimation was factor-based partial least squares structural equation modeling (PLS-SEM) in WarpPLS 5.0. Their Model 1 used the computer as an information tool and Model 2 as a learning tool. They found that SES dominated, that OTL mattered less than SES, and that using the computer as an information tool moderated the SES–science association (Model 1: SES × ICT = .09, p < .05).
 
 Those findings concern US Grade 8 classrooms in one year. This study asks whether the same OTL–SES–achievement structure appears in PISA 2012, which measures OTL differently, and whether school ICT moderates the SES–achievement link there.
 
-- **Confirmatory:** math, with OTL measured by familiarity with mathematical concepts (FAMCONC), as fixed in advance in [docs/spec.md](../docs/spec.md).
+- **Confirmatory:** mathematics, with OTL measured by familiarity with mathematical concepts (FAMCONC), as fixed in advance in [docs/spec.md](../docs/spec.md).
 - **Exploratory:** five more achievement outcomes, three more OTL measures and a second SES measure, the PISA index of economic, social and cultural status (ESCS), in 96 model specifications ([docs/spec_exploratory.md](../docs/spec_exploratory.md)). Two features are new: the analysis covers three outcomes tested on computer, and it tries four ways of measuring OTL.
 
 A companion replication of Zhang and Wang (2020) on the public TIMSS 2011 files waits for the data and is not reported here.
@@ -29,7 +29,7 @@ The data are the US extract of the PISA 2012 international database (OECD, 2014)
 - **Inclusion:** schools with at least 10 students with FAMCONC (the questionnaire was rotated, so about two-thirds of students have it), and complete data on every indicator in the model. There is no imputation at school level.
 - **Samples:** Model 1 (ICT use) has 146 schools and Model 2 (ICT resources) has 139.
 - **No computer filter:** Zhang and Wang (2020) kept only classes whose teachers use computers. No analogue is applied, because every US school with data reports computers.
-- **Data checks:** the file holds 4,978 students in 162 schools; the weighted math mean is 481.37, matching the OECD-published US value of 481 (OECD, 2013); school variables are constant within schools; and the SES composite and ESCS correlate .97 at school level (the criterion is at least .90). All pass ([results/a2/a2_01_checks.csv](../results/a2/a2_01_checks.csv)).
+- **Data checks:** the file holds 4,978 students in 162 schools; the weighted mathematics mean is 481.37, matching the OECD-published US value of 481 (OECD, 2013); school variables are constant within schools; and the SES composite and ESCS correlate .97 at school level (the criterion is at least .90). All pass ([results/a2/a2_01_checks.csv](../results/a2/a2_01_checks.csv)).
 
 ### 2.2 Measures
 
@@ -40,14 +40,14 @@ The data are the US extract of the PISA 2012 international database (OECD, 2014)
 | SES | Composite: 8 home possessions, parent education, books; standardized | Weighted z-scores of books at home (ST28Q01), highest parental education (HISCED) and home possessions (HOMEPOS); mean of the available parts if at least 2 of 3; re-standardized; school mean. Parental occupation (HISEI) is left out to mirror TIMSS. |
 | SES, sensitivity | – | ESCS, the PISA index of economic, social and cultural status; school mean |
 | OTL | Teacher-reported topic coverage, 0–4 | **FAMCONC** (confirmatory): familiarity with 13 mathematical concepts, corrected for overclaiming; school mean |
-| OTL, exploratory | – | **OTL_PT**: exposure to problem types, i.e. how often students meet four types of math problems in lessons and in tests (ST73–76, 8 items); **EXPUREM** and **EXAPPLM**: PISA indices of experience with pure and with applied mathematics tasks at school (ST61) |
-| Achievement | 5 plausible values (PVs) as reflective indicators | School means of the 5 PVs as reflective indicators. Math (confirmatory); print reading, science, digital reading, computer-based math and problem solving (exploratory) |
+| OTL, exploratory | – | **OTL_PT**: exposure to problem types, i.e. how often students meet four types of mathematics problems in lessons and in tests (ST73–76, 8 items); **EXPUREM** and **EXAPPLM**: PISA indices of experience with pure and with applied mathematics tasks at school (ST61) |
+| Achievement | 5 plausible values (PVs) as reflective indicators | School means of the 5 PVs as reflective indicators. Mathematics (confirmatory); print reading, science, digital reading, computer-based mathematics and problem solving (exploratory) |
 | ICT, Model 1 | Computer as information tool (2 teacher items) | **ICT use**: share of lessons, homework and assignments needing the internet (SC13Q01–03) |
-| ICT, Model 2 | Computer as learning tool (2 math items) | **ICT resources**: few shortages of computers, internet and software (SC14Q07–09, reversed). Computers per student (`RATCMP15`) was dropped under criterion M1. |
+| ICT, Model 2 | Computer as learning tool (2 mathematics items) | **ICT resources**: few shortages of computers, internet and software (SC14Q07–09, reversed). Computers per student (`RATCMP15`) was dropped under criterion M1. |
 
 *Note.* Codes in capitals are PISA 2012 variable names (OECD, 2014). ST and SC mark student and school questionnaire items.
 
-All four OTL measures concern math. PISA 2012 has no reading or science OTL, so for the other outcomes OTL is a proxy for a school's mathematical press, not subject-specific opportunity to learn.
+All four OTL measures concern mathematics. PISA 2012 has no reading or science OTL, so for the other outcomes OTL is a proxy for a school's mathematical press, not subject-specific opportunity to learn.
 
 ### 2.3 How the design differs from Zhang and Wang (2020)
 
@@ -59,16 +59,16 @@ All four OTL measures concern math. PISA 2012 has no reading or science OTL, so 
 | Population | Grade 8 | 15-year-olds, mostly Grade 10 |
 | OTL | Teacher-reported topic coverage this year | Student-reported familiarity with 13 concepts (cumulative) |
 | Computer use | Teacher-reported classroom use | Principal-reported internet use for schoolwork (Model 1) or ICT resources (Model 2) |
-| Subjects | Math and science | Math (confirmatory); five more outcomes (exploratory) |
+| Subjects | Mathematics and science | Mathematics (confirmatory); five more outcomes (exploratory) |
 | Software | WarpPLS 5.0, factor-based PLS | SmartPLS 4, PLS-SEM; `seminr` in R for the re-estimation and the exploratory models |
 
-The comparison with TIMSS is therefore descriptive. Some of Zhang and Wang's (2020) paths also do not follow from their own correlations: for math, r(SES, OTL) = .02, but the path is .12. This suggests WarpPLS's nonlinear algorithm. Every PISA result here is linear PLS-SEM.
+The comparison with TIMSS is therefore descriptive. Some of Zhang and Wang's (2020) paths also do not follow from their own correlations: for mathematics, r(SES, OTL) = .02, but the path is .12. This suggests WarpPLS's nonlinear algorithm. Every PISA result here is linear PLS-SEM.
 
 ## 3. Methods
 
 ### 3.1 Model and estimation
 
-The structural model is Zhang and Wang's (2020, Figure 1): SES → OTL, ICT → OTL; SES, ICT, OTL and SES × ICT → achievement ([docs/spec.md](../docs/spec.md), §4). The confirmatory models were estimated in SmartPLS 4 (Ringle et al., 2024): standard PLS-SEM, mode A, path weighting, standardized data, with the interaction formed by the two-stage approach (Becker et al., 2018). Inference uses 5,000 bootstrap samples, percentile 95% intervals, and two-tailed p from t with 4,999 df. There are four confirmatory models: Models 1 and 2, each with the SES composite (primary) and with ESCS (sensitivity). Fit is summarized in Zhang and Wang's (2020) terms: average path coefficient (APC), average R² (ARS) and average variance inflation factor (AVIF).
+The structural model is adapted from Zhang and Wang (2020, Figure 1). It keeps their paths, with PISA measures in place of the TIMSS ones: SES → OTL, ICT → OTL; SES, ICT, OTL and SES × ICT → achievement ([docs/spec.md](../docs/spec.md), §4). The confirmatory models were estimated in SmartPLS 4 (Ringle et al., 2024): standard PLS-SEM, mode A, path weighting, standardized data, with the interaction formed by the two-stage approach (Becker et al., 2018). Inference uses 5,000 bootstrap samples, percentile 95% intervals, and two-tailed p from t with 4,999 df. There are four confirmatory models: Models 1 and 2, each with the SES composite (primary) and with ESCS (sensitivity). Fit is summarized in Zhang and Wang's (2020) terms: average path coefficient (APC), average R² (ARS) and average variance inflation factor (AVIF).
 
 ### 3.2 Acceptance criteria
 
@@ -82,7 +82,7 @@ A model that fails is reported as it is. Matching Zhang and Wang's (2020) TIMSS 
 
 ### 3.3 Re-estimation in R
 
-All 12 SmartPLS models (math, print reading and science × 2 ICT measures × 2 SES measures) were re-estimated in R (R Core Team, 2024) with the `seminr` package (Ray et al., 2026), using SmartPLS's settings. Every shared estimate agrees within .0003, and every significance verdict is the same ([results/a2/a2_04_seminr_crosscheck.md](../results/a2/a2_04_seminr_crosscheck.md)). The exploratory models therefore use `seminr` with the same settings and seed. Figures 1–4 were drawn with ggplot2 (Wickham, 2016).
+All 12 SmartPLS models (mathematics, print reading and science × 2 ICT measures × 2 SES measures) were re-estimated in R (R Core Team, 2024) with the `seminr` package (Ray et al., 2026), using SmartPLS's settings. Every shared estimate agrees within .0003, and every significance verdict is the same ([results/a2/a2_04_seminr_crosscheck.md](../results/a2/a2_04_seminr_crosscheck.md)). The exploratory models therefore use `seminr` with the same settings and seed. Figures 1–4 were drawn with ggplot2 (Wickham, 2016).
 
 ### 3.4 Exploratory models
 
@@ -92,7 +92,7 @@ The exploratory analysis fits 96 model specifications: 6 achievement outcomes ×
 
 *Figure 0. Design and procedure: data preparation, the check against SmartPLS, the 96 exploratory models, and reporting.*
 
-*Note.* `W_FSTUWT` = final student weight; SC13 and SC14 = school questionnaire items on internet use for schoolwork and on shortages of ICT resources; FAMCONC = familiarity with mathematical concepts; OTL_PT = exposure to problem types (ST73–76); EXPUREM and EXAPPLM = experience with pure and with applied mathematics tasks; ESCS = PISA index of economic, social and cultural status; M1–M4 = measurement criteria (§3.2); α = Cronbach's alpha; ρC = composite reliability; AVE = average variance extracted; HTMT = heterotrait–monotrait ratio; VIF = variance inflation factor.
+*Note.* The structural model is adapted from Zhang and Wang (2020, Figure 1). `W_FSTUWT` = final student weight; SC13 and SC14 = school questionnaire items on internet use for schoolwork and on shortages of ICT resources; FAMCONC = familiarity with mathematical concepts; OTL_PT = exposure to problem types (ST73–76); EXPUREM and EXAPPLM = experience with pure and with applied mathematics tasks; ESCS = PISA index of economic, social and cultural status; M1–M4 = measurement criteria (§3.2); α = Cronbach's alpha; ρC = composite reliability; AVE = average variance extracted; HTMT = heterotrait–monotrait ratio; VIF = variance inflation factor.
 
 How to read a moderation result:
 - b is the standardized SES × ICT path. A positive b means the SES–achievement slope is steeper in schools with more ICT.
@@ -101,7 +101,7 @@ How to read a moderation result:
 - **Decision rule:** a result counts as a pattern only if it holds across OTL measures *and* with ESCS. A single significant result is a lead ([docs/spec_exploratory.md](../docs/spec_exploratory.md)).
 - Comparisons across outcomes and OTL measures are descriptive: the models share schools, and the outcomes are correlated school means.
 
-## 4. Confirmatory results: math, PISA 2012 vs. TIMSS 2011
+## 4. Confirmatory results: mathematics, PISA 2012 vs. TIMSS 2011
 
 ### 4.1 Measurement
 
@@ -109,39 +109,39 @@ All four models pass M1–M4 ([results/a2/summary.md](../results/a2/summary.md))
 
 ### 4.2 Paths
 
-**Table 3. Model 1: ICT use (PISA) vs. computer as information tool (TIMSS), math.**
+**Table 3. Model 1: ICT use (PISA) vs. computer as information tool (TIMSS), mathematics.**
 
 | Path | TIMSS 2011 (Zhang & Wang, 2020) | PISA 2012 | 95% interval | PISA, ESCS |
 |---|---|---|---|---|
 | SES → OTL | .12* | .52*** | [.37, .64] | .48*** |
-| SES → Math | .65** | .53*** | [.41, .66] | .48*** |
-| OTL → Math | .20** | .37*** | [.25, .48] | .42*** |
+| SES → Mathematics | .65** | .53*** | [.41, .66] | .48*** |
+| OTL → Mathematics | .20** | .37*** | [.25, .48] | .42*** |
 | ICT → OTL | .29** | .12 | [−.01, .27] | .14 |
-| ICT → Math | .08 | .03 | [−.08, .15] | .04 |
-| SES × ICT → Math | .04 | −.05 | [−.16, .04] | −.05 |
-| R² Math | .50 | .67 | | .64 |
+| ICT → Mathematics | .08 | .03 | [−.08, .15] | .04 |
+| SES × ICT → Mathematics | .04 | −.05 | [−.16, .04] | −.05 |
+| R² Mathematics | .50 | .67 | | .64 |
 
-**Table 4. Model 2: ICT resources (PISA) vs. computer as learning tool (TIMSS), math.**
+**Table 4. Model 2: ICT resources (PISA) vs. computer as learning tool (TIMSS), mathematics.**
 
 | Path | TIMSS 2011 (Zhang & Wang, 2020) | PISA 2012 | 95% interval | PISA, ESCS |
 |---|---|---|---|---|
 | SES → OTL | .13* | .61*** | [.51, .70] | .58*** |
-| SES → Math | .64** | .55*** | [.43, .67] | .47*** |
-| OTL → Math | .21** | .38*** | [.25, .49] | .43*** |
+| SES → Mathematics | .64** | .55*** | [.43, .67] | .47*** |
+| OTL → Mathematics | .21** | .38*** | [.25, .49] | .43*** |
 | ICT → OTL | .17** | −.00 | [−.14, .14] | .02 |
-| ICT → Math | .08 | −.02 | [−.11, .09] | −.00 |
-| SES × ICT → Math | .03 | .03 | [−.07, .11] | −.02 |
-| R² Math | .50 | .69 | | .66 |
+| ICT → Mathematics | .08 | −.02 | [−.11, .09] | −.00 |
+| SES × ICT → Mathematics | .03 | .03 | [−.07, .11] | −.02 |
+| R² Mathematics | .50 | .69 | | .66 |
 
 *Note.* Standardized paths. \* p < .05, \*\* p < .01, \*\*\* p < .001 (two-tailed; PISA by bootstrap; TIMSS as printed in Zhang & Wang, 2020, Figure 2). PISA has 146 schools in Model 1 and 139 in Model 2. OTL = FAMCONC, familiarity with mathematical concepts. ESCS = PISA index of economic, social and cultural status, in place of the SES composite. Fit indices, R² for OTL and the correlations: [results/a2/summary.md](../results/a2/summary.md).
 
-1. **SES is the strongest predictor in both studies.** SES → Math is .53–.55 in PISA and .64–.65 in TIMSS.
-2. **OTL matters more, and depends more on SES, in PISA.** OTL → Math is .37–.38 against .20–.21; SES → OTL is .52–.61 against .12–.13. A large part of PISA's SES effect runs through OTL: the indirect SES → OTL → Math effect is .19 in Model 1 and .23 in Model 2.
-3. **No ICT effect and no moderation.** ICT → Math and ICT → OTL are not significant. SES × ICT is −.05 (p = .29) in Model 1 and .03 (p = .56) in Model 2. Zhang and Wang (2020) found ICT → OTL significant for math in both TIMSS models.
-4. **Explained variance is higher in PISA** (R² Math .67–.69 against .50), as is typical of school-level aggregates.
-5. **ESCS leaves the conclusions unchanged.** Every significant path keeps its sign and significance. SES → Math is .05–.08 lower and OTL → Math about .05 higher.
+1. **SES is the strongest predictor in both studies.** SES → Mathematics is .53–.55 in PISA and .64–.65 in TIMSS.
+2. **OTL matters more, and depends more on SES, in PISA.** OTL → Mathematics is .37–.38 against .20–.21; SES → OTL is .52–.61 against .12–.13. A large part of PISA's SES effect runs through OTL: the indirect SES → OTL → Mathematics effect is .19 in Model 1 and .23 in Model 2.
+3. **No ICT effect and no moderation.** ICT → Mathematics and ICT → OTL are not significant. SES × ICT is −.05 (p = .29) in Model 1 and .03 (p = .56) in Model 2. Zhang and Wang (2020) found ICT → OTL significant for mathematics in both TIMSS models.
+4. **Explained variance is higher in PISA** (R² Mathematics .67–.69 against .50), as is typical of school-level aggregates.
+5. **ESCS leaves the conclusions unchanged.** Every significant path keeps its sign and significance. SES → Mathematics is .05–.08 lower and OTL → Mathematics about .05 higher.
 
-Print reading and science, estimated in SmartPLS the same way, are set beside math in [results/a2_reading/summary.md](../results/a2_reading/summary.md) and [results/a2_science/summary.md](../results/a2_science/summary.md). They are part of the exploratory analysis below.
+Print reading and science, estimated in SmartPLS the same way, are set beside mathematics in [results/a2_reading/summary.md](../results/a2_reading/summary.md) and [results/a2_science/summary.md](../results/a2_science/summary.md). They are part of the exploratory analysis below.
 
 ## 5. Exploratory models: six outcomes, four OTL measures
 
@@ -153,7 +153,7 @@ All 96 models pass M1–M4 ([results/a2_seminr/criteria.csv](../results/a2_semin
 
 ### 5.2 Computer-based outcomes are explained less well
 
-With FAMCONC, R² is .40–.63 for the computer-based outcomes and .66–.70 for the paper-based ones (problem solving .40–.41, computer-based math .47–.49, digital reading .60–.63). At school level, the computer-based outcomes also correlate less with their paper counterparts (.78–.83) than at student level (.85–.86). §8.4, point 6, gives a likely reason.
+With FAMCONC, R² is .40–.63 for the computer-based outcomes and .66–.70 for the paper-based ones (problem solving .40–.41, computer-based mathematics .47–.49, digital reading .60–.63). At school level, the computer-based outcomes also correlate less with their paper counterparts (.78–.83) than at student level (.85–.86). §8.4, point 6, gives a likely reason.
 
 ## 6. Moderation: does school ICT moderate the SES–achievement link?
 
@@ -235,7 +235,7 @@ With FAMCONC, OTL → achievement is .23–.42, and the indirect SES → OTL →
 
 ### 8.1 PISA and TIMSS: SES, OTL and ICT
 
-SES dominates achievement in both studies, despite the differences in unit, population and measures. OTL matters more in PISA, and carries more of the SES effect. This fits OTL being cumulative concept familiarity, measured at school level, rather than teacher-reported coverage within one year. The exploratory models qualify the finding: with problem-type exposure as OTL, OTL carries almost none of the SES effect (§7, §8.6). The absence of any ICT effect on math does not contradict Zhang and Wang (2020). PISA's ICT measures are principal reports on internet use and resource shortages, not classroom computer use, so this is not a like-for-like test of the TIMSS result. With about 140 schools, paths below about |.21| are also unlikely to reach significance.
+SES dominates achievement in both studies, despite the differences in unit, population and measures. OTL matters more in PISA, and carries more of the SES effect. This fits OTL being cumulative concept familiarity, measured at school level, rather than teacher-reported coverage within one year. The exploratory models qualify the finding: with problem-type exposure as OTL, OTL carries almost none of the SES effect (§7, §8.6). The absence of any ICT effect on mathematics does not contradict Zhang and Wang (2020). PISA's ICT measures are principal reports on internet use and resource shortages, not classroom computer use, so this is not a like-for-like test of the TIMSS result. With about 140 schools, paths below about |.21| are also unlikely to reach significance.
 
 ### 8.2 Literature consistent with the digital-reading moderation
 
@@ -268,14 +268,14 @@ Most of the 48 interaction tests are null. That is the expected outcome of this 
 2. **Measurement error in the product term.** The product of two imperfectly measured composites is less reliable than either, which lowers power and biases the interaction toward zero (Busemeyer & Jones, 1983; Aiken & West, 1991). ICT is a single principal's report.
 3. **The ICT measures miss classroom practice.** PISA asks principals about internet use for schoolwork and resource shortages; TIMSS asked teachers about classroom computer use. Access alone generally does not raise test scores (Escueta et al., 2020). School ICT investment was not linked to better outcomes in PISA 2012 (OECD, 2015). Effects of school computers vanish with controls (Fuchs & Woessmann, 2004). What matters is the quality and kind of use (Petko et al., 2017), and moderate use beats none or heavy use (OECD, 2015; Gubbels et al., 2020). Resource and frequency measures blur these distinctions.
 4. **Little variation in access.** Every US school in the sample reports computers. Access gaps had narrowed across countries by 2012 (OECD, 2015), which restricts the range of the moderator.
-5. **Paper-based tests demand no ICT skill.** An SES × ICT interaction is least expected for math and science tested on paper, and those are the smallest in Model 2 (.03–.08).
-6. **Imputed scores on the computer-based tests.** In the US, only about 19 students per school were sampled for the computer-based assessment. Students not sampled receive plausible values imputed from a conditioning model (Kastberg et al., 2014; OECD, 2015). That this covers digital reading and computer-based math, not only problem solving, is inferred from OECD (2015), not confirmed in the Technical Report. Effects of variables absent from the conditioning model, such as an SES × school-ICT product, are biased toward zero (von Davier et al., 2009; National Center for Education Statistics, n.d.). This dilutes interactions for exactly the outcomes where they are most expected. The lower R² for computer-based outcomes (.40–.63 vs. .66–.70) fits it, and so does their lower school-level correlation with the paper outcomes (.78–.83, below the student-level .85–.86). Mode effects add further differences (Jerrim, 2016).
+5. **Paper-based tests demand no ICT skill.** An SES × ICT interaction is least expected for mathematics and science tested on paper, and those are the smallest in Model 2 (.03–.08).
+6. **Imputed scores on the computer-based tests.** In the US, only about 19 students per school were sampled for the computer-based assessment. Students not sampled receive plausible values imputed from a conditioning model (Kastberg et al., 2014; OECD, 2015). That this covers digital reading and computer-based mathematics, not only problem solving, is inferred from OECD (2015), not confirmed in the Technical Report. Effects of variables absent from the conditioning model, such as an SES × school-ICT product, are biased toward zero (von Davier et al., 2009; National Center for Education Statistics, n.d.). This dilutes interactions for exactly the outcomes where they are most expected. The lower R² for computer-based outcomes (.40–.63 vs. .66–.70) fits it, and so does their lower school-level correlation with the paper outcomes (.78–.83, below the student-level .85–.86). Mode effects add further differences (Jerrim, 2016).
 7. **TIMSS vs. PISA differences.** These include teacher vs. school level, Grade 8 vs. age 15, teacher-reported topic coverage vs. student-reported familiarity, and classroom vs. principal-reported ICT (Table 2). Zhang and Wang's (2020) science moderation was estimated on a different unit, population and measure.
 
 ### 8.5 Theoretical importance
 
 - **Multiplication or substitution may depend on the kind of ICT.** "Resources amplify and use compensates" is a falsifiable, two-sided hypothesis. It fits the second-level divide: equal equipment is converted unequally (multiplication), while structured school use can give disadvantaged students practice they lack at home (substitution). Tested against the Ross and Mirowsky (2006, 2011) framework, it moves the question from "does ICT help?" to "which ICT helps whom?".
-- **Digital reading as its own outcome.** The moderation, such as it is, appears for digital reading and not for math or science on paper. This supports treating digital reading as more than print reading on a screen (Naumann, 2015; Hahnel et al., 2016).
+- **Digital reading as its own outcome.** The moderation, such as it is, appears for digital reading and not for mathematics or science on paper. This supports treating digital reading as more than print reading on a screen (Naumann, 2015; Hahnel et al., 2016).
 
 ### 8.6 OTL theory depends on how OTL is measured
 
@@ -294,11 +294,11 @@ In Schmidt et al.'s model, about a third of the SES–literacy relation runs thr
 - The analysis uses school means of plausible values. It does not pool estimates across the five plausible values, and it uses no sampling weights or replicate variance beyond the student weights used to form school means. Pooling across plausible values and a weighted analysis are planned.
 - The comparison with TIMSS is descriptive: unit, population, measures and software all differ (Table 2). Zhang and Wang's (2020) WarpPLS estimates are nonlinear, and their VIFs are full-collinearity VIFs per construct, whereas the inner VIFs here are per path.
 - The consistent-PLS sensitivity models, closer to WarpPLS's factor-based PLS, were not estimated. Neither was the parity check of the PISA extract against an independent OECD download.
-- All OTL measures concern math. The exploratory analysis contains many correlated tests, and each comparison across outcomes or OTL measures is descriptive.
+- All OTL measures concern mathematics. The exploratory analysis contains many correlated tests, and each comparison across outcomes or OTL measures is descriptive.
 
 ## 10. Conclusions
 
-1. **Confirmatory.** In PISA 2012 math, SES is the strongest predictor of school achievement, as in TIMSS 2011 (Zhang & Wang, 2020). OTL, measured as concept familiarity, matters more than in TIMSS and carries more of the SES effect. School ICT has no effect on math and does not moderate SES. The measures meet every pre-set criterion, and the results reproduce in a second program.
+1. **Confirmatory.** In PISA 2012 mathematics, SES is the strongest predictor of school achievement, as in TIMSS 2011 (Zhang & Wang, 2020). OTL, measured as concept familiarity, matters more than in TIMSS and carries more of the SES effect. School ICT has no effect on mathematics and does not moderate SES. The measures meet every pre-set criterion, and the results reproduce in a second program.
 2. **ICT main effect.** The clearest ICT finding is that school internet use for schoolwork relates to print reading (≈ .15), robustly.
 3. **Moderation.** School ICT resources show a borderline positive moderation of the SES–digital reading slope (.11–.13), consistent across OTL measures. It is not robust to ESCS or to multiple-testing correction, and the study has low power to confirm it. It is a lead, consistent with the second-level digital divide, and not an established effect.
 4. **Direction.** The sign of SES × ICT tracks the kind of ICT: positive for resources and negative for use, in every outcome. This pattern merits a properly powered test.

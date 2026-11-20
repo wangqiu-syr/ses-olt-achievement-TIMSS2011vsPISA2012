@@ -2,13 +2,13 @@
 
 [Qiu Wang](https://orcid.org/0000-0003-1635-8050) (Syracuse University) and [Yue Zhang](https://orcid.org/0000-0002-9070-9990) (Google) · Version 0.1.0 · November 2026 · **[Read the report](report/report.md)**
 
-> In 139–146 US schools in PISA 2012, socioeconomic status (SES) is the strongest predictor of math achievement, as in Zhang and Wang's (2020) TIMSS 2011 study. Opportunity to learn (OTL) matters more than in TIMSS and depends more on SES, and school information and communication technology (ICT) has no effect on math.
+> In 139–146 US schools in PISA 2012, socioeconomic status (SES) is the strongest predictor of mathematics achievement, as in Zhang and Wang's (2020) TIMSS 2011 study. Opportunity to learn (OTL) matters more than in TIMSS and depends more on SES, and school information and communication technology (ICT) has no effect on mathematics.
 > An exploratory analysis of 96 model specifications (6 achievement outcomes × 4 OTL measures × 2 ICT measures × 2 SES measures) finds that school internet use relates to print reading, and that OTL's role depends on how OTL is measured.
 > ICT resources steepen the SES slope for digital reading, but only borderline and not robustly. Across all outcomes, the interaction's sign follows the kind of ICT: positive for resources and negative for use.
 
 ![SES × ICT moderation across 6 outcomes and 4 OTL measures, with 95% bootstrap intervals](report/figures/fig1_moderation_all.png)
 
-*Figure 1 of the report: the SES × ICT path in the 48 primary models (SES composite), for 6 achievement outcomes × 4 OTL measures × 2 ICT measures, with 95% bootstrap intervals. Filled points are p < .05. The 48 other models use ESCS, the PISA index of economic, social and cultural status. Rows give the outcome and the OTL measure: FAMCONC = familiarity with mathematical concepts (confirmatory); OTL_PT = exposure to problem types (student questionnaire items ST73–76); EXPUREM and EXAPPLM = experience with pure and with applied mathematics tasks. Model 1 measures ICT by internet use for schoolwork, Model 2 by ICT resources. The full study, with the confirmatory math results, the discussion and the literature, is in [report/report.md](report/report.md).*
+*Figure 1 of the report: the SES × ICT path in the 48 primary models (SES composite), for 6 achievement outcomes × 4 OTL measures × 2 ICT measures, with 95% bootstrap intervals. Filled points are p < .05. The 48 other models use ESCS, the PISA index of economic, social and cultural status. Rows give the outcome and the OTL measure: FAMCONC = familiarity with mathematical concepts (confirmatory); OTL_PT = exposure to problem types (student questionnaire items ST73–76); EXPUREM and EXAPPLM = experience with pure and with applied mathematics tasks. Model 1 measures ICT by internet use for schoolwork, Model 2 by ICT resources. The full study, with the confirmatory mathematics results, the discussion and the literature, is in [report/report.md](report/report.md).*
 
 ## Overview
 
@@ -21,7 +21,7 @@ A replication of the paper itself on the TIMSS 2011 files (A1) is planned and wa
 ```
 README.md        this file: the replication README
 report/          the study
-  report.md        question, data and measures, confirmatory math results, exploratory models, moderation, OTL measures, discussion, conclusions
+  report.md        question, data and measures, confirmatory mathematics results, exploratory models, moderation, OTL measures, discussion, conclusions
   figures/         Figure 0 (design flow chart) to Figure 4
   references.bib   the report's references in BibTeX
 R/               scripts, and run_all.R, which runs the automated steps in order
@@ -55,7 +55,7 @@ The PISA 2012 data are © OECD and are used under the OECD's terms. They are not
 
 ### Details on each data source
 
-**PISA 2012, United States (OECD, 2014).** The analysis uses a US extract of the PISA 2012 international database: the student questionnaire file merged with the school questionnaire file by `SCHOOLID`, with 4,978 students in 162 schools. The data are free to download from the PISA 2012 database page on oecd.org. [data/README.md](data/README.md) lists the variables used, how to rebuild the extract, and the checks it must pass (4,978 students, 162 schools, weighted math mean 481.37). The SHA-256 of the file used is in [results/a2/data_manifest.csv](results/a2/data_manifest.csv).
+**PISA 2012, United States (OECD, 2014).** The analysis uses a US extract of the PISA 2012 international database: the student questionnaire file merged with the school questionnaire file by `SCHOOLID`, with 4,978 students in 162 schools. The data are free to download from the PISA 2012 database page on oecd.org. [data/README.md](data/README.md) lists the variables used, how to rebuild the extract, and the checks it must pass (4,978 students, 162 schools, weighted mathematics mean 481.37). The SHA-256 of the file used is in [results/a2/data_manifest.csv](results/a2/data_manifest.csv).
 
 **SmartPLS 4 exports (the authors).** The confirmatory models were estimated by hand in SmartPLS 4, a commercial program (Ringle et al., 2024). Their Excel exports are not in the repository, and their SHA-256 values are in `results/a2*/a2_02_exports_manifest.csv`. The estimates and criteria read from them by `R/a2_02_read_smartpls.R` are committed, so every later step runs without SmartPLS.
 
@@ -180,7 +180,7 @@ Numbers refer to [report/report.md](report/report.md).
 
 ## Status
 
-- **A2 (PISA 2012):** the confirmatory math analysis, the R cross-check and the 96 exploratory models are done. Still to do:
+- **A2 (PISA 2012):** the confirmatory mathematics analysis, the R cross-check and the 96 exploratory models are done. Still to do:
   - the parity check against an independent OECD download;
   - pooling across the five plausible values, and a weighted analysis (`R/a2_07`);
   - optional consistent-PLS (PLSc) models.

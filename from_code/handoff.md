@@ -39,9 +39,9 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
    - Yue Zhang: Google, https://orcid.org/0000-0002-9070-9990;
    - both iDs have valid check digits; the order Wang, Zhang is kept;
    - the README and report bylines now show both affiliations, with the names linked to the ORCID pages.
-2. **Copyright holders:** `LICENSE` names Qiu Wang only; `LICENSE-report` names both authors.
+2. ~~**Copyright holders**~~ closed, no change (the user): `LICENSE` (code) names Qiu Wang, who wrote it; `LICENSE-report` names both authors, as the report's byline does. Later papers with new co-authors do not change this repo.
 3. **README rights box:** confirm the ticked box ("legitimate access to the data").
-4. **Style:** "math" (used throughout) or "mathematics".
+4. ~~**Style**~~ done: "mathematics" throughout the report and README, as in OECD usage. The image text of Figures 1–4 still says "Math" until `R/a2_06` is rerun. Figure 0's structural model is now labelled "adapted from Zhang & Wang, 2020, Figure 1".
 5. **Release (GitHub, after 2–3):**
    - make the repo public (Settings → General → Danger Zone → Change visibility);
    - optional: connect Zenodo first, to get a DOI;
@@ -56,7 +56,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 - A1 when the TIMSS files arrive; then Phase B (multilevel, cross-level SES × ICT).
 
 ### Next step
-Settle items 2–4, then release (item 5).
+Confirm item 3, then release (item 5).
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**

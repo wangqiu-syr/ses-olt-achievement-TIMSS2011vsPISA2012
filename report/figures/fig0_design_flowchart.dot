@@ -25,7 +25,7 @@ digraph design {
   subgraph cluster_valid {
     label=<<B>2  Check the R pipeline against SmartPLS</B>>;
     style="rounded,filled"; color="#d9d8d3"; fillcolor="#f6f5f2"; fontcolor="#0b0b0b"; margin=12;
-    smartpls [label=<<B>SmartPLS 4</B> (by hand)<BR/>math · print reading · science<BR/>× Model 1/2 × SES/ESCS = 12 models>];
+    smartpls [label=<<B>SmartPLS 4</B> (by hand)<BR/>mathematics · print reading · science<BR/>× Model 1/2 × SES/ESCS = 12 models>];
     readsp   [label=<<B>Read exports, criteria M1–M4</B><BR/><FONT COLOR="#52514e">R/a2_02_read_smartpls.R</FONT>>];
     cross    [label=<<B>seminr re-estimates the 12 models</B><BR/>estimates within .0003 · same verdicts<BR/><FONT COLOR="#52514e">R/a2_04_seminr_crosscheck.R</FONT>>];
     smartpls -> readsp -> cross;
@@ -33,7 +33,7 @@ digraph design {
 
   // ---------------------------------------------------------------- model (inset)
   subgraph cluster_model {
-    label=<<B>Structural model</B>  <FONT COLOR="#52514e">(Zhang &amp; Wang, 2020, Figure 1)</FONT>>;
+    label=<<B>Structural model</B>  <FONT COLOR="#52514e">(adapted from Zhang &amp; Wang, 2020, Figure 1)</FONT>>;
     style="rounded,filled"; color="#d9d8d3"; fillcolor="#ffffff"; fontcolor="#0b0b0b"; margin=10;
     node [shape=ellipse, style="filled", fillcolor="#eef4fc", color="#2a78d6", margin="0.06,0.03", fontsize=9];
     mSES [label="SES"]; mICT [label="ICT"]; mOTL [label="OTL"]; mACH [label="Achievement"];
@@ -53,7 +53,7 @@ digraph design {
     factors [shape=plain, style="", label=<
       <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" COLOR="#d9d8d3" BGCOLOR="#ffffff">
         <TR><TD ALIGN="LEFT"><B>Factor</B></TD><TD ALIGN="LEFT"><B>Levels</B></TD><TD><B>n</B></TD></TR>
-        <TR><TD ALIGN="LEFT">Achievement outcome</TD><TD ALIGN="LEFT">paper: math · print reading · science<BR ALIGN="LEFT"/>computer: digital reading · computer-based math · problem solving<BR ALIGN="LEFT"/></TD><TD>6</TD></TR>
+        <TR><TD ALIGN="LEFT">Achievement outcome</TD><TD ALIGN="LEFT">paper: mathematics · print reading · science<BR ALIGN="LEFT"/>computer: digital reading · computer-based mathematics · problem solving<BR ALIGN="LEFT"/></TD><TD>6</TD></TR>
         <TR><TD ALIGN="LEFT">OTL measure</TD><TD ALIGN="LEFT">FAMCONC (confirmatory) · OTL_PT · EXPUREM · EXAPPLM</TD><TD>4</TD></TR>
         <TR><TD ALIGN="LEFT">ICT measure</TD><TD ALIGN="LEFT">Model 1: ICT use · Model 2: ICT resources</TD><TD>2</TD></TR>
         <TR><TD ALIGN="LEFT">SES measure</TD><TD ALIGN="LEFT">SES composite (primary) · ESCS (sensitivity)</TD><TD>2</TD></TR>
