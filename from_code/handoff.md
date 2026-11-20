@@ -11,7 +11,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 3. **Check:** `Rscript R/a2_01_prepare_pisa2012.R` (5 of 5 hard checks pass), then `Rscript tests/testthat.R` (61 pass, 2 skip). `Rscript R/run_all.R` runs every automated step (about 35 min); `DRY_RUN=1` lists them.
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 
-## Next task: the user's review, then make public and tag (restructure merged 2026-11-20, session 6)
+## Next task: the user's review, then make public and tag (restructure merged 2026-11-20, session 6; edits session 7)
 The repo is restructured for release. Code merged it to `main` at the user's request: https://github.com/wangqiu-syr/ses-olt-math-science-TIMSS2011vsPISA2012/pull/5. `main` now has everything; start new work from `main`. The user's decisions (2026-11-20):
 - full-study report;
 - Markdown;
@@ -31,7 +31,15 @@ The repo is restructured for release. Code merged it to `main` at the user's req
 1. Review `report/report.md` and `README.md`. Review edits now go to the report, not the stub.
 2. `CITATION.cff`: author order, affiliations and ORCIDs. LICENSE names Qiu Wang only, and LICENSE-report names both authors; confirm both.
 3. README rights statement: confirm the checked box (legitimate access to the PISA data).
-4. Figure order: the figure numbers are baked into the PNG titles, so in the report Figure 4 (§5.1) appears before Figures 1–3 (§6). To fix this, renumber in `R/a2_06` and rerun `FROM=6` (needs the data). Moving §5.1 after §6 would fix it too.
+4. ~~Figure order~~ fixed in session 7: the OTL-measure section moved after moderation (now §7), so the figures run 0–4 in order. Discussion is now §8, limitations §9 and conclusions §10; Tables 5–7 were renumbered.
+6. **Session 7 edits (2026-11-20, at the user's request):**
+   - one title everywhere (README, report, CITATION): "Opportunity to learn, socioeconomic status and school ICT in US achievement: from TIMSS 2011 to PISA 2012". It names no citation, because the authors' own 2020 paper is cited in the first line of the abstract.
+   - "grid" and "runs" became "models" / "96 model specifications" in the report, the README and Figure 0. The technical files (`docs/`, `results/`, code) keep "grid".
+   - Every figure and table note in the report spells out FAMCONC, OTL_PT, EXPUREM, EXAPPLM, ESCS and the other abbreviations.
+   - "the paper" now always carries the citation (Zhang & Wang, 2020).
+   - R Core Team (2024) and Wickham (2016, ggplot2) were added to the references (51 now).
+   - The PNG texts of Figures 1 and 4 still say "primary runs", and Figure 4 says "(spec)"; the notes explain both. To change the images, edit the label strings in `R/a2_06` and run `FROM=6 Rscript R/run_all.R` with the data.
+   - Style choice left to the user: "math" (used throughout) or "mathematics".
 5. **Release checklist (the user's GitHub actions, after 1–4):**
    - make the repo public (Settings → General → Danger Zone → Change visibility);
    - tag `v0.1.0` (Releases → Draft a new release → tag `v0.1.0` on `main`), or ask Code to;
