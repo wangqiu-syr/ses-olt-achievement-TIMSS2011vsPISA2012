@@ -12,7 +12,7 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 4. **Current task:** "Next task" below. A1 (TIMSS) stays blocked until the TIMSS files arrive.
 5. **Repo name:** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012` (renamed from `ses-olt-math-science-…`). Attach the new name to cloud sessions.
 
-## Next task: Zenodo DOI for v0.1.0, then make the repo public (updated 2026-11-20, end of session 7)
+## Next task: v0.1.0 released and archived; the analysis items below are next (updated 2026-11-20, end of session 7)
 
 ### Status
 - **The repo is renamed** `wangqiu-syr/ses-olt-achievement-TIMSS2011vsPISA2012`; old links redirect. Start new sessions on the new name. A session attached to the old name can still `git push` through the redirect, but it cannot open or merge PRs.
@@ -55,28 +55,13 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 - Check in the PISA 2012 Technical Report that the CBA plausible values are imputed for non-sampled students.
 - A1 when the TIMSS files arrive; then Phase B (multilevel, cross-level SES × ICT).
 
-### Next step: get the Zenodo DOI (paused 2026-11-20; the user is in a meeting)
-**Update:** the user published the release as **`v1.0.0`** (the repo says 0.1.0), and Zenodo **failed** with "Citation metadata load failed": it could not read `CITATION.cff`, probably because of the two-licence list. Fix pushed to `main`:
-- `.zenodo.json` gives Zenodo its metadata directly, with licence `cc-by-4.0` for the archive; the description says the code is MIT. Zenodo uses it instead of `CITATION.cff`, and `CITATION.cff` is unchanged for GitHub;
-- a test keeps the title and ORCIDs of the two files in step.
-
-To redo the release: delete the v1.0.0 release and the `v1.0.0` tag on GitHub; make the repo public; publish a new release, tag `v0.1.0`, target `main` (it must include `.zenodo.json`).
-State at pause:
-- the user published GitHub release v0.1.0, then set the repo back to **private**;
-- Zenodo's GitHub page lists `ses-olt-achievement-TIMSS2011vsPISA2012` as ON, but with **no DOI**, so Zenodo never archived the release;
-- the cloud session cannot see the `v0.1.0` tag, and still lists the old branches `claude/bold-gates-y7az9v` and `claude/charming-tesla-llewy4`, which the user deleted; recheck both on GitHub;
-- tag pushes and branch deletions are refused for cloud sessions (HTTP 403), so the user does those on GitHub.
-
-To finish:
-1. Make the repo public (Settings → General → Danger Zone). Zenodo does not support private repositories.
-2. On https://zenodo.org/account/settings/github/, click the repo name and check whether v0.1.0 is listed:
-   - not listed: Zenodo never received it, probably because the repo was private when it was published;
-   - listed with an error: read the error. If it is about metadata, add a `.zenodo.json`.
-3. Re-publish: on GitHub's Releases page, delete the v0.1.0 *release* but keep the tag, then go to "Draft a new release", choose tag `v0.1.0`, use the same notes, and Publish. Editing the release does not trigger Zenodo.
-4. When the DOI badge appears, take both DOIs (the "all versions" DOI and the v0.1.0 DOI). Then add:
-   - a README badge and a citation line, using the all-versions DOI;
-   - in `CITATION.cff`, `doi:` set to the all-versions DOI, and the v0.1.0 DOI under `identifiers`;
-   - then push to `main`.
+### Next step: release done (2026-11-20, end of session 7)
+- The user deleted the v1.0.0 release and tag, and published **v0.1.0**. With `.zenodo.json` in place, Zenodo archived it: **DOI 10.5281/zenodo.24407221** (https://doi.org/10.5281/zenodo.24407221), as given by the user.
+- The DOI is in the README (badge and a citation line under "How to cite"), in `CITATION.cff` (`doi:`) and in the report (Data and code availability). It was added to `main` after the tag, so the archived v0.1.0 files do not contain it; that is normal.
+- **Unconfirmed:** whether this DOI is Zenodo's "all versions" (concept) DOI or the v0.1.0 DOI. Zenodo, doi.org and DataCite are blocked from cloud sessions, so the user should check on the Zenodo record page.
+  - If it is the v0.1.0 DOI, the README badge and `doi:` should use the all-versions DOI (shown in the sidebar under "Cite all versions?"), so they stay right after the next release; the v0.1.0 DOI can go under `identifiers` in `CITATION.cff`.
+- **Next release:** bump `version`/`date-released` in `CITATION.cff` and the version in the README and report bylines; Zenodo makes a new DOI per release.
+- Repo visibility: the user decides; Zenodo needed it public at release time.
 
 ## Earlier next task (still open: the user's review on 2026-11-20; paths updated in session 6)
 1. **The user reviews:**

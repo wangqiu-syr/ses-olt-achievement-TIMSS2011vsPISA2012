@@ -13,6 +13,7 @@ authors:
     orcid: "https://orcid.org/0000-0002-9070-9990"
 version: "0.1.0"
 date-released: "2026-11-20"
+doi: "10.5281/zenodo.24407221"
 # MIT for the code (LICENSE); CC BY 4.0 for the report text and figures (LICENSE-report).
 license:
   - MIT

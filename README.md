@@ -2,6 +2,8 @@
 
 [Qiu Wang](https://orcid.org/0000-0003-1635-8050) (Syracuse University) and [Yue Zhang](https://orcid.org/0000-0002-9070-9990) (Google) · Version 0.1.0 · November 2026 · **[Read the report](report/report.md)**
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24407221.svg)](https://doi.org/10.5281/zenodo.24407221)
+
 > In 139–146 US schools in PISA 2012, socioeconomic status (SES) is the strongest predictor of mathematics achievement, as in Zhang and Wang's (2020) TIMSS 2011 study. Opportunity to learn (OTL) matters more than in TIMSS and depends more on SES, and school information and communication technology (ICT) has no effect on mathematics.
 > An exploratory analysis of 96 model specifications (6 achievement outcomes × 4 OTL measures × 2 ICT measures × 2 SES measures) finds that school internet use relates to print reading, and that OTL's role depends on how OTL is measured.
 > ICT resources steepen the SES slope for digital reading, but only borderline and not robustly. Across all outcomes, the interaction's sign follows the kind of ICT: positive for resources and negative for use.
@@ -208,7 +210,9 @@ The data come from the OECD's Programme for International Student Assessment (PI
 
 ## How to cite
 
-Use the metadata in [CITATION.cff](CITATION.cff) (GitHub's "Cite this repository" button), and please also cite Zhang and Wang (2020). Questions and issues: please open a GitHub issue.
+Use the metadata in [CITATION.cff](CITATION.cff) (GitHub's "Cite this repository" button), and please also cite Zhang and Wang (2020). The release is archived on Zenodo: [doi:10.5281/zenodo.24407221](https://doi.org/10.5281/zenodo.24407221).
+
+> Wang, Q., & Zhang, Y. (2026). *Opportunity to learn, socioeconomic status and school ICT in US achievement: From TIMSS 2011 to PISA 2012* (Version 0.1.0) [Computer software and report]. Zenodo. https://doi.org/10.5281/zenodo.24407221 Questions and issues: please open a GitHub issue.
 
 ## License
 
