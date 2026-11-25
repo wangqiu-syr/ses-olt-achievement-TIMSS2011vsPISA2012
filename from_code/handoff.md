@@ -20,6 +20,20 @@ Each cloud session starts as a fresh container with no data and no R. Do this fi
 
    zenodo.org, orcid.org, doi.org and DataCite are blocked.
 
+## Session 9 (2026-11-25): EdArXiv preprint DOI recorded
+- EdArXiv accepted the report: **doi:10.35542/osf.io/xsv5g_v1**.
+- Added on branch `claude/pisa-reading` (restarted from `main`):
+  - README "How to cite": two citations, the preprint for the report and Zenodo for the code and results, plus BibTeX;
+  - the report's byline and "Data and code availability";
+  - `CITATION.cff` `identifiers`;
+  - `.zenodo.json` `related_identifiers` (isSupplementTo, publication-preprint);
+  - `from_code/edarxiv_submission.md`.
+- `report/report.pdf` is rebuilt (19 pages).
+- **The user still has to:**
+  - merge the branch into `main` (PR);
+  - on Zenodo, edit the v0.1.0 record's metadata and add the preprint DOI under "Related works" ("Is supplement to"). That needs no new version.
+- The repo copy of the PDF now shows the DOI. The EdArXiv v1 PDF doesn't, which is normal.
+
 ## Session 8 (2026-11-20): report PDF for EdArXiv
 - **Zenodo check:** not done. zenodo.org (and the Zenodo API) is blocked from cloud sessions, so the "Cite all versions" DOI is still unchecked (Next task, item 1).
 - **PDF:** `report/report.pdf` (19 pages, US Letter, fonts embedded), built by `bash report/pdf/build.sh`:

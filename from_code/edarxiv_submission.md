@@ -51,7 +51,7 @@ If you still want to point to the Zenodo archive here, use the same citation as 
 ### Citation of the preprint itself
 OSF generates APA, MLA and Chicago citations on the preprint page from the form, so enter the names as "Qiu Wang" and "Yue Zhang" and the title exactly as above. Once moderation gives the DOI (EdArXiv DOIs start `10.35542/osf.io/`), the citation is:
 
-> Wang, Q., & Zhang, Y. (2026). *Opportunity to learn, socioeconomic status and school ICT in US achievement: From TIMSS 2011 to PISA 2012* [Preprint]. EdArXiv. https://doi.org/10.35542/osf.io/XXXXX
+> Wang, Q., & Zhang, Y. (2026). *Opportunity to learn, socioeconomic status and school ICT in US achievement: From TIMSS 2011 to PISA 2012* [Preprint]. EdArXiv. https://doi.org/10.35542/osf.io/xsv5g_v1
 
 ```bibtex
 @misc{wang2026otl,
@@ -60,7 +60,7 @@ OSF generates APA, MLA and Chicago citations on the preprint page from the form,
   year      = {2026},
   publisher = {EdArXiv},
   note      = {Preprint},
-  doi       = {10.35542/osf.io/XXXXX}
+  doi       = {10.35542/osf.io/xsv5g_v1}
 }
 ```
 
