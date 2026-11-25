@@ -213,9 +213,40 @@ The data come from the OECD's Programme for International Student Assessment (PI
 
 ## How to cite
 
-Use the metadata in [CITATION.cff](CITATION.cff) (GitHub's "Cite this repository" button), and please also cite Zhang and Wang (2020). The release is archived on Zenodo: [doi:10.5281/zenodo.24407221](https://doi.org/10.5281/zenodo.24407221).
+Please also cite Zhang and Wang (2020).
+
+**The report** is a preprint on EdArXiv: [doi:10.35542/osf.io/xsv5g_v1](https://doi.org/10.35542/osf.io/xsv5g_v1).
+
+> Wang, Q., & Zhang, Y. (2026). *Opportunity to learn, socioeconomic status and school ICT in US achievement: From TIMSS 2011 to PISA 2012* [Preprint]. EdArXiv. https://doi.org/10.35542/osf.io/xsv5g_v1
+
+**The code and results** are archived on Zenodo: [doi:10.5281/zenodo.24407221](https://doi.org/10.5281/zenodo.24407221). [CITATION.cff](CITATION.cff) (GitHub's "Cite this repository" button) gives this one.
 
 > Wang, Q., & Zhang, Y. (2026). *Opportunity to learn, socioeconomic status and school ICT in US achievement: From TIMSS 2011 to PISA 2012* (Version 0.1.0) [Computer software and report]. Zenodo. https://doi.org/10.5281/zenodo.24407221
+
+<details>
+<summary>BibTeX</summary>
+
+```bibtex
+@misc{wang2026otl,
+  author    = {Wang, Qiu and Zhang, Yue},
+  title     = {Opportunity to learn, socioeconomic status and school {ICT} in {US} achievement: From {TIMSS} 2011 to {PISA} 2012},
+  year      = {2026},
+  publisher = {EdArXiv},
+  note      = {Preprint},
+  doi       = {10.35542/osf.io/xsv5g_v1}
+}
+
+@software{wang2026otl_code,
+  author    = {Wang, Qiu and Zhang, Yue},
+  title     = {Opportunity to learn, socioeconomic status and school {ICT} in {US} achievement: From {TIMSS} 2011 to {PISA} 2012},
+  year      = {2026},
+  version   = {0.1.0},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.24407221}
+}
+```
+
+</details>
 
 Questions and issues: please open a GitHub issue.
 

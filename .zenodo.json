@@ -32,6 +32,12 @@
       "identifier": "10.1080/0020739X.2020.1717659",
       "relation": "references",
       "scheme": "doi"
+    },
+    {
+      "identifier": "10.35542/osf.io/xsv5g_v1",
+      "relation": "isSupplementTo",
+      "scheme": "doi",
+      "resource_type": "publication-preprint"
     }
   ]
 }
